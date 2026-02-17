@@ -1,0 +1,60 @@
+digraph EventFlowComponents {
+  graph [
+    rankdir=LR,
+    fontsize=12,
+    fontname="Helvetica",
+    labelloc=t,
+    label="PinballCTL Event Flow and Components"
+  ];
+
+  node [
+    shape=box,
+    style="rounded,filled",
+    fontname="Helvetica",
+    fontsize=11,
+    color="#2f3b52",
+    fillcolor="#eef3ff"
+  ];
+
+  edge [fontname="Helvetica", fontsize=10, color="#3b4d73"];
+
+  UI [label="Playfield UI\\n(button click / key press)"];
+  EXT [label="External Pi app\\n(movie, payment, scripts)"];
+  API [label="POST /api/events/fire"];
+  V [label="Validate event\\n(registry + mapping)"];
+  BUS [label="Pi Event Bus emit", fillcolor="#f4f8ea", color="#3e6a2b"];
+  SSE [label="SSE /api/events/stream\\nUI listeners", fillcolor="#f4f8ea", color="#3e6a2b"];
+  PEM [label="Pi Event Manager dispatch", fillcolor="#f4f8ea", color="#3e6a2b"];
+  RULES [label="Rules evaluation\\n(rules.json / rules.pd model)"];
+  DERIVED [label="Derived event\\n(e.g. GAME_STARTED)"];
+  BR_ENQ [label="Bridge enqueue EVENT_FIRE"];
+  BR_TX [label="Bridge daemon TX\\nframed JSON"];
+  ESP [label="ESP runtime / protocol handler", fillcolor="#fff3e8", color="#8a4b12"];
+  BR_RX [label="Bridge daemon RX\\n(EVT / EVENT)"];
+  ELOG_PI [label="events.log\\npi->esp", fillcolor="#f9f2ff", color="#6d3f90"];
+  ELOG_ESP [label="events.log\\nesp->pi", fillcolor="#f9f2ff", color="#6d3f90"];
+
+  UI -> API;
+  EXT -> API;
+
+  API -> V;
+  V -> BUS;
+  BUS -> SSE;
+  BUS -> PEM;
+
+  PEM -> RULES;
+  RULES -> DERIVED [label="emit_event action"];
+  DERIVED -> BUS;
+  DERIVED -> BR_ENQ;
+
+  API -> BR_ENQ;
+  BR_ENQ -> BR_TX;
+  BR_TX -> ESP;
+
+  ESP -> BR_RX [label="EVT / EVENT framed"];
+  BR_RX -> BUS;
+  BR_RX -> PEM;
+
+  API -> ELOG_PI;
+  BR_RX -> ELOG_ESP;
+}

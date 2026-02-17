@@ -1,0 +1,29 @@
+digraph PinballEventFlow {
+  graph [rankdir=LR, fontsize=12, fontname="Helvetica", labelloc=t, label="PinballCTL Event & RPC Flow (Pi <-> Bridge <-> ESP)"];
+  node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11, color="#2f3b52", fillcolor="#eef3ff"];
+  edge [fontname="Helvetica", fontsize=10, color="#3b4d73"];
+
+  UI [label="Pi Web UI / API\n(ESPLink, Rules, Dashboard)"];
+  Bridge [label="Bridge Daemon (Pi)\nFramed JSON over serial\nReqId match + pending table"];
+  ESP [label="ESP32 Runtime / Rules Engine\nReal-time switch/coil/LED logic\nSafety gate enforced"];
+  Bus [label="Pi Event Bus / Handlers\nScoring, stats, orchestration", fillcolor="#f4f8ea", color="#3e6a2b"];
+
+  UI -> Bridge [label="Response-required RPC\nECHO, GET_INFO, FS_LIST, GET_FS_STATUS, SET_RULES"];
+  UI -> Bridge [label="Fire-and-forget\nEVENT_FIRE (high-volume)", color="#5a7f2c"];
+
+  Bridge -> ESP [label="TX framed JSON\n4-byte len + UTF-8 JSON"];
+  ESP -> Bridge [label="RX framed JSON\nall responses/events framed"];
+
+  ESP -> Bridge [label="RPC responses (reqId)\nECHO, INFO, FS_STATUS, FS_LIST,\nMANIFEST, RULES_STATUS, EVENT_ACK", color="#235789"];
+  ESP -> Bridge [label="Async events\nEVT{name,source,seq,tsMs}", color="#5a7f2c"];
+  ESP -> Bridge [label="Stream control/status\nEVT_STREAM_STATUS, EVT_STREAM_DONE", color="#7a4f01"];
+
+  Bridge -> UI [label="reqId correlated responses\nWAIT_REQ / rpc_command"];
+  Bridge -> Bus [label="Publish EVT/EVENT to local bus", color="#5a7f2c"];
+  Bus -> UI [label="Optional follow-up actions\n(new commands/events)"];
+
+  Contract [shape=note, style="filled", fillcolor="#fff8dc", color="#8b6f1f", label="Transport Contract:\n- Frames-only (no line-based commands)\n- Command payloads are JSON\n- Backpressure + queueing in bridge\n- ESP safety and runtime authority"];
+
+  Bridge -> Contract [style=dashed, arrowhead=none, color="#8b6f1f"];
+  ESP -> Contract [style=dashed, arrowhead=none, color="#8b6f1f"];
+}

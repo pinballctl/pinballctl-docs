@@ -1,0 +1,24 @@
+flowchart LR
+  UI["Playfield UI<br/>button click / key press"] --> API["POST /api/events/fire"]
+  EXT["External Pi app<br/>movie, payment, scripts"] --> API
+
+  API --> V["Validate event<br/>(registry + mapping)"]
+  V --> BUS["Pi Event Bus emit"]
+  BUS --> SSE["SSE /api/events/stream<br/>UI listeners"]
+  BUS --> PEM["Pi Event Manager dispatch"]
+
+  PEM --> RULES["Rules evaluation<br/>(rules.json / rules.pd model)"]
+  RULES -->|emit_event action| DERIVED["Derived event<br/>e.g. GAME_STARTED"]
+  DERIVED --> BUS
+  DERIVED --> BR_ENQ["Bridge enqueue EVENT_FIRE"]
+
+  API --> BR_ENQ
+  BR_ENQ --> BR_TX["Bridge daemon TX<br/>framed JSON"]
+  BR_TX --> ESP["ESP runtime / protocol handler"]
+
+  ESP -->|EVT / EVENT framed| BR_RX["Bridge daemon RX"]
+  BR_RX --> BUS
+  BR_RX --> PEM
+  BR_RX --> ELOG["events.log<br/>esp->pi"]
+
+  API --> ELOG2["events.log<br/>pi->esp"]

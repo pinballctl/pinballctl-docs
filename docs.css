@@ -1,0 +1,346 @@
+.docs-shell {
+  width: min(calc(100% - 2rem), 1640px);
+}
+
+.website-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.website-link__icon {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.website-link__icon path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.docs-updated {
+  color: rgba(168, 184, 207, 0.62);
+  font-size: 0.78rem;
+  padding: 0.52rem 0.2rem;
+  white-space: nowrap;
+}
+
+.docs-nav-sep {
+  color: rgba(168, 184, 207, 0.45);
+  font-size: 0.78rem;
+  padding: 0.52rem 0.12rem;
+}
+
+.docs-toolbar {
+  margin-top: 1rem;
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.docs-search-input {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.9rem;
+  background: linear-gradient(145deg, rgba(16, 34, 54, 0.9), rgba(11, 24, 39, 0.86));
+  color: var(--text);
+  padding: 0.72rem 0.85rem;
+  font: inherit;
+  box-shadow: 0 12px 24px rgba(6, 16, 26, 0.28);
+}
+
+.docs-search-input:focus {
+  outline: none;
+  border-color: rgba(126, 250, 210, 0.52);
+  box-shadow: 0 0 0 3px rgba(126, 250, 210, 0.16), 0 16px 28px rgba(6, 16, 26, 0.38);
+}
+
+.docs-search-status {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-size: 0.84rem;
+  text-align: right;
+}
+
+.docs-layout {
+  display: grid;
+  grid-template-columns: 290px minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  margin-top: 0.8rem;
+}
+
+.docs-sidebar {
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 100px);
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.6rem;
+}
+
+.docs-bookmarks-wrap {
+  margin-bottom: 0.7rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.docs-bookmark-toggle {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--line);
+  border-radius: 0.65rem;
+  background: rgba(255, 255, 255, 0.04);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.docs-bookmark-toggle:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.docs-bookmark-toggle:active {
+  transform: translateY(1px);
+}
+
+.docs-bookmark-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.docs-bookmark-icon path {
+  fill: transparent;
+  stroke: #f0d078;
+  stroke-width: 1.8;
+}
+
+.docs-bookmark-toggle.active {
+  border-color: rgba(250, 204, 21, 0.65);
+  background: rgba(250, 204, 21, 0.12);
+}
+
+.docs-bookmark-toggle.active .docs-bookmark-icon path {
+  fill: #facc15;
+  stroke: #facc15;
+}
+
+.docs-bookmarks-title {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.docs-bookmark-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.2rem;
+  align-items: center;
+}
+
+.docs-bookmark-remove {
+  border: 0;
+  background: transparent;
+  color: #ff9da7;
+  cursor: pointer;
+  font-size: 0.92rem;
+}
+
+.docs-tree ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 1rem;
+}
+
+.docs-tree > ul {
+  padding-left: 0;
+}
+
+.docs-folder-toggle {
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  padding: 0.18rem 0.2rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+}
+
+.docs-folder-toggle:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.docs-folder-toggle .chev {
+  display: inline-block;
+  width: 1rem;
+}
+
+.docs-page-link {
+  display: block;
+  padding: 0.18rem 0.35rem;
+  border-radius: 0.35rem;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.docs-page-link:hover,
+.docs-page-link.active {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.docs-search-result {
+  margin-bottom: 0.3rem;
+  padding: 0.48rem 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.docs-search-result-title {
+  font-size: 0.94rem;
+  font-weight: 600;
+}
+
+.docs-result-excerpt {
+  margin-top: 0.32rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.docs-content {
+  width: 100%;
+  padding: 0;
+  position: relative;
+}
+
+.doc-panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(165deg, rgba(17, 34, 55, 0.92), rgba(11, 24, 39, 0.88));
+  padding: 1.1rem;
+}
+
+.docs-bookmark-toggle-card {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.6rem;
+  z-index: 3;
+}
+
+.doc-panel h1:first-child {
+  margin-top: 0;
+}
+
+.doc-panel h1,
+.doc-panel h2,
+.doc-panel h3,
+.doc-panel h4 {
+  margin: 1rem 0 0.65rem;
+}
+
+.doc-panel p {
+  color: var(--text);
+  line-height: 1.55;
+  margin: 0.5rem 0;
+}
+
+.doc-panel ul,
+.doc-panel ol {
+  margin: 0.45rem 0 0.8rem 1.2rem;
+  line-height: 1.5;
+}
+
+.doc-panel code {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--line);
+  padding: 0.07rem 0.3rem;
+  border-radius: 0.3rem;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.88em;
+}
+
+.doc-panel pre {
+  background: rgba(2, 9, 15, 0.92);
+  border: 1px solid var(--line);
+  border-radius: 0.7rem;
+  padding: 0.75rem;
+  overflow: auto;
+}
+
+.doc-panel pre code {
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.doc-panel img {
+  width: min(100%, 980px);
+  height: auto;
+  border-radius: 0.7rem;
+  border: 1px solid var(--line);
+  display: block;
+  margin: 0.7rem 0;
+}
+
+.doc-panel table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.6rem 0 0.8rem;
+}
+
+.doc-panel th,
+.doc-panel td {
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.55rem;
+  vertical-align: top;
+}
+
+.doc-panel th {
+  background: rgba(255, 255, 255, 0.07);
+  text-align: left;
+}
+
+.doc-panel a {
+  color: #8deec8;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.manual-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 1080px) {
+  .docs-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .docs-sidebar {
+    position: relative;
+    top: 0;
+    max-height: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .docs-toolbar {
+    grid-template-columns: 1fr;
+  }
+}

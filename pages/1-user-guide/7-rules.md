@@ -1,0 +1,411 @@
+# Rules
+
+Rules is the gameplay behaviour authoring feature.
+
+<img src="/api/manual/assets/screenshots/feature-rules.png" alt="Rules feature overview" style="width: 100%; max-width: 800px; height: auto;">
+
+This page explains every main area of the Rules feature, what each control does, and how to build reliable setups.
+
+## What This Feature Does
+
+Rules define what should happen when specific events occur.
+
+At a high level:
+
+- Triggers decide when a rule is considered.
+- Conditions decide whether a matching trigger is allowed to continue.
+- Actions define what happens when triggers and conditions pass.
+
+## Top Bar Controls
+
+At the top-right of the Rules page:
+
+- `Add Rule`: creates a new rule and opens it in the editor.
+- `Sync Rules`: compiles and transfers rules to the ESP.
+- `Save`: writes your current rule configuration to disk.
+
+Behaviour notes:
+
+- `Save` is enabled only when there are unsaved changes.
+- If you click `Sync Rules` with unsaved changes, you are prompted to save first.
+- If you leave the page with unsaved changes, the browser warns before unload.
+
+## Filters
+
+Under the header:
+
+- `All Tags` dropdown: filter rules by a specific tag.
+- `Search name or notes…`: keyword filter over rule name/notes.
+- `Clear filters`: shown only when a filter is active.
+
+## Sync Warning and Sync Modal
+
+### Out-of-sync warning
+
+A warning banner appears when the ESP is connected but the deployed rules do not match local configuration.
+
+### Sync modal flow
+
+When sync starts, a modal shows live status such as:
+
+- preparing/compiling
+- uploading
+- success
+- timeout or error states
+
+Common status failures shown in the UI:
+
+- bridge offline
+- bridge unresponsive
+- missing local rules to sync
+
+<img src="/api/manual/assets/screenshots/feature-rules-sync-uploading.png" alt="Rules sync modal uploading state" style="width: 100%; max-width: 800px; height: auto;">
+
+<img src="/api/manual/assets/screenshots/feature-rules-sync-complete.png" alt="Rules sync modal completed state" style="width: 100%; max-width: 800px; height: auto;">
+
+## Rules Table
+
+Each row in the table is one rule.
+
+Columns:
+
+- Expand/Collapse control
+- Enabled state dot
+- Name
+- Tags
+- Trigger count
+- Condition count
+- Action count
+- Delete button
+
+Row actions:
+
+- Expand opens the full editor for that rule.
+- Enabled dot toggles active/inactive.
+- Delete removes the rule.
+
+## Rule Editor Tabs
+
+When a row is expanded, the rule editor appears with tabs:
+
+- Metadata
+- Triggers
+- Conditions
+- Actions
+- Preview
+
+Validation badges:
+
+- Red `!` badge can appear on `Triggers` and `Actions` tabs if required fields are missing.
+
+## Metadata Tab
+
+Metadata controls:
+
+- `Name` (required for a useful rule)
+- `Enabled` checkbox (`Rule is active`)
+- `Tags` list and `Add tag…` input
+- `Notes` free text
+
+Tag behaviour:
+
+- Tags appear as coloured chips.
+- Each tag chip has remove control.
+- New tags can be created inline.
+
+The metadata tab also shows a `Summary` block that previews the rule logic in plain text.
+
+
+## Triggers Tab
+
+Triggers are organised as groups.
+
+At trigger level:
+
+- `Add Trigger Group`
+- `Between trigger groups`: `ALL` or `ANY`
+
+For each trigger group:
+
+- `Match within group`: `ALL` or `ANY`
+- `Window ms`: time window used to evaluate grouped trigger matches
+- `Remove group`
+- `Add Trigger`
+
+Each trigger has:
+
+- `Type`: `Hardware`, `System`, or `Custom`
+
+### Hardware trigger options
+
+Fields:
+
+- `Hardware device`
+- `Hardware event`
+
+The event list is based on selected hardware class and supports events such as:
+
+- Button: `CLICKED`, `DOUBLE_CLICKED`, `HELD`, `PRESSED`, `RELEASED`, `REPEAT_WHILE_HELD`
+- Switch/Opto: `CLOSED`, `OPENED`, `CHANGED`, `ACTIVE_FOR_MS`, `INACTIVE_FOR_MS`
+- Tilt/Motion: `TILT_NUDGE`, `TILT_WARNING`, `TILT_TRIGGERED`, `LIFTED`, `DROPPED`
+- NFC/RFID: `NFC_SCANNED`, `NFC_MATCHED`
+
+Some hardware events expose extra numeric parameters, for example:
+
+- `windowMs`
+- `minMs`
+- `repeatMs`
+
+A help button opens the `Hardware Event Key` modal with event purpose guidance.
+
+### System trigger options
+
+Fields:
+
+- `Category`
+- `Event`
+
+Categories include:
+
+- Game
+- Credits
+- Modes
+- System
+- Bridge / Connectivity
+- Faults / Safety
+
+### Custom trigger options
+
+Fields:
+
+- `Event name`
+
+Custom event names are normalised to uppercase underscore format (for example `START_GAME_REQUESTED`).
+
+
+## Conditions Tab
+
+Conditions are optional checks that must pass before actions run.
+
+At condition level:
+
+- `Add Condition Group`
+- `Between condition groups`: `ALL` or `ANY`
+
+For each condition group:
+
+- `Match within group`: `ALL` or `ANY`
+- `Remove group`
+- `Add Condition`
+
+Each condition starts with:
+
+- `Condition Type`
+
+Supported condition types:
+
+- `Flag`
+- `Counter`
+- `Time Since Event`
+- `Device State`
+
+### Flag condition options
+
+- `Flag` (preset list or `Custom…`)
+- `Operator` (currently equality)
+- `Value` (`True`/`False`)
+
+If `Custom…` is selected, custom key input is shown.
+
+### Counter condition options
+
+- `Counter` (preset list, discovered counters, or `Custom…`)
+- `Operator` (`==`, `!=`, `<`, `<=`, `>`, `>=`)
+- `Value` (number)
+
+Custom counter validation:
+
+- must be uppercase letters, numbers, underscore
+- max length 32
+
+Known counters are shown as a hint below the selector.
+
+### Time Since Event condition options
+
+- `Event Type`: `System`, `Hardware`, or `Custom`
+- event selector/input based on event type
+- comparison operator (`>`, `>=`, `<`, `<=`)
+- time value in `ms`
+
+### Device State condition options
+
+- `Device`
+- `State`
+
+Available state options depend on hardware type (for example coil active/inactive, switch open/closed, output high/low).
+
+
+## Actions Tab
+
+Actions define what the rule does when triggers and conditions pass.
+
+Controls:
+
+- `Add Action`
+- per-action `Action` type selector
+- per-action `Remove`
+
+Supported actions and options:
+
+### Emit Event
+
+- `Event Type`: `System` or `Custom`
+- If `System`: `Category` and `Event`
+- If `Custom`: free-text event input
+
+### Set Flag
+
+- `Flag` (preset or custom)
+- `Value` (`True` or `False`)
+
+### Set Counter
+
+- `Counter` (preset, discovered, or custom)
+- `Value`
+
+### Increment Counter
+
+- `Counter` (preset, discovered, or custom)
+- `Delta`
+
+### Pulse
+
+- `Output / Coil`
+- `Duration (ms)`
+
+### Set Output
+
+- `Output / Coil`
+- `Value`: `HIGH`, `LOW`, or `PULSE`
+- If `PULSE`: `Duration (ms)`
+
+### Apply Lighting Scene
+
+- `Scene`
+- `Start mode`: `Play immediately` or `Load paused`
+- `Start at`: `Scene start`, `Frame`, or `Tag`
+- If `Frame`: `Frame` number (bounded by scene frame count)
+- If `Tag`: `Tag` selector based on scene tags
+
+### Stop Lighting Scene
+
+- `Scene`
+
+Planned actions (not general day-to-day options):
+
+- `LED Pattern`
+- `Delay`
+
+These are treated as planned and are normally hidden unless already present in loaded data.
+
+
+## Preview Tab
+
+The preview tab shows the full selected rule as formatted JSON.
+
+Use this for:
+
+- checking exact stored structure
+- confirming grouped trigger/condition layout
+- verifying action payload fields before save/sync
+
+## Validation Rules You Should Know
+
+The editor flags missing essentials before save/sync.
+
+Common trigger validation errors:
+
+- no trigger groups
+- empty group items
+- missing hardware device/event
+- missing system event
+- missing custom event name
+
+Common action validation errors:
+
+- missing action type
+- missing action target (event/flag/counter/device/scene)
+- invalid counter name format
+- missing counter value/delta where required
+- invalid lighting start frame/tag values
+
+## Practical Setup Examples
+
+### Example 1: Start game on button click
+
+Goal: clicking Start should emit a custom start request event.
+
+Suggested setup:
+
+- Trigger: Hardware -> Start button -> `CLICKED`
+- Conditions: none
+- Action: `Emit Event` -> `Custom` -> `START_GAME_REQUESTED`
+
+### Example 2: Award bonus only if game is active
+
+Goal: a lane switch hit increases bonus only during active ball play.
+
+Suggested setup:
+
+- Trigger: Hardware -> Lane switch -> `CLOSED`
+- Conditions:
+  - Flag `GAME_ACTIVE == True`
+  - Flag `BALL_IN_PLAY == True`
+- Action: `Increment Counter` -> `BONUS` delta `1`
+
+### Example 3: Hold-to-repeat action with safety gate
+
+Goal: repeatedly fire an action while button is held, but only if enabled.
+
+Suggested setup:
+
+- Trigger: Hardware -> Action button -> `REPEAT_WHILE_HELD` with `repeatMs`
+- Condition: Flag `ENABLED == True`
+- Action: `Pulse` selected output with controlled duration
+
+### Example 4: Lighting scene at a tagged moment
+
+Goal: start a scene from a named point and keep it paused until another rule continues it.
+
+Suggested setup:
+
+- Trigger: System -> Modes -> `MODE_STARTED`
+- Action: `Apply Lighting Scene`
+  - Scene: `mode_intro`
+  - Start mode: `Load paused`
+  - Start at: `Tag`
+  - Tag: `intro_start`
+
+### Example 5: Fault response rule
+
+Goal: when fault is raised, immediately force warning output state.
+
+Suggested setup:
+
+- Trigger: System -> Faults / Safety -> `FAULT_RAISED`
+- Conditions: none
+- Action: `Set Output` -> warning output -> `HIGH`
+
+## Authoring Tips
+
+- Keep rule names explicit and short.
+- Use tags for mode grouping and quick filtering.
+- Prefer system events for lifecycle transitions and hardware events for player input.
+- Use condition groups to keep complex logic readable.
+- Validate in Preview before syncing to hardware.
+
+## Related Features
+
+- [Lighting](8-lighting.md)
+- [Playfield](9-layout.md)
+- [Hardware](10-hardware.md)
