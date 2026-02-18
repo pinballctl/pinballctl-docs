@@ -421,8 +421,8 @@ def _render_index_html(embedded_data_json: str, updated_label: str, title: str =
 
       <div class=\"docs-toolbar\">
         <button id=\"docs-sidebar-toggle\" class=\"docs-sidebar-toggle\" type=\"button\" aria-expanded=\"false\" aria-controls=\"docs-sidebar\">Docs Menu</button>
-        <input type=\"search\" id=\"docs-search\" class=\"docs-search-input\" placeholder=\"Search docs...\" />
-        <span id=\"docs-search-status\" class=\"docs-search-status\"></span>
+        <input type=\"search\" id=\"docs-search\" data-docs-search=\"desktop\" class=\"docs-search-input docs-search-desktop\" placeholder=\"Search docs...\" />
+        <span id=\"docs-search-status\" data-docs-search-status=\"desktop\" class=\"docs-search-status docs-search-status-desktop\"></span>
       </div>
 
       <div class=\"docs-layout\">
@@ -430,6 +430,10 @@ def _render_index_html(embedded_data_json: str, updated_label: str, title: str =
           <div class=\"docs-sidebar-head\">
             <span class=\"docs-sidebar-title\">Docs Menu</span>
             <button id=\"docs-sidebar-close\" class=\"docs-sidebar-close\" type=\"button\" aria-label=\"Close docs menu\">Close</button>
+          </div>
+          <div class=\"docs-sidebar-search\">
+            <input type=\"search\" id=\"docs-search-mobile\" data-docs-search=\"mobile\" class=\"docs-search-input\" placeholder=\"Search docs...\" />
+            <span id=\"docs-search-status-mobile\" data-docs-search-status=\"mobile\" class=\"docs-search-status\"></span>
           </div>
           <div id=\"docs-bookmarks-wrap\" class=\"docs-bookmarks-wrap hidden\">
             <div class=\"docs-bookmarks-title\">Bookmarks</div>

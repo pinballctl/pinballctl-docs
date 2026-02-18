@@ -30,6 +30,14 @@
     lastResults: [],
   };
 
+  function getSearchInputs() {
+    return Array.from(document.querySelectorAll("[data-docs-search]"));
+  }
+
+  function getSearchStatuses() {
+    return Array.from(document.querySelectorAll("[data-docs-search-status]"));
+  }
+
   function wireHeaderMenu() {
     const menuBtn = document.querySelector(".menu-toggle");
     const nav = document.querySelector(".site-nav");
@@ -273,20 +281,25 @@
   function renderSearchResults(results) {
     const tree = document.getElementById("docs-tree");
     const resultsEl = document.getElementById("docs-search-results");
-    const statusEl = document.getElementById("docs-search-status");
-    if (!tree || !resultsEl || !statusEl) return;
+    const statusEls = getSearchStatuses();
+    if (!tree || !resultsEl) return;
 
     if (!state.searchTerm || state.searchTerm.length < 2) {
       tree.classList.remove("hidden");
       resultsEl.classList.add("hidden");
       resultsEl.innerHTML = "";
-      statusEl.textContent = "";
+      statusEls.forEach((el) => {
+        el.textContent = "";
+      });
       return;
     }
 
     tree.classList.add("hidden");
     resultsEl.classList.remove("hidden");
-    statusEl.textContent = `${results.length} result${results.length === 1 ? "" : "s"}`;
+    const statusText = `${results.length} result${results.length === 1 ? "" : "s"}`;
+    statusEls.forEach((el) => {
+      el.textContent = statusText;
+    });
 
     resultsEl.innerHTML = results.map((p) => `
       <a href="#doc=${encodeURIComponent(p.slug)}" data-doc-slug="${esc(p.slug)}" class="docs-search-result docs-page-link${state.activeSlug === p.slug ? " active" : ""}">
@@ -363,12 +376,18 @@
       refreshBookmarkToggle();
     });
 
-    const searchEl = document.getElementById("docs-search");
+    const searchEls = getSearchInputs();
     let t = null;
-    searchEl?.addEventListener("input", () => {
-      state.searchTerm = String(searchEl.value || "").trim();
-      window.clearTimeout(t);
-      t = window.setTimeout(runSearch, 120);
+    searchEls.forEach((el) => {
+      el.addEventListener("input", () => {
+        const value = String(el.value || "").trim();
+        state.searchTerm = value;
+        searchEls.forEach((other) => {
+          if (other !== el && other.value !== value) other.value = value;
+        });
+        window.clearTimeout(t);
+        t = window.setTimeout(runSearch, 120);
+      });
     });
 
     window.addEventListener("hashchange", () => {
@@ -385,6 +404,10 @@
       const inField = target instanceof Element && !!target.closest("input,textarea,select,[contenteditable='true']");
       if (!inField && e.key === "/") {
         e.preventDefault();
+        const mobileOpen = window.innerWidth <= 1080 && document.getElementById("docs-sidebar")?.classList.contains("open");
+        const desktopSearch = document.getElementById("docs-search");
+        const mobileSearch = document.getElementById("docs-search-mobile");
+        const searchEl = mobileOpen ? mobileSearch : desktopSearch;
         searchEl?.focus();
         searchEl?.select();
       }
