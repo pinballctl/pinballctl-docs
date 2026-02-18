@@ -2,7 +2,7 @@
 
 Wi-Fi is the feature for viewing and updating network connection settings.
 
-<img src="./media/screenshot-feature-wifi.png" data-source='{"url":"/login","next_url":"/wifi","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Wi-Fi feature overview" style="width: 100%; max-width: 800px; height: auto;">
+<img src="./media/screenshot-feature-wifi.png" data-source='{"url":"/login","next_url":"/wifi","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Wi-Fi feature overview" style="width: 100%;height: auto;">
 
 ## What This Feature Does
 

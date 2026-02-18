@@ -355,7 +355,7 @@
   border-radius: 0.7rem;
   border: 1px solid var(--line);
   display: block;
-  margin: 0.7rem 0;
+  margin: 2rem 0;
 }
 
 .doc-panel table {
@@ -390,6 +390,28 @@
 .manual-table-wrap {
   width: 100%;
   overflow-x: auto;
+}
+
+.manual-note {
+  margin: 2rem 0;
+  padding: 0.82rem 0.95rem;
+  border-radius: 0.78rem;
+  border: 1px solid rgba(255, 184, 92, 0.52);
+  background: linear-gradient(145deg, rgba(224, 126, 44, 0.74) 0%, rgba(176, 86, 27, 0.74) 55%, rgba(130, 60, 20, 0.74) 100%);
+  box-shadow: 0 10px 22px rgba(3, 10, 18, 0.22);
+}
+
+.manual-note-title {
+  margin: 0 0 0.25rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #ffd199;
+}
+
+.manual-note p {
+  margin: 0;
 }
 
 .hidden {

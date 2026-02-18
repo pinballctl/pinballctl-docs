@@ -2,7 +2,7 @@
 
 Logs is the feature for viewing runtime output from web, bridge, ESP, and event streams.
 
-<img src="./media/screenshot-feature-logs.png" data-source='{"url":"/login","next_url":"/logs","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Logs feature overview" style="width: 100%; max-width: 800px; height: auto;">
+<img src="./media/screenshot-feature-logs.png" data-source='{"url":"/login","next_url":"/logs","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Logs feature overview" style="width: 100%;height: auto;">
 
 ## What This Feature Does
 

@@ -245,6 +245,21 @@ def _rewrite_links(html_text: str, doc_md: Path, pages_root: Path, assets_root: 
         rewritten,
         flags=re.IGNORECASE,
     )
+    # Remove legacy inline image sizing from authored HTML; docs.css owns defaults.
+    def _clean_style(match: re.Match) -> str:
+        quote = match.group(1)
+        style = match.group(2)
+        style = re.sub(r"max-width\s*:\s*800px\s*;?", "", style, flags=re.IGNORECASE)
+        style = re.sub(r"\s*;\s*;\s*", "; ", style)
+        style = re.sub(r"\s{2,}", " ", style).strip()
+        style = style.strip(";").strip()
+        if not style:
+            return ""
+        if not style.endswith(";"):
+            style = f"{style};"
+        return f" style={quote}{style}{quote}"
+
+    rewritten = re.sub(r"""\sstyle=(["'])(.*?)\1""", _clean_style, rewritten, flags=re.IGNORECASE)
     return rewritten
 
 

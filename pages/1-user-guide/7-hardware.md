@@ -4,7 +4,7 @@ Hardware is the feature for physical I/O mapping and controller integration setu
 
 It manages pin-level mapping, safety defaults, friendly names, and function assignment. The assigned function will define how this pin behaves and the options available throughout the Pinball CTL application.
 
-<img src="./media/screenshot-feature-hardware.png" data-source='{"url":"/login","next_url":"/hardware","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Hardware feature overview" style="width: 100%; max-width: 800px; height: auto;">
+<img src="./media/screenshot-feature-hardware.png" data-source='{"url":"/login","next_url":"/hardware","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Hardware feature overview" style="width: 100%;height: auto;">
 
 ## What This Feature Does
 
@@ -13,6 +13,11 @@ Hardware defines machine I/O in a structured form used by:
 - Rules trigger/action targeting
 - Lighting cast and fixture context
 - ESP deployment and runtime mapping
+
+<div class="manual-note">
+  <p class="manual-note-title">Please Note</p>
+  <p>The ESP must be connected to refresh pins. Once pin assignment is complete, other modules can use this mapping and run headless when the ESP is not connected.</p>
+</div>
 
 ## Top Controls
 
