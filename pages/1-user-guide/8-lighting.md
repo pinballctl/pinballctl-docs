@@ -13,7 +13,7 @@ Lighting is split into two tabs:
 
 ## Stage Tab
 
-<img src="/api/manual/assets/screenshots/feature-lighting-stage.png" alt="Lighting stage tab" style="width: 100%; max-width: 800px; height: auto;">
+<img src="./media/screenshot-feature-lighting-stage.png" data-source='{"url":"/login","next_url":"/lighting","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Lighting stage tab" style="width: 100%; max-width: 800px; height: auto;">
 
 Stage is where scene playback and scene-level authoring happen.
 
@@ -48,7 +48,7 @@ Playback behavior:
 
 ## Fixtures Tab
 
-<img src="/api/manual/assets/screenshots/feature-lighting-fixtures.png" alt="Lighting fixtures tab" style="width: 100%; max-width: 800px; height: auto;">
+<img src="./media/screenshot-feature-lighting-fixtures.png" data-source='{"url":"/login","dark_mode":true,"settle_ms":420,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"},{"action":"click","selector":"[data-menu-toggle]","wait_for":"body.flood-open"},{"action":"click","selector":"[data-nav-link][data-module-name=\"lighting\"]","wait_for":"#lighting-tab-fixtures"},{"action":"click","selector":"#lighting-tab-fixtures","wait_for":"#lighting-tab-fixtures-pane.show.active"}]}' alt="Lighting fixtures tab" style="width: 100%; max-width: 800px; height: auto;">
 
 Fixtures is focused on fixture inventory, targeting, and per-fixture context.
 

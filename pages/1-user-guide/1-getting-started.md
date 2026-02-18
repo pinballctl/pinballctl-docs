@@ -180,7 +180,7 @@ http://raspberrypi.local:8888
 
 You should see the Pinball CTL login screen in your browser:
 
-<img src="/api/manual/assets/screenshots/login.png" alt="Pinball CTL login screen" style="width: 100%; max-width: 800px; height: auto;">
+<img src="./media/screenshot-login.png" data-source='{"url":"/login","dark_mode":true}' alt="Pinball CTL login screen" style="width: 100%; max-width: 800px; height: auto;">
 
 Default login credentials:
 

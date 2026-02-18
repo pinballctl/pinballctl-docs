@@ -50,16 +50,43 @@ Docs-specific layout rules live in `docs.css`.
 
 ## Screenshot Automation Metadata (Draft)
 
-Markdown files can declare screenshot instructions using an inline JSON directive comment:
+Markdown files can declare screenshot instructions using an inline directive comment or an image `data-source` JSON object:
 
 ```md
 <!-- pinballctl-shot {"url":"http://raspberrypi.local:8888/login","click":["text=Sign in"],"wait_for":"#dashboard","output":"assets/screenshots/dashboard.png"} -->
+<img src="./media/screenshot-login.png" data-source='{"url":"/login","dark_mode":true}' alt="Pinball CTL login screen" />
 ```
 
 Validate/inspect directives:
 
 ```bash
-./utils/capture-doc-screenshots.py
+./utils/build-screenshots.py
 ```
 
-This parser script currently lists and validates directives; browser automation capture can be wired next.
+Defaults:
+
+- Domain: `http://127.0.0.1:8888`
+- Username: `admin`
+- Password: `password`
+- Capture mode: `with_frame=true` (whole browser window/viewport)
+
+Override defaults at runtime:
+
+```bash
+./utils/build-screenshots.py --domain http://raspberrypi.local:8888 --username admin --password secret
+```
+
+Directive examples:
+
+```md
+<!-- pinballctl-shot {"url":"/login","output":"assets/screenshots/login.png"} -->
+<!-- pinballctl-shot {"url":"/login","click":[{"action":"type","selector":"input[name='username']","value":"admin"},{"action":"type","selector":"input[name='password']","value":"password"},{"action":"click","selector":"button[type='submit']","wait_for":"[data-menu-toggle]"},{"action":"click","selector":"[data-menu-toggle]","wait_for":"body.flood-open"}],"wait_for":"#flood-menu-body .flood-grid","output":"assets/screenshots/control-center.png"} -->
+<!-- pinballctl-shot {"url":"/dashboard","target":"#bridge-status-card","with_frame":false,"output":"assets/screenshots/bridge-card.png"} -->
+<img src="./media/screenshot-control-center.png" data-source='{"url":"/login","dark_mode":true,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"},{"action":"click","selector":"[data-menu-toggle]","wait_for":"body.flood-open"},{"action":"wait","wait_for":"#flood-menu-body .flood-grid"}]}' alt="Control Center" />
+```
+
+`click` supports string selectors or step objects (`click`, `wait`, `type`).
+If `output` is omitted, it is inferred from `img src` (for example `/media/screenshot-login.png` -> `media/screenshot-login.png` and `/api/manual/assets/screenshots/login.png` -> `assets/screenshots/login.png`).
+If no `target` is set, the script captures the whole window by default.
+Use `dark_mode: true` to emulate dark color scheme. If your UI needs a toggle click as well, set `dark_toggle`.
+`login: true` is still supported for compatibility, but explicit `click`/`type` steps are recommended.

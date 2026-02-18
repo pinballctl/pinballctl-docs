@@ -2,7 +2,7 @@
 
 ESPLink manages Pi-to-ESP connectivity, bridge control, firmware apply flow, and runtime utility actions.
 
-<img src="/api/manual/assets/screenshots/feature-esplink.png" alt="ESPLink feature overview" style="width: 100%; max-width: 800px; height: auto;">
+<img src="./media/screenshot-feature-esplink.png" data-source='{"url":"/login","next_url":"/esplink","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="ESPLink feature overview" style="width: 100%; max-width: 800px; height: auto;">
 
 ## What This Feature Does
 

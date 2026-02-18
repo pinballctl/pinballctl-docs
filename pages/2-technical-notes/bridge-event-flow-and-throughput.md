@@ -2,7 +2,7 @@
 
 This page documents how Pi, Bridge, and ESP communicate in the current framed-JSON architecture, plus measured throughput from soak testing on February 6, 2026.
 
-![Pi-Bridge-ESP event flow](/api/manual/assets/pi-bridge-esp-event-flow.svg)
+![Pi-Bridge-ESP event flow](./assets/pi-bridge-esp-event-flow.svg)
 
 ## High-Level Model
 

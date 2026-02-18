@@ -1,5 +1,6 @@
 # Pinball CTL Manual
 
+
 Welcome to the Pinball CTL manual.
 
 Pinball CTL is a complete control stack for modern homebrew pinball machines. It links a Raspberry Pi web platform with an ESP32 real-time controller so you can design, configure, test, and run your machine from one system.

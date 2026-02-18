@@ -4,8 +4,6 @@ This page gives you a full overview of the main Pinball CTL features.
 
 Use the table for a quick summary, then use the detailed sections to understand what each area does.
 
-<img src="/api/manual/assets/screenshots/control-center.png" alt="Control Centre features overview" style="width: 100%; max-width: 800px; height: auto;">
-
 ## At-a-Glance Feature Table
 
 <div class="manual-table-wrap">
@@ -18,7 +16,6 @@ Use the table for a quick summary, then use the detailed sections to understand 
     </thead>
     <tbody>
       <tr><td>Dashboard</td><td>Live overview of machine state, connectivity, and runtime health.</td></tr>
-      <tr><td>Manual</td><td>Built-in documentation with search and bookmarks for quick reference.</td></tr>
       <tr><td>Rules</td><td>Create and manage gameplay rules, triggers, and actions.</td></tr>
       <tr><td>Scoring</td><td>Author points, progressive scoring rules, and combo scoring logic.</td></tr>
       <tr><td>Audio</td><td>Manage sound assets, cue playback behavior, output routing, and usage mapping.</td></tr>
@@ -46,17 +43,6 @@ Key features:
 - Dependency visibility for required tooling.
 - High-level machine and gameplay metrics in one place.
 - Fast way to spot faults before troubleshooting deeper features.
-
-## Manual
-
-The Manual keeps user and technical documentation inside Pinball CTL, so setup and diagnostics guides are always close to the system.
-
-Key features:
-
-- Left-hand document tree with folders and pages.
-- Built-in search for finding topics quickly.
-- Bookmark support for frequently used pages.
-- Light and dark mode aware styling.
 
 ## Rules
 

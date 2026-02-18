@@ -5,7 +5,6 @@ This section contains the technical module pages copied from the original Applic
 ## Pages
 
 - [Dashboard](dashboard.md)
-- [Manual](manual.md)
 - [Rules](rules.md)
 - [Layout (Playfield)](layout-Playfield.md)
 - [Hardware](hardware.md)

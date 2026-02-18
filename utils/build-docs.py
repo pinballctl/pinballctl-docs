@@ -132,6 +132,8 @@ def _normalize_tree(node: dict, path_prefix: str = "") -> list[dict]:
 def _plain_text_from_markdown(md: str) -> str:
     text = md.replace("\r\n", "\n").replace("\r", "\n")
     text = re.sub(r"```[\s\S]*?```", " ", text)
+    # Remove raw HTML blocks/tags from preview/search text (for example inline <img ...>).
+    text = re.sub(r"<[^>]+>", " ", text)
     text = re.sub(r"!\[([^\]]*)\]\(([^)]+)\)", r"\1", text)
     text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r"\1", text)
     text = re.sub(r"\[([^\]]+)\]\[[^\]]*\]", r"\1", text)
@@ -267,6 +269,8 @@ def _render_markdown(md_text: str, md_path: Path, pages_root: Path, assets_root:
     in_ol = False
     in_code = False
     code_lines: list[str] = []
+    in_raw_html = False
+    raw_html_lines: list[str] = []
 
     def flush_paragraph() -> None:
         nonlocal paragraph
@@ -299,6 +303,16 @@ def _render_markdown(md_text: str, md_path: Path, pages_root: Path, assets_root:
 
         if in_code:
             code_lines.append(line)
+            continue
+
+        if in_raw_html:
+            raw_html_lines.append(line)
+            if ">" in line:
+                flush_paragraph()
+                close_list()
+                out.append("\n".join(raw_html_lines))
+                in_raw_html = False
+                raw_html_lines = []
             continue
 
         if not line.strip():
@@ -344,10 +358,17 @@ def _render_markdown(md_text: str, md_path: Path, pages_root: Path, assets_root:
             out.append(line)
             continue
 
+        if line.strip().startswith("<") and not line.strip().endswith(">"):
+            in_raw_html = True
+            raw_html_lines = [line]
+            continue
+
         paragraph.append(line.strip())
 
     if in_code:
         out.append(f"<pre><code>{html.escape(chr(10).join(code_lines))}</code></pre>")
+    if in_raw_html and raw_html_lines:
+        out.append("\n".join(raw_html_lines))
     flush_paragraph()
     close_list()
     return _rewrite_links("".join(out), md_path, pages_root, assets_root)
@@ -369,12 +390,12 @@ def _render_index_html(embedded_data_json: str, updated_label: str, title: str =
   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
   <title>{html.escape(title)}</title>
   <meta name=\"description\" content=\"Pinball CTL documentation site.\">
-  <link rel=\"stylesheet\" href=\"./style.css\">
-  <link rel=\"stylesheet\" href=\"./docs.css\">
+  <link rel=\"stylesheet\" href=\"./assets/css/style.css\">
+  <link rel=\"stylesheet\" href=\"./assets/css/docs.css\">
 </head>
 <body>
   <header class=\"site-header\">
-    <a class=\"brand\" href=\"#top\" aria-label=\"Pinball CTL docs home\">
+    <a class=\"brand\" href=\"#doc=README\" aria-label=\"Pinball CTL docs home\">
       <span class=\"brand-dot\" aria-hidden=\"true\"></span>
       <span>Pinball CTL Docs</span>
     </a>
@@ -383,7 +404,6 @@ def _render_index_html(embedded_data_json: str, updated_label: str, title: str =
     </button>
     <nav class=\"site-nav\" aria-label=\"Main navigation\">
       <span class=\"docs-updated\">Updated {html.escape(updated_label)}</span>
-      <span class=\"docs-nav-sep\" aria-hidden=\"true\">|</span>
       <a href=\"https://pinballctl.com\" class=\"nav-link website-link\">
         <svg class=\"website-link__icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" focusable=\"false\">
           <path d=\"M3 12h18M12 3a16 16 0 0 1 0 18M12 3a16 16 0 0 0 0 18M4.5 7.5h15M4.5 16.5h15\"/>
@@ -400,12 +420,17 @@ def _render_index_html(embedded_data_json: str, updated_label: str, title: str =
       <p class=\"lead\">Find setup guides, feature walkthroughs, and troubleshooting help for Pinball CTL.</p>
 
       <div class=\"docs-toolbar\">
+        <button id=\"docs-sidebar-toggle\" class=\"docs-sidebar-toggle\" type=\"button\" aria-expanded=\"false\" aria-controls=\"docs-sidebar\">Docs Menu</button>
         <input type=\"search\" id=\"docs-search\" class=\"docs-search-input\" placeholder=\"Search docs...\" />
         <span id=\"docs-search-status\" class=\"docs-search-status\"></span>
       </div>
 
       <div class=\"docs-layout\">
-        <aside class=\"docs-sidebar\">
+        <aside id=\"docs-sidebar\" class=\"docs-sidebar\">
+          <div class=\"docs-sidebar-head\">
+            <span class=\"docs-sidebar-title\">Docs Menu</span>
+            <button id=\"docs-sidebar-close\" class=\"docs-sidebar-close\" type=\"button\" aria-label=\"Close docs menu\">Close</button>
+          </div>
           <div id=\"docs-bookmarks-wrap\" class=\"docs-bookmarks-wrap hidden\">
             <div class=\"docs-bookmarks-title\">Bookmarks</div>
             <div id=\"docs-bookmarks\" class=\"docs-bookmarks\"></div>
@@ -430,9 +455,9 @@ def _render_index_html(embedded_data_json: str, updated_label: str, title: str =
     <div class=\"site-footer__inner\">
       <p class=\"site-footer__copy\">&copy; 2026 Pinball CTL. All rights reserved.</p>
       <nav class=\"site-footer__nav\" aria-label=\"Footer links\">
-        <a href=\"./privacy.html\">Privacy</a>
-        <a href=\"./terms.html\">Terms</a>
-        <a href=\"./contact.html\">Contact</a>
+        <a href=\"https://www.pinballctl.com/privacy.html\" target=\"_blank\" rel=\"noopener noreferrer\">Privacy</a>
+        <a href=\"https://www.pinballctl.com/terms.html\" target=\"_blank\" rel=\"noopener noreferrer\">Terms</a>
+        <a href=\"https://www.pinballctl.com/contact.html\" target=\"_blank\" rel=\"noopener noreferrer\">Contact</a>
       </nav>
     </div>
   </footer>
@@ -445,7 +470,7 @@ def _render_index_html(embedded_data_json: str, updated_label: str, title: str =
     </div>
   </div>
 
-  <script id=\"site-data-inline\" type=\"application/json\">{embedded_data_json}</script>\n  <script src=\"./main.js\"></script>
+  <script id=\"site-data-inline\" type=\"application/json\">{embedded_data_json}</script>\n  <script src=\"./assets/js/main.js\"></script>
 </body>
 </html>
 """
@@ -456,13 +481,19 @@ def build(root: Path, website_root: Path | None = None) -> None:
     assets_root = root / "assets"
     out_html = root / "index.html"
     out_data = root / "site-data.json"
-    out_style = root / "style.css"
-    out_docs_css = root / "docs.css"
+    css_dir = root / "assets" / "css"
+    js_dir = root / "assets" / "js"
+    out_style = css_dir / "style.css"
+    out_docs_css = css_dir / "docs.css"
+    out_main_js = js_dir / "main.js"
 
     if not pages_root.exists():
         raise FileNotFoundError(f"pages directory not found: {pages_root}")
     if not assets_root.exists():
         raise FileNotFoundError(f"assets directory not found: {assets_root}")
+
+    css_dir.mkdir(parents=True, exist_ok=True)
+    js_dir.mkdir(parents=True, exist_ok=True)
 
     if website_root is not None:
         website_style = website_root / "style.css"
@@ -471,6 +502,8 @@ def build(root: Path, website_root: Path | None = None) -> None:
 
     if not out_docs_css.exists():
         raise FileNotFoundError(f"docs.css missing: {out_docs_css}")
+    if not out_main_js.exists():
+        raise FileNotFoundError(f"main.js missing: {out_main_js}")
 
     pages = _scan_pages(pages_root)
     if not pages:
@@ -484,7 +517,9 @@ def build(root: Path, website_root: Path | None = None) -> None:
         page.pop("md_path", None)
 
     tree = _build_tree(pages)
-    default = next((p for p in pages if p["slug"].split("/")[-1].lower() == "readme"), None)
+    default = next((p for p in pages if p["slug"] == "README"), None)
+    if default is None:
+        default = next((p for p in pages if p["slug"].split("/")[-1].lower() == "readme"), None)
     default_slug = (default or pages[0])["slug"]
 
     build_now = datetime.now(timezone.utc)

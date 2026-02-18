@@ -30,6 +30,77 @@
     lastResults: [],
   };
 
+  function wireHeaderMenu() {
+    const menuBtn = document.querySelector(".menu-toggle");
+    const nav = document.querySelector(".site-nav");
+    if (!(menuBtn instanceof HTMLElement) || !(nav instanceof HTMLElement)) return;
+
+    function setOpen(open) {
+      nav.classList.toggle("open", open);
+      document.body.classList.toggle("menu-open", open);
+      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+
+    menuBtn.addEventListener("click", () => {
+      setOpen(!nav.classList.contains("open"));
+    });
+
+    document.addEventListener("click", (e) => {
+      const t = e.target;
+      if (!(t instanceof Element)) return;
+      if (!nav.classList.contains("open")) return;
+      if (t.closest(".site-nav") || t.closest(".menu-toggle")) return;
+      setOpen(false);
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 920) setOpen(false);
+    });
+  }
+
+  function wireDocsSidebarMenu() {
+    const toggleBtn = document.getElementById("docs-sidebar-toggle");
+    const sidebar = document.getElementById("docs-sidebar");
+    const closeBtn = document.getElementById("docs-sidebar-close");
+    if (!(toggleBtn instanceof HTMLElement) || !(sidebar instanceof HTMLElement)) return;
+
+    function setOpen(open) {
+      sidebar.classList.toggle("open", open);
+      toggleBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      document.body.classList.toggle("docs-sidebar-open", open && window.innerWidth <= 1080);
+    }
+
+    toggleBtn.addEventListener("click", () => {
+      setOpen(!sidebar.classList.contains("open"));
+    });
+
+    closeBtn?.addEventListener("click", () => setOpen(false));
+
+    document.addEventListener("click", (e) => {
+      const t = e.target;
+      if (!(t instanceof Element)) return;
+      if (!sidebar.classList.contains("open")) return;
+      if (window.innerWidth > 1080) return;
+      if (t.closest("#docs-sidebar") || t.closest("#docs-sidebar-toggle")) return;
+      setOpen(false);
+    });
+
+    document.addEventListener("click", (e) => {
+      const t = e.target;
+      if (!(t instanceof Element)) return;
+      if (!t.closest("[data-doc-slug]")) return;
+      if (window.innerWidth <= 1080) setOpen(false);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && window.innerWidth <= 1080) setOpen(false);
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 1080) setOpen(false);
+    });
+  }
+
   function hashSlug() {
     const m = (window.location.hash || "").match(/doc=([^&]+)/);
     return m ? decodeURIComponent(m[1]) : "";
@@ -340,6 +411,8 @@
 
   async function init() {
     loadState();
+    wireHeaderMenu();
+    wireDocsSidebarMenu();
 
     const data = await loadSiteData();
     state.tree = Array.isArray(data.tree) ? data.tree : [];
@@ -349,10 +422,13 @@
     renderTree();
     renderBookmarks();
 
-    const defaultSlug = String(data.default_slug || pages[0]?.slug || "");
+    const hasReadme = state.pagesBySlug.has("README");
+    const defaultSlug = hasReadme ? "README" : String(data.default_slug || pages[0]?.slug || "");
     wireEvents(defaultSlug);
 
-    const slug = hashSlug() || defaultSlug;
+    const hash = hashSlug();
+    const slug = hash || defaultSlug;
+    if (!hash && slug) setHashSlug(slug);
     if (slug) renderArticle(slug);
   }
 

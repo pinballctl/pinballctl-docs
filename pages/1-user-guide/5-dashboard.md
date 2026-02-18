@@ -2,7 +2,7 @@
 
 The Dashboard is your live status overview for Pinball CTL.
 
-<img src="/api/manual/assets/screenshots/dashboard.png" alt="Dashboard feature overview" style="width: 100%; max-width: 800px; height: auto;">
+<img src="./media/screenshot-dashboard.png" data-source='{"url":"/login","next_url":"/dashboard","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Dashboard feature overview" style="width: 100%; max-width: 800px; height: auto;">
 
 The Dashboard is designed as a fast health check page before you edit rules, lighting, hardware, or firmware.
 

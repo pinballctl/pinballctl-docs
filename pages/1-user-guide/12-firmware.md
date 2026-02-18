@@ -2,7 +2,7 @@
 
 Firmware manages available firmware version lists and local version lifecycle.
 
-<img src="/api/manual/assets/screenshots/feature-firmware.png" alt="Firmware feature overview" style="width: 100%; max-width: 800px; height: auto;">
+<img src="./media/screenshot-feature-firmware.png" data-source='{"url":"/login","next_url":"/firmware","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Firmware feature overview" style="width: 100%; max-width: 800px; height: auto;">
 
 ## What This Feature Does
 

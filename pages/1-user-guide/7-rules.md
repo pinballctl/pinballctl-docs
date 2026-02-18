@@ -2,7 +2,7 @@
 
 Rules is the gameplay behaviour authoring feature.
 
-<img src="/api/manual/assets/screenshots/feature-rules.png" alt="Rules feature overview" style="width: 100%; max-width: 800px; height: auto;">
+<img src="./media/screenshot-feature-rules.png" data-source='{"url":"/login","next_url":"/rules","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Rules feature overview" style="width: 100%; max-width: 800px; height: auto;">
 
 This page explains every main area of the Rules feature, what each control does, and how to build reliable setups.
 
@@ -21,7 +21,7 @@ At a high level:
 At the top-right of the Rules page:
 
 - `Add Rule`: creates a new rule and opens it in the editor.
-- `Sync Rules`: compiles and transfers rules to the ESP.
+- `Sync Rules`: pushes current rules state to the ESP when required.
 - `Save`: writes your current rule configuration to disk.
 
 Behaviour notes:
@@ -38,30 +38,14 @@ Under the header:
 - `Search name or notes…`: keyword filter over rule name/notes.
 - `Clear filters`: shown only when a filter is active.
 
-## Sync Warning and Sync Modal
+## Sync Status
 
-### Out-of-sync warning
+The Sync button indicates whether the configuration is in sync with the ESP.
 
-A warning banner appears when the ESP is connected but the deployed rules do not match local configuration.
+- If rules are not synced, the button shows a warning state (`Sync <name>` warning).
+- If rules are synced, the button shows the blue disabled OK state.
 
-### Sync modal flow
-
-When sync starts, a modal shows live status such as:
-
-- preparing/compiling
-- uploading
-- success
-- timeout or error states
-
-Common status failures shown in the UI:
-
-- bridge offline
-- bridge unresponsive
-- missing local rules to sync
-
-<img src="/api/manual/assets/screenshots/feature-rules-sync-uploading.png" alt="Rules sync modal uploading state" style="width: 100%; max-width: 800px; height: auto;">
-
-<img src="/api/manual/assets/screenshots/feature-rules-sync-complete.png" alt="Rules sync modal completed state" style="width: 100%; max-width: 800px; height: auto;">
+If sync fails, check bridge connectivity and ESP link status first.
 
 ## Rules Table
 
@@ -84,6 +68,12 @@ Row actions:
 - Enabled dot toggles active/inactive.
 - Delete removes the rule.
 
+### Expanded First Rule
+
+The screenshot below shows the first rule expanded, which is the baseline used in the tab walkthrough sections that follow.
+
+<img src="./media/screenshot-feature-rules-expanded.png" data-source='{"url":"/login","dark_mode":true,"settle_ms":420,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"},{"action":"click","selector":"[data-menu-toggle]","wait_for":"body.flood-open"},{"action":"click","selector":"[data-nav-link][data-module-name=\"rules\"]","wait_for":"#rules-list .rules-rule-toggle"},{"action":"click","selector":"#rules-list .rules-rule-toggle","wait_for":"#rules-editor:not(.d-none)"}]}' alt="First rule expanded in Rules editor" style="width: 100%; max-width: 800px; height: auto;">
+
 ## Rule Editor Tabs
 
 When a row is expanded, the rule editor appears with tabs:
@@ -99,6 +89,8 @@ Validation badges:
 - Red `!` badge can appear on `Triggers` and `Actions` tabs if required fields are missing.
 
 ## Metadata Tab
+
+<img src="./media/screenshot-feature-rules-tab-metadata.png" data-source='{"url":"/login","dark_mode":true,"settle_ms":420,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"},{"action":"click","selector":"[data-menu-toggle]","wait_for":"body.flood-open"},{"action":"click","selector":"[data-nav-link][data-module-name=\"rules\"]","wait_for":"#rules-list .rules-rule-toggle"},{"action":"click","selector":"#rules-list .rules-rule-toggle","wait_for":"#rules-editor:not(.d-none)"},{"action":"click","selector":"#rules-tab-meta","wait_for":"#rules-pane-meta.show.active"}]}' alt="Rules metadata tab on first rule" style="width: 100%; max-width: 800px; height: auto;">
 
 Metadata controls:
 
@@ -117,6 +109,8 @@ The metadata tab also shows a `Summary` block that previews the rule logic in pl
 
 
 ## Triggers Tab
+
+<img src="./media/screenshot-feature-rules-tab-triggers.png" data-source='{"url":"/login","dark_mode":true,"settle_ms":420,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"},{"action":"click","selector":"[data-menu-toggle]","wait_for":"body.flood-open"},{"action":"click","selector":"[data-nav-link][data-module-name=\"rules\"]","wait_for":"#rules-list .rules-rule-toggle"},{"action":"click","selector":"#rules-list .rules-rule-toggle","wait_for":"#rules-editor:not(.d-none)"},{"action":"click","selector":"#rules-tab-triggers","wait_for":"#rules-pane-triggers.show.active"}]}' alt="Rules triggers tab on first rule" style="width: 100%; max-width: 800px; height: auto;">
 
 Triggers are organised as groups.
 
@@ -185,6 +179,8 @@ Custom event names are normalised to uppercase underscore format (for example `S
 
 ## Conditions Tab
 
+<img src="./media/screenshot-feature-rules-tab-conditions.png" data-source='{"url":"/login","dark_mode":true,"settle_ms":420,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"},{"action":"click","selector":"[data-menu-toggle]","wait_for":"body.flood-open"},{"action":"click","selector":"[data-nav-link][data-module-name=\"rules\"]","wait_for":"#rules-list .rules-rule-toggle"},{"action":"click","selector":"#rules-list .rules-rule-toggle","wait_for":"#rules-editor:not(.d-none)"},{"action":"click","selector":"#rules-tab-conditions","wait_for":"#rules-pane-conditions.show.active"}]}' alt="Rules conditions tab on first rule" style="width: 100%; max-width: 800px; height: auto;">
+
 Conditions are optional checks that must pass before actions run.
 
 At condition level:
@@ -246,6 +242,8 @@ Available state options depend on hardware type (for example coil active/inactiv
 
 
 ## Actions Tab
+
+<img src="./media/screenshot-feature-rules-tab-actions.png" data-source='{"url":"/login","dark_mode":true,"settle_ms":420,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"},{"action":"click","selector":"[data-menu-toggle]","wait_for":"body.flood-open"},{"action":"click","selector":"[data-nav-link][data-module-name=\"rules\"]","wait_for":"#rules-list .rules-rule-toggle"},{"action":"click","selector":"#rules-list .rules-rule-toggle","wait_for":"#rules-editor:not(.d-none)"},{"action":"click","selector":"#rules-tab-actions","wait_for":"#rules-pane-actions.show.active"}]}' alt="Rules actions tab on first rule" style="width: 100%; max-width: 800px; height: auto;">
 
 Actions define what the rule does when triggers and conditions pass.
 
@@ -309,9 +307,11 @@ Planned actions (not general day-to-day options):
 These are treated as planned and are normally hidden unless already present in loaded data.
 
 
-## Preview Tab
+## Summary Tab
 
-The preview tab shows the full selected rule as formatted JSON.
+<img src="./media/screenshot-feature-rules-tab-summary.png" data-source='{"url":"/login","dark_mode":true,"settle_ms":420,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"},{"action":"click","selector":"[data-menu-toggle]","wait_for":"body.flood-open"},{"action":"click","selector":"[data-nav-link][data-module-name=\"rules\"]","wait_for":"#rules-list .rules-rule-toggle"},{"action":"click","selector":"#rules-list .rules-rule-toggle","wait_for":"#rules-editor:not(.d-none)"},{"action":"click","selector":"#rules-tab-summary","wait_for":"#rules-pane-summary.show.active"}]}' alt="Rules summary tab on first rule" style="width: 100%; max-width: 800px; height: auto;">
+
+The summary tab shows the full selected rule as formatted JSON.
 
 Use this for:
 

@@ -4,7 +4,7 @@ Hardware is the feature for physical I/O mapping and controller integration setu
 
 It manages pin-level mapping, safety defaults, friendly names, and function assignment.
 
-<img src="/api/manual/assets/screenshots/feature-hardware.png" alt="Hardware feature overview" style="width: 100%; max-width: 800px; height: auto;">
+<img src="./media/screenshot-feature-hardware.png" data-source='{"url":"/login","next_url":"/hardware","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Hardware feature overview" style="width: 100%; max-width: 800px; height: auto;">
 
 ## What This Feature Does
 
@@ -77,17 +77,10 @@ On success:
 
 ## Sync to ESP
 
-Sync flow includes modal status updates.
+The Sync button indicates whether the configuration is in sync with the ESP.
 
-Typical states:
-
-- starting sync
-- uploading blob
-- sync complete
-- bridge offline/unresponsive
-- timeout/error
-
-An out-of-sync warning banner appears when ESP mapping differs from local mapping.
+- If mapping is not synced, the sync action shows a warning state (`Sync <name>` warning).
+- If mapping is synced, the sync action shows the blue disabled OK state.
 
 
 ## Reload Pins
