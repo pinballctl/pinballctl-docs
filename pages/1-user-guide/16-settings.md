@@ -2,7 +2,7 @@
 
 Settings is the feature for installation-wide configuration and project data transfer.
 
-<img src="./media/screenshot-feature-settings.png" data-source='{"url":"/login","next_url":"/settings","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Settings feature overview" style="width: 100%; max-width: 800px; height: auto;">
+<img src="./media/screenshot-feature-settings.png" data-source='{"url":"/login","next_url":"/settings","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Settings feature overview" style="width: 100%; max-width: 800px; height: auto;">
 
 ## Page Structure
 
@@ -13,7 +13,7 @@ Settings has two tabs:
 
 ## Settings Tab
 
-<img src="./media/screenshot-feature-settings-settings.png" data-source='{"url":"/login","next_url":"/settings","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Settings tab overview" style="width: 100%; max-width: 800px; height: auto;">
+<img src="./media/screenshot-feature-settings-settings.png" data-source='{"url":"/login","next_url":"/settings","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Settings tab overview" style="width: 100%; max-width: 800px; height: auto;">
 
 Use this tab to manage persistent system values.
 
@@ -38,7 +38,7 @@ Password behavior:
 
 ## Import/Export Tab
 
-<img src="./media/screenshot-feature-settings-import-export.png" data-source='{"url":"/login","next_url":"/settings","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Import and export tab overview" style="width: 100%; max-width: 800px; height: auto;">
+<img src="./media/screenshot-feature-settings-import-export.png" data-source='{"url":"/login","next_url":"/settings","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Import and export tab overview" style="width: 100%; max-width: 800px; height: auto;">
 
 Use this tab to move project data between installations.
 

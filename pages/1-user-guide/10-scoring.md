@@ -14,7 +14,7 @@ Scoring is split into three tabs:
 
 ## Base Points Tab
 
-<img src="./media/screenshot-feature-scoring.png" data-source='{"url":"/login","next_url":"/scoring","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Scoring base points tab" style="width: 100%; max-width: 800px; height: auto;">
+<img src="./media/screenshot-feature-scoring.png" data-source='{"url":"/login","next_url":"/scoring","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Scoring base points tab" style="width: 100%; max-width: 800px; height: auto;">
 
 Use this tab for straightforward score awards.
 
@@ -33,7 +33,7 @@ Typical uses:
 
 ## Scoring Rules Tab
 
-<img src="./media/screenshot-feature-scoring-scoring-rules.png" data-source='{"url":"/login","next_url":"/scoring","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Scoring rules tab" style="width: 100%; max-width: 800px; height: auto;">
+<img src="./media/screenshot-feature-scoring-scoring-rules.png" data-source='{"url":"/login","next_url":"/scoring","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Scoring rules tab" style="width: 100%; max-width: 800px; height: auto;">
 
 Use this tab for progressive scoring logic.
 
@@ -58,7 +58,7 @@ This rewards fast repeat hits while decaying value when play slows.
 
 ## Combos Tab
 
-<img src="./media/screenshot-feature-scoring-combos.png" data-source='{"url":"/login","next_url":"/scoring","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Scoring combos tab" style="width: 100%; max-width: 800px; height: auto;">
+<img src="./media/screenshot-feature-scoring-combos.png" data-source='{"url":"/login","next_url":"/scoring","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Scoring combos tab" style="width: 100%; max-width: 800px; height: auto;">
 
 Use this tab for multi-step scoring sequences.
 

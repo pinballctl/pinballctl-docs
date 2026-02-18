@@ -4,7 +4,7 @@ Hardware is the feature for physical I/O mapping and controller integration setu
 
 It manages pin-level mapping, safety defaults, friendly names, and function assignment.
 
-<img src="./media/screenshot-feature-hardware.png" data-source='{"url":"/login","next_url":"/hardware","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Hardware feature overview" style="width: 100%; max-width: 800px; height: auto;">
+<img src="./media/screenshot-feature-hardware.png" data-source='{"url":"/login","next_url":"/hardware","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Hardware feature overview" style="width: 100%; max-width: 800px; height: auto;">
 
 ## What This Feature Does
 

@@ -1,8 +1,8 @@
 # Features
 
-This page gives you a full overview of the main Pinball CTL features.
+Full overview of the main Pinball CTL features.
 
-Use the table for a quick summary, then use the detailed sections to understand what each area does.
+Use the table for a quick summary, and find the detailed sections to understand what each area does.
 
 ## At-a-Glance Feature Table
 
@@ -53,7 +53,23 @@ Key features:
 - Rule creation and editing workflows.
 - Trigger and condition-based action execution.
 - Integration with lighting actions (including scene selection and control options).
-- Structured configuration storage for repeatable deployments.
+- Integration with media actions (control videos, switch overlays and update content live).
+
+## Playfield
+
+Playfield is the visual model of your playfield and hardware placement.
+
+Key features:
+
+- Placement and sizing of playfield elements.
+- Simulation preview for quick visual validation as you build.
+- Hardware binding support for visual validation.
+- Editing tools to maintain a clean machine map.
+- Preview the playfield changes before applying them to your live machine workflow.
+- Playfield event handling mirrors hardware flow, so triggers and responses behave consistently.
+- Test trigger logic with immediate on-screen feedback that reflects hardware events.
+- Assign keyboard shortcuts to trigger events like flipper activations and bumper hits
+- Useful reference context when authoring rules and lighting.
 
 ## Scoring
 
@@ -104,20 +120,6 @@ Key features:
 - Apply pattern/show behaviour and test playback in preview before rollout.
 - Tune behaviour safely without requiring immediate live hardware control.
 
-## Playfield
-
-Playfield is the visual model of your playfield and hardware placement.
-
-Key features:
-
-- Placement and sizing of playfield elements.
-- Simulation preview for quick visual validation as you build.
-- Hardware binding support for visual validation.
-- Editing tools to maintain a clean machine map.
-- Preview the playfield changes before applying them to your live machine workflow.
-- Playfield event handling mirrors hardware flow, so triggers and responses behave consistently.
-- Test trigger logic with immediate on-screen feedback that reflects hardware events.
-- Useful reference context when authoring rules and lighting.
 
 ## Hardware
 
@@ -140,6 +142,7 @@ Key features:
 - Clear checks that Pi and ESP are on matching versions and manifest data before deployment.
 - Workflow support for updating or synchronising device state.
 - Integration point between authoring on Pi and execution on ESP32.
+- Built in flashing for firmware updates
 
 ## Firmware
 

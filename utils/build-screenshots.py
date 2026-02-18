@@ -21,7 +21,7 @@ Supported keys:
 - click: click path; list of strings or step objects
   - string step: selector to click
   - object step:
-    - action: click|wait|type
+    - action: click|wait|type|hover
     - selector: CSS selector or Playwright selector
     - value: value for type action
     - timeout_ms: optional wait timeout override
@@ -323,6 +323,25 @@ def _run_login(page: Any, plan: ShotPlan, timeout_ms: int) -> None:
 
 
 def _run_click_steps(page: Any, plan: ShotPlan, timeout_ms: int) -> None:
+    username_selectors = {
+        plan.username_selector,
+        "input[name='username']",
+        'input[name="username"]',
+        "#username",
+        "input[name='user']",
+        'input[name="user"]',
+        "input[type='text']",
+    }
+    password_selectors = {
+        plan.password_selector,
+        "input[name='password']",
+        'input[name="password"]',
+        "#password",
+        "input[name='pass']",
+        'input[name="pass"]',
+        "input[type='password']",
+    }
+
     for idx, step in enumerate(plan.click, start=1):
         if isinstance(step, str):
             page.wait_for_selector(step, timeout=timeout_ms, state="visible")
@@ -354,11 +373,24 @@ def _run_click_steps(page: Any, plan: ShotPlan, timeout_ms: int) -> None:
                 raise ValueError(
                     f"{plan.source}:{plan.line} type step {idx} missing 'selector'"
                 )
-            if "value" not in step:
+            sel = str(selector)
+            if "value" in step:
+                fill_value = str(step["value"])
+            elif sel in username_selectors:
+                fill_value = str(plan.username or "")
+            elif sel in password_selectors:
+                fill_value = str(plan.password or "")
+            else:
                 raise ValueError(
                     f"{plan.source}:{plan.line} type step {idx} missing 'value'"
                 )
-            page.fill(str(selector), str(step["value"]), timeout=local_timeout)
+            page.fill(sel, fill_value, timeout=local_timeout)
+        elif action == "hover":
+            if not selector:
+                raise ValueError(
+                    f"{plan.source}:{plan.line} hover step {idx} missing 'selector'"
+                )
+            page.hover(str(selector), timeout=local_timeout)
         else:
             raise ValueError(
                 f"{plan.source}:{plan.line} click step {idx} has unsupported action '{action}'"
@@ -402,7 +434,7 @@ def _apply_highlight(page: Any, plan: ShotPlan) -> None:
     )
 
 
-def run_capture(plans: list[ShotPlan], timeout_ms: int, headed: bool) -> tuple[int, int]:
+def run_capture(plans: list[ShotPlan], timeout_ms: int, headed: bool, overwrite: bool = False) -> tuple[int, int]:
     try:
         from playwright.sync_api import sync_playwright
     except Exception as exc:
@@ -421,6 +453,9 @@ def run_capture(plans: list[ShotPlan], timeout_ms: int, headed: bool) -> tuple[i
         browser = p.chromium.launch(headless=not headed)
         try:
             for plan in plans:
+                if plan.output.exists() and not overwrite:
+                    print(f"SKIP {plan.source}:{plan.line} -> {plan.output} (already exists)")
+                    continue
                 context = browser.new_context(
                     viewport={"width": DEFAULT_VIEWPORT_WIDTH, "height": DEFAULT_VIEWPORT_HEIGHT}
                 )
@@ -463,6 +498,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--password", default=DEFAULT_PASSWORD, help="Default password")
     parser.add_argument("--timeout-ms", type=int, default=DEFAULT_TIMEOUT_MS, help="Default timeout")
     parser.add_argument("--headed", action="store_true", help="Run browser with UI")
+    parser.add_argument("--overwrite", action="store_true", help="Overwrite existing image files")
     parser.add_argument("--dry-run", action="store_true", help="Print capture plan only")
     return parser.parse_args()
 
@@ -507,7 +543,12 @@ def main() -> None:
     if args.dry_run:
         return
 
-    ok, fail = run_capture(plans, timeout_ms=args.timeout_ms, headed=args.headed)
+    ok, fail = run_capture(
+        plans,
+        timeout_ms=args.timeout_ms,
+        headed=args.headed,
+        overwrite=args.overwrite,
+    )
     print(f"Completed: ok={ok} fail={fail}")
     if fail:
         raise SystemExit(1)

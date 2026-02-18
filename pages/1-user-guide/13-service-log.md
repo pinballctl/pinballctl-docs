@@ -4,7 +4,7 @@ Service Log is the feature for machine service and maintenance records.
 
 It is focused on physical maintenance history rather than runtime diagnostics.
 
-<img src="./media/screenshot-feature-servicelog.png" data-source='{"url":"/login","next_url":"/service","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]","value":"admin"},{"action":"type","selector":"input[name=\"password\"]","value":"password"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Service Log feature overview" style="width: 100%; max-width: 800px; height: auto;">
+<img src="./media/screenshot-feature-servicelog.png" data-source='{"url":"/login","next_url":"/service","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Service Log feature overview" style="width: 100%; max-width: 800px; height: auto;">
 
 ## What This Feature Does
 

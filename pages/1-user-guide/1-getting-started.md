@@ -2,8 +2,6 @@
 
 This guide helps you get Pinball CTL running from a clean Raspberry Pi setup.
 
-It is written for real-world first installs, not just developer machines.
-
 ## Before You Start
 
 Pinball CTL is under active development. It runs well on the hardware used in this project, but it has not yet been broadly tested across all Raspberry Pi and peripheral combinations.
@@ -18,10 +16,10 @@ The table below shows what is required and what has been tested in this project.
   <table class="manual-table manual-requirements-table">
     <thead>
       <tr>
-        <th>Item</th>
-        <th>Required</th>
-        <th>Tested</th>
-        <th>Notes</th>
+        <th nowrap="nowrap">Item</th>
+        <th nowrap="nowrap">Required</th>
+        <th nowrap="nowrap">Tested</th>
+        <th nowrap="nowrap">Notes</th>
       </tr>
     </thead>
     <tbody>
@@ -48,7 +46,8 @@ For hardware-specific status, see:
 
 ## Prepare Raspberry Pi OS
 
-Start with a clean Raspberry Pi OS image and flash it to your SD card.
+You can use an existing Raspberry Pi installation if preferred, however be aware that installed packages, libraries, and system configurations may differ depending on what has previously been set up.
+If starting from scratch, download the latest Raspberry Pi OS image and flash it to your SD card.
 
 Official Raspberry Pi references:
 
@@ -118,13 +117,15 @@ python -m pip install --upgrade pip
 If you know the release tag:
 
 ```bash
-python -m pip install "git+https://github.com/VineCode/pinballctl.git@vX.Y.Z"
+python -m pip install "git+https://github.com/pinballctl/pinballctl.git@vX.Y.Z"
 ```
+
+View available tags [here](https://github.com/pinballctl/pinballctl/tags)
 
 If you want to resolve and install the latest tag automatically:
 
 ```bash
-REPO_URL="https://github.com/VineCode/pinballctl.git"
+REPO_URL="https://github.com/pinballctl/pinballctl.git"
 LATEST_TAG="$(git ls-remote --refs --sort='version:refname' --tags "$REPO_URL" | tail -n1 | sed 's|.*refs/tags/||')"
 python -m pip install "git+$REPO_URL@$LATEST_TAG"
 ```
@@ -137,7 +138,6 @@ pinballctl --version
 
 Note:
 
-- Packaging in this project is wheel-based (see release/build scripts and `pyproject.toml`).
 - Installing from a tag gives you a reproducible version aligned to a release point.
 
 ## Run Pinball CTL
@@ -180,7 +180,8 @@ http://raspberrypi.local:8888
 
 You should see the Pinball CTL login screen in your browser:
 
-<img src="./media/screenshot-login.png" data-source='{"url":"/login","dark_mode":true}' alt="Pinball CTL login screen" style="width: 100%; max-width: 800px; height: auto;">
+
+<img src="./media/screenshot-login.png" data-source='{"url":"/login","dark_mode":true}' alt="Pinball CTL login screen" style="width: 100%; max-width: 900px; height: auto;">
 
 Default login credentials:
 
@@ -232,5 +233,4 @@ If something is not working, check these first:
 
 1. Is your venv active (`source .venv/bin/activate`)?
 2. Does `pinballctl --version` work?
-3. Is the web app running on port 8888?
-4. Is your Pi reachable on the network?
+3. Is your Pi reachable on the network?

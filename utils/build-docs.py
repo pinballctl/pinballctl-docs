@@ -237,7 +237,15 @@ def _rewrite_links(html_text: str, doc_md: Path, pages_root: Path, assets_root: 
 
         return match.group(0)
 
-    return re.sub(r'(href|src)="([^"]+)"', _replace, html_text)
+    rewritten = re.sub(r'(href|src)="([^"]+)"', _replace, html_text)
+    # Strip screenshot build directives from compiled output.
+    rewritten = re.sub(
+        r"""\sdata-source\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)""",
+        "",
+        rewritten,
+        flags=re.IGNORECASE,
+    )
+    return rewritten
 
 
 def _render_markdown(md_text: str, md_path: Path, pages_root: Path, assets_root: Path) -> str:

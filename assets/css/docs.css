@@ -23,7 +23,7 @@
 
 .docs-updated {
   color: rgba(168, 184, 207, 0.62);
-  font-size: 1rem;
+  font-size: 0.8rem;
   padding: 0.52rem 0.2rem;
   white-space: nowrap;
 }
@@ -303,7 +303,7 @@
 .doc-panel h2,
 .doc-panel h3,
 .doc-panel h4 {
-  margin: 1rem 0 0.65rem;
+  margin: 1.5rem 0 1.5rem;
 }
 
 .doc-panel p {
