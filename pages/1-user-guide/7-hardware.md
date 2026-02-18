@@ -16,7 +16,7 @@ Hardware defines machine I/O in a structured form used by:
 
 ## Top Controls
 
-- `Reload Pins`
+- `Reload Pins` - On first setup
 - `Sync to ESP`
 - `Save Mapping`
 
