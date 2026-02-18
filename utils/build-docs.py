@@ -390,16 +390,104 @@ def _build_tree(pages: list[dict]) -> list[dict]:
     return _normalize_tree(raw_tree)
 
 
-def _render_index_html(embedded_data_json: str, updated_label: str, title: str = "Pinball CTL Docs") -> str:
+def _render_index_html(
+    embedded_data_json: str,
+    updated_label: str,
+    generated_at_iso: str,
+    title: str = "Pinball CTL Docs | Build, Test, and Run Homebrew Pinball",
+) -> str:
+    description = (
+        "Official Pinball CTL documentation with setup guides, feature walkthroughs, "
+        "screenshots, and troubleshooting."
+    )
+    keywords = (
+        "Pinball CTL, pinball docs, pinball controller, ESP32, Raspberry Pi, "
+        "rules engine, lighting, playfield, firmware, hardware"
+    )
+    site_url = "https://docs.pinballctl.com/"
+    org_url = "https://www.pinballctl.com/"
+    og_image_url = f"{site_url}assets/favicon.svg"
+    schema_graph = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Organization",
+                "@id": f"{org_url}#organization",
+                "name": "Pinball CTL",
+                "url": org_url,
+                "logo": og_image_url,
+            },
+            {
+                "@type": "WebSite",
+                "@id": f"{site_url}#website",
+                "url": site_url,
+                "name": "Pinball CTL Docs",
+                "description": description,
+                "inLanguage": "en",
+                "publisher": {"@id": f"{org_url}#organization"},
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": f"{site_url}#doc=README&q={{search_term_string}}",
+                    "query-input": "required name=search_term_string",
+                },
+            },
+            {
+                "@type": "WebPage",
+                "@id": f"{site_url}#webpage",
+                "url": site_url,
+                "name": title,
+                "description": description,
+                "isPartOf": {"@id": f"{site_url}#website"},
+                "about": {"@id": f"{org_url}#organization"},
+                "inLanguage": "en",
+                "dateModified": generated_at_iso,
+                "datePublished": generated_at_iso,
+            },
+        ],
+    }
+    schema_json = json.dumps(schema_graph, ensure_ascii=False, separators=(",", ":"))
+    schema_json = schema_json.replace("</", "<\\/")
     return f"""<!DOCTYPE html>
 <html lang=\"en\">
 <head>
   <meta charset=\"UTF-8\">
   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
   <title>{html.escape(title)}</title>
-  <meta name=\"description\" content=\"Pinball CTL documentation site.\">
+  <meta name=\"description\" content=\"{html.escape(description, quote=True)}\">
+  <meta name=\"keywords\" content=\"{html.escape(keywords, quote=True)}\">
+  <meta name=\"author\" content=\"Pinball CTL\">
+  <meta name=\"robots\" content=\"index,follow,max-image-preview:large\">
+  <meta name=\"theme-color\" content=\"#071019\">
+  <meta name=\"theme-color\" media=\"(prefers-color-scheme: dark)\" content=\"#071019\">
+  <meta name=\"theme-color\" media=\"(prefers-color-scheme: light)\" content=\"#102236\">
+  <meta name=\"application-name\" content=\"Pinball CTL Docs\">
+  <meta name=\"apple-mobile-web-app-capable\" content=\"yes\">
+  <meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black-translucent\">
+  <link rel=\"canonical\" href=\"{site_url}\">
+  <link rel=\"icon\" type=\"image/svg+xml\" href=\"./assets/favicon.svg\">
+  <link rel=\"shortcut icon\" href=\"./assets/favicon.svg\">
+  <meta property=\"og:type\" content=\"website\">
+  <meta property=\"og:locale\" content=\"en_GB\">
+  <meta property=\"og:site_name\" content=\"Pinball CTL Docs\">
+  <meta property=\"og:title\" content=\"{html.escape(title, quote=True)}\">
+  <meta property=\"og:description\" content=\"{html.escape(description, quote=True)}\">
+  <meta property=\"og:url\" content=\"{site_url}\">
+  <meta property=\"og:image\" content=\"{og_image_url}\">
+  <meta property=\"og:image:secure_url\" content=\"{og_image_url}\">
+  <meta property=\"og:image:type\" content=\"image/svg+xml\">
+  <meta property=\"og:image:width\" content=\"64\">
+  <meta property=\"og:image:height\" content=\"64\">
+  <meta property=\"og:image:alt\" content=\"Pinball CTL Docs icon\">
+  <meta property=\"og:updated_time\" content=\"{html.escape(generated_at_iso, quote=True)}\">
+  <meta name=\"twitter:card\" content=\"summary\">
+  <meta name=\"twitter:site\" content=\"@pinballctl\">
+  <meta name=\"twitter:title\" content=\"{html.escape(title, quote=True)}\">
+  <meta name=\"twitter:description\" content=\"{html.escape(description, quote=True)}\">
+  <meta name=\"twitter:image\" content=\"{og_image_url}\">
+  <meta name=\"twitter:image:alt\" content=\"Pinball CTL Docs icon\">
   <link rel=\"stylesheet\" href=\"./assets/css/style.css\">
   <link rel=\"stylesheet\" href=\"./assets/css/docs.css\">
+  <script type=\"application/ld+json\">{schema_json}</script>
 </head>
 <body>
   <header class=\"site-header\">
@@ -488,10 +576,113 @@ def _render_index_html(embedded_data_json: str, updated_label: str, title: str =
 """
 
 
+def _render_404_html(updated_label: str) -> str:
+    return f"""<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+  <meta charset=\"UTF-8\">
+  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+  <title>Page Not Found | Pinball CTL Docs</title>
+  <meta name=\"description\" content=\"The requested documentation page was not found.\">
+  <meta name=\"robots\" content=\"noindex,follow\">
+  <meta name=\"theme-color\" content=\"#071019\">
+  <link rel=\"icon\" type=\"image/svg+xml\" href=\"./assets/favicon.svg\">
+  <link rel=\"stylesheet\" href=\"./assets/css/style.css\">
+  <link rel=\"stylesheet\" href=\"./assets/css/docs.css\">
+  <style>
+    body {{
+      background:
+        radial-gradient(1200px 500px at 8% -2%, rgba(35, 209, 139, 0.15), transparent 55%),
+        linear-gradient(180deg, #050b13 0%, #071019 45%, #081427 100%);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      min-height: 100vh;
+    }}
+    .error-actions {{
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+    }}
+    .error-cta {{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.5rem;
+      padding: 0.62rem 1rem;
+      border-radius: 0.78rem;
+      border: 1px solid rgba(136, 163, 198, 0.35);
+      background: linear-gradient(180deg, rgba(17, 36, 58, 0.96), rgba(10, 24, 39, 0.96));
+      color: #eef5ff;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-decoration: none !important;
+      box-shadow: 0 10px 22px rgba(2, 8, 14, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      transition: transform 120ms ease, border-color 140ms ease, box-shadow 140ms ease, background 140ms ease;
+    }}
+    .error-cta:hover {{
+      border-color: rgba(150, 219, 255, 0.55);
+      background: linear-gradient(180deg, rgba(22, 46, 72, 0.98), rgba(12, 30, 47, 0.98));
+      color: #ffffff;
+      text-decoration: none !important;
+      transform: translateY(-1px);
+      box-shadow: 0 14px 26px rgba(2, 8, 14, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }}
+    .error-cta.primary {{
+      border-color: rgba(69, 214, 160, 0.58);
+      background: linear-gradient(145deg, #2bd69c, #15b58f);
+      color: #032018;
+      box-shadow: 0 12px 24px rgba(21, 181, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }}
+    .error-cta.primary:hover {{
+      border-color: rgba(108, 240, 191, 0.72);
+      background: linear-gradient(145deg, #39e0a9, #19c39a);
+      color: #022117;
+      box-shadow: 0 16px 30px rgba(25, 195, 154, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.24);
+    }}
+  </style>
+</head>
+<body>
+  <header class=\"site-header\">
+    <a class=\"brand\" href=\"./index.html#doc=README\" aria-label=\"Pinball CTL docs home\">
+      <span class=\"brand-dot\" aria-hidden=\"true\"></span>
+      <span>Pinball CTL Docs</span>
+    </a>
+    <nav class=\"site-nav\" aria-label=\"Main navigation\">
+      <span class=\"docs-updated\">Updated {html.escape(updated_label)}</span>
+      <a href=\"https://pinballctl.com\" class=\"nav-link website-link\">
+        <svg class=\"website-link__icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" focusable=\"false\">
+          <path d=\"M3 12h18M12 3a16 16 0 0 1 0 18M12 3a16 16 0 0 0 0 18M4.5 7.5h15M4.5 16.5h15\"/>
+        </svg>
+        <span>Pinball CTL Website</span>
+      </a>
+    </nav>
+  </header>
+
+  <main class=\"docs-shell\">
+    <section class=\"section\">
+      <div class=\"doc-panel\">
+        <p class=\"kicker hero-kicker\">Error 404</p>
+        <h1>Page Not Found</h1>
+        <p class=\"lead\">The page you requested does not exist in Pinball CTL Docs.</p>
+        <div class=\"error-actions\">
+          <a class=\"error-cta primary\" href=\"./index.html#doc=README\">Docs Home</a>
+          <a class=\"error-cta\" href=\"https://pinballctl.com\" target=\"_blank\" rel=\"noopener noreferrer\">Website</a>
+          <a class=\"error-cta\" href=\"https://github.com/pinballctl/pinballctl\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub Project</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
+"""
+
+
 def build(root: Path, website_root: Path | None = None) -> None:
     pages_root = root / "pages"
     assets_root = root / "assets"
     out_html = root / "index.html"
+    out_404 = root / "404.html"
     out_data = root / "site-data.json"
     css_dir = root / "assets" / "css"
     js_dir = root / "assets" / "js"
@@ -545,9 +736,14 @@ def build(root: Path, website_root: Path | None = None) -> None:
     payload_json = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
     out_data.write_text(payload_json, encoding="utf-8")
     updated_label = build_now.strftime("%Y-%m-%d %H:%M UTC")
-    out_html.write_text(_render_index_html(payload_json, updated_label), encoding="utf-8")
+    out_html.write_text(
+        _render_index_html(payload_json, updated_label, build_now.isoformat()),
+        encoding="utf-8",
+    )
+    out_404.write_text(_render_404_html(updated_label), encoding="utf-8")
 
     print(f"Built {out_html}")
+    print(f"Built {out_404}")
     print(f"Built {out_data} ({len(pages)} pages)")
 
 

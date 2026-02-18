@@ -28,7 +28,20 @@
     expanded: new Set(),
     searchTerm: "",
     lastResults: [],
+    lastTrackedSearchTerm: "",
   };
+
+  function trackEvent(eventName, params) {
+    try {
+      if (typeof window.gtag === "function") {
+        window.gtag("event", eventName, params || {});
+        return;
+      }
+      if (Array.isArray(window.dataLayer)) {
+        window.dataLayer.push(Object.assign({ event: eventName }, params || {}));
+      }
+    } catch (_) {}
+  }
 
   function getSearchInputs() {
     return Array.from(document.querySelectorAll("[data-docs-search]"));
@@ -313,6 +326,7 @@
     const query = state.searchTerm;
     if (!query || query.length < 2) {
       state.lastResults = [];
+      state.lastTrackedSearchTerm = "";
       renderSearchResults([]);
       return;
     }
@@ -323,6 +337,14 @@
       .map((x) => x.p)
       .slice(0, 120);
     state.lastResults = scored;
+    if (query !== state.lastTrackedSearchTerm) {
+      trackEvent("search", {
+        search_term: query,
+        results_count: scored.length,
+        search_provider: "pinballctl_docs_inline",
+      });
+      state.lastTrackedSearchTerm = query;
+    }
     renderSearchResults(scored);
   }
 
@@ -357,6 +379,13 @@
       if (link) {
         e.preventDefault();
         const slug = link.getAttribute("data-doc-slug") || "";
+        if (link.classList.contains("docs-search-result")) {
+          trackEvent("select_content", {
+            content_type: "docs_search_result",
+            item_id: slug,
+            search_term: state.searchTerm || "",
+          });
+        }
         if (slug) setHashSlug(slug);
       }
     });
