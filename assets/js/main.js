@@ -23,6 +23,7 @@
   const state = {
     tree: [],
     pagesBySlug: new Map(),
+    pageOrder: [],
     activeSlug: "",
     bookmarks: [],
     expanded: new Set(),
@@ -30,6 +31,87 @@
     lastResults: [],
     lastTrackedSearchTerm: "",
   };
+
+  function flattenTreeSlugs(nodes, out) {
+    if (!Array.isArray(nodes)) return;
+    nodes.forEach((n) => {
+      if (!n || typeof n !== "object") return;
+      if (n.type === "folder") {
+        flattenTreeSlugs(n.children || [], out);
+        return;
+      }
+      const slug = String(n.slug || "");
+      if (!slug || out.includes(slug)) return;
+      out.push(slug);
+    });
+  }
+
+  function buildPageOrder() {
+    const ordered = [];
+    flattenTreeSlugs(state.tree, ordered);
+    state.pagesBySlug.forEach((_page, slug) => {
+      if (!ordered.includes(slug)) ordered.push(slug);
+    });
+    state.pageOrder = ordered;
+  }
+
+  function sectionForSlug(slug) {
+    const parts = String(slug || "").split("/").filter(Boolean);
+    return parts.length > 1 ? parts[0] : "";
+  }
+
+  function renderBottomNav(slug) {
+    const idx = state.pageOrder.indexOf(slug);
+    const section = sectionForSlug(slug);
+
+    let prevSlug = "";
+    for (let i = idx - 1; i >= 0; i -= 1) {
+      const candidate = state.pageOrder[i];
+      if (sectionForSlug(candidate) === section) {
+        prevSlug = candidate;
+        break;
+      }
+    }
+
+    let nextSlug = "";
+    for (let i = idx + 1; i < state.pageOrder.length; i += 1) {
+      const candidate = state.pageOrder[i];
+      if (sectionForSlug(candidate) === section) {
+        nextSlug = candidate;
+        break;
+      }
+    }
+
+    const prevPage = prevSlug ? state.pagesBySlug.get(prevSlug) : null;
+    const nextPage = nextSlug ? state.pagesBySlug.get(nextSlug) : null;
+    if (!prevPage && !nextPage) return null;
+
+    const wrap = document.createElement("nav");
+    wrap.className = "docs-page-nav";
+    wrap.setAttribute("aria-label", "Document navigation");
+    if (prevPage && !nextPage) wrap.classList.add("has-prev-only");
+    if (!prevPage && nextPage) wrap.classList.add("has-next-only");
+
+    const prevTitle = prevPage ? stripOrderPrefix(prevPage.title || prevSlug) : "No previous document";
+    const nextTitle = nextPage ? stripOrderPrefix(nextPage.title || nextSlug) : "No next document";
+
+    wrap.innerHTML = [
+      prevPage ? `
+        <a href="#doc=${encodeURIComponent(prevSlug)}" data-doc-slug="${esc(prevSlug)}" class="docs-page-nav-btn docs-page-nav-btn-prev" aria-label="Previous document: ${esc(prevTitle)}">
+          <span class="docs-page-nav-dir">Back</span>
+          <span class="docs-page-nav-title">${esc(prevTitle)}</span>
+        </a>
+      ` : "",
+      nextPage ? `
+        <a href="#doc=${encodeURIComponent(nextSlug)}" data-doc-slug="${esc(nextSlug)}" class="docs-page-nav-btn docs-page-nav-btn-next" aria-label="Next document: ${esc(nextTitle)}">
+          <span class="docs-page-nav-dir">Next</span>
+          <span class="docs-page-nav-title">${esc(nextTitle)}</span>
+        </a>
+      ` : "",
+    ].join("");
+
+    return wrap;
+  }
 
   function trackEvent(eventName, params) {
     try {
@@ -256,6 +338,8 @@
 
     state.activeSlug = slug;
     article.innerHTML = page.html || `<h1>${esc(page.title || slug)}</h1><p>No content.</p>`;
+    const bottomNav = renderBottomNav(slug);
+    if (bottomNav) article.appendChild(bottomNav);
     attachImageModal(article);
 
     article.querySelectorAll('a[href^="#doc="]').forEach((a) => {
@@ -470,6 +554,7 @@
     state.tree = Array.isArray(data.tree) ? data.tree : [];
     const pages = Array.isArray(data.pages) ? data.pages : [];
     pages.forEach((p) => state.pagesBySlug.set(String(p.slug || ""), p));
+    buildPageOrder();
 
     renderTree();
     renderBookmarks();

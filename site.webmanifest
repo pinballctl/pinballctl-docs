@@ -1,0 +1,564 @@
+{
+  "id": "https://docs.pinballctl.com/",
+  "name": "Pinball CTL Documentation",
+  "short_name": "Pinball CTL Docs",
+  "description": "Official Pinball CTL documentation with setup guides, feature walkthroughs, screenshots, and troubleshooting.",
+  "lang": "en-GB",
+  "dir": "ltr",
+  "start_url": "/#doc=README",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui",
+    "browser"
+  ],
+  "orientation": "any",
+  "background_color": "#071019",
+  "theme_color": "#071019",
+  "categories": [
+    "documentation",
+    "developer",
+    "utilities",
+    "education",
+    "technology"
+  ],
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "launch_handler": {
+    "client_mode": [
+      "navigate-existing",
+      "auto"
+    ]
+  },
+  "handle_links": "preferred",
+  "icons": [
+    {
+      "src": "/assets/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/assets/screenshots/control-center-recent.png",
+      "type": "image/png",
+      "label": "Control Center Recent",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/control-center-search.png",
+      "type": "image/png",
+      "label": "Control Center Search",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/control-center.png",
+      "type": "image/png",
+      "label": "Control Center",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/dashboard-cards.png",
+      "type": "image/png",
+      "label": "Dashboard Cards",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/dashboard.png",
+      "type": "image/png",
+      "label": "Dashboard",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-audio-audio-usage-map.png",
+      "type": "image/png",
+      "label": "Feature Audio Audio Usage Map",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-audio-cues.png",
+      "type": "image/png",
+      "label": "Feature Audio Cues",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-audio-library.png",
+      "type": "image/png",
+      "label": "Feature Audio Library",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-audio-outputs.png",
+      "type": "image/png",
+      "label": "Feature Audio Outputs",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-audio.png",
+      "type": "image/png",
+      "label": "Feature Audio",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-esplink.png",
+      "type": "image/png",
+      "label": "Feature Esplink",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-firmware.png",
+      "type": "image/png",
+      "label": "Feature Firmware",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-hardware.png",
+      "type": "image/png",
+      "label": "Feature Hardware",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-layout-options.png",
+      "type": "image/png",
+      "label": "Feature Layout Options",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-layout-stage.png",
+      "type": "image/png",
+      "label": "Feature Layout Stage",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-layout.png",
+      "type": "image/png",
+      "label": "Feature Layout",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-lighting-fixtures.png",
+      "type": "image/png",
+      "label": "Feature Lighting Fixtures",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-lighting-stage.png",
+      "type": "image/png",
+      "label": "Feature Lighting Stage",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-lighting.png",
+      "type": "image/png",
+      "label": "Feature Lighting",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-logs.png",
+      "type": "image/png",
+      "label": "Feature Logs",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-manual.png",
+      "type": "image/png",
+      "label": "Feature Manual",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-media-displays.png",
+      "type": "image/png",
+      "label": "Feature Media Displays",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-media-library.png",
+      "type": "image/png",
+      "label": "Feature Media Library",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-media-runtime.png",
+      "type": "image/png",
+      "label": "Feature Media Runtime",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-media-stage.png",
+      "type": "image/png",
+      "label": "Feature Media Stage",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-media.png",
+      "type": "image/png",
+      "label": "Feature Media",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-rules-sync-complete.png",
+      "type": "image/png",
+      "label": "Feature Rules Sync Complete",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-rules-sync-uploading.png",
+      "type": "image/png",
+      "label": "Feature Rules Sync Uploading",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-rules.png",
+      "type": "image/png",
+      "label": "Feature Rules",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-scoring-combos.png",
+      "type": "image/png",
+      "label": "Feature Scoring Combos",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-scoring-scoring-rules.png",
+      "type": "image/png",
+      "label": "Feature Scoring Scoring Rules",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-scoring.png",
+      "type": "image/png",
+      "label": "Feature Scoring",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-servicelog-edit.png",
+      "type": "image/png",
+      "label": "Feature Servicelog Edit",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-servicelog.png",
+      "type": "image/png",
+      "label": "Feature Servicelog",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-settings-general.png",
+      "type": "image/png",
+      "label": "Feature Settings General",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-settings-import-export.png",
+      "type": "image/png",
+      "label": "Feature Settings Import Export",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-settings-settings.png",
+      "type": "image/png",
+      "label": "Feature Settings Settings",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-settings.png",
+      "type": "image/png",
+      "label": "Feature Settings",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/feature-wifi.png",
+      "type": "image/png",
+      "label": "Feature Wifi",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshots/login.png",
+      "type": "image/png",
+      "label": "Login",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-control-center-bookmarks-hover.png",
+      "type": "image/png",
+      "label": "Control Center Bookmarks Hover",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-control-center-bookmarks.png",
+      "type": "image/png",
+      "label": "Control Center Bookmarks",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-control-center-recent.png",
+      "type": "image/png",
+      "label": "Control Center Recent",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-control-center-search.png",
+      "type": "image/png",
+      "label": "Control Center Search",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-control-center.png",
+      "type": "image/png",
+      "label": "Control Center",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-dashboard.png",
+      "type": "image/png",
+      "label": "Dashboard",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-audio-audio-usage-map.png",
+      "type": "image/png",
+      "label": "Feature Audio Audio Usage Map",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-audio-cues.png",
+      "type": "image/png",
+      "label": "Feature Audio Cues",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-audio-library.png",
+      "type": "image/png",
+      "label": "Feature Audio Library",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-audio-outputs.png",
+      "type": "image/png",
+      "label": "Feature Audio Outputs",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-esplink.png",
+      "type": "image/png",
+      "label": "Feature Esplink",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-firmware.png",
+      "type": "image/png",
+      "label": "Feature Firmware",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-hardware.png",
+      "type": "image/png",
+      "label": "Feature Hardware",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-layout-options.png",
+      "type": "image/png",
+      "label": "Feature Layout Options",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-layout-stage.png",
+      "type": "image/png",
+      "label": "Feature Layout Stage",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-lighting-fixtures.png",
+      "type": "image/png",
+      "label": "Feature Lighting Fixtures",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-lighting-stage.png",
+      "type": "image/png",
+      "label": "Feature Lighting Stage",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-logs.png",
+      "type": "image/png",
+      "label": "Feature Logs",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-media-displays.png",
+      "type": "image/png",
+      "label": "Feature Media Displays",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-media-library.png",
+      "type": "image/png",
+      "label": "Feature Media Library",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-media-runtime.png",
+      "type": "image/png",
+      "label": "Feature Media Runtime",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-media-stage.png",
+      "type": "image/png",
+      "label": "Feature Media Stage",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-rules-expanded.png",
+      "type": "image/png",
+      "label": "Feature Rules Expanded",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-rules-tab-actions.png",
+      "type": "image/png",
+      "label": "Feature Rules Tab Actions",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-rules-tab-conditions.png",
+      "type": "image/png",
+      "label": "Feature Rules Tab Conditions",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-rules-tab-metadata.png",
+      "type": "image/png",
+      "label": "Feature Rules Tab Metadata",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-rules-tab-summary.png",
+      "type": "image/png",
+      "label": "Feature Rules Tab Summary",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-rules-tab-triggers.png",
+      "type": "image/png",
+      "label": "Feature Rules Tab Triggers",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-rules.png",
+      "type": "image/png",
+      "label": "Feature Rules",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-scoring-combos.png",
+      "type": "image/png",
+      "label": "Feature Scoring Combos",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-scoring-scoring-rules.png",
+      "type": "image/png",
+      "label": "Feature Scoring Scoring Rules",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-scoring.png",
+      "type": "image/png",
+      "label": "Feature Scoring",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-servicelog.png",
+      "type": "image/png",
+      "label": "Feature Servicelog",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-settings-import-export.png",
+      "type": "image/png",
+      "label": "Feature Settings Import Export",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-settings-settings.png",
+      "type": "image/png",
+      "label": "Feature Settings Settings",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-settings.png",
+      "type": "image/png",
+      "label": "Feature Settings",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-feature-wifi.png",
+      "type": "image/png",
+      "label": "Feature Wifi",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-login-light.png",
+      "type": "image/png",
+      "label": "Login Light",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-login.png",
+      "type": "image/png",
+      "label": "Login",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-playfield-component-inspector.png",
+      "type": "image/png",
+      "label": "Playfield Component Inspector",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/media/screenshot-playfield-components-card.png",
+      "type": "image/png",
+      "label": "Playfield Components Card",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Pinball CTL Manual",
+      "short_name": "Pinball CTL Manual",
+      "description": "Open Pinball CTL Manual",
+      "url": "/#doc=README"
+    },
+    {
+      "name": "Getting Started",
+      "short_name": "Getting Started",
+      "description": "Open Getting Started",
+      "url": "/#doc=1-user-guide/1-getting-started"
+    },
+    {
+      "name": "Rules",
+      "short_name": "Rules",
+      "description": "Open Rules",
+      "url": "/#doc=1-user-guide/7.1-rules"
+    },
+    {
+      "name": "Bridge Protocol",
+      "short_name": "Bridge Protocol",
+      "description": "Open Bridge Protocol",
+      "url": "/#doc=2-technical-notes/bridge-protocol"
+    }
+  ]
+}

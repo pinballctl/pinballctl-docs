@@ -25,6 +25,15 @@ except Exception:
     _markdown = None
 
 _ORDERED_NAME_RE = re.compile(r"^\s*(\d+)\s*[-_. )]+\s*(.*)$")
+_ICON_NAME_SIZE_RE = re.compile(r"(?<!\d)(\d{2,4})[xX](\d{2,4})(?!\d)")
+_IMG_MEDIA_TYPES = {
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".webp": "image/webp",
+    ".avif": "image/avif",
+    ".svg": "image/svg+xml",
+}
 
 
 def _ordered_name(raw: str) -> tuple[int, str]:
@@ -50,6 +59,161 @@ def _title_from_markdown(md_path: Path) -> str:
     except Exception:
         return stem
     return stem
+
+
+def _guess_media_type(path: Path) -> str | None:
+    return _IMG_MEDIA_TYPES.get(path.suffix.lower())
+
+
+def _human_label_from_name(name: str) -> str:
+    text = str(name or "").strip()
+    text = re.sub(r"\.[A-Za-z0-9]+$", "", text)
+    text = re.sub(r"^screenshot[-_. ]*", "", text, flags=re.IGNORECASE)
+    text = text.replace("-", " ").replace("_", " ").strip()
+    text = re.sub(r"\s+", " ", text)
+    return text.title() or "Screenshot"
+
+
+def _collect_manifest_icons(root: Path) -> list[dict]:
+    icons: list[dict] = []
+    seen: set[tuple[str, str, str]] = set()
+
+    def _add_icon(src: str, media_type: str, sizes: str | None, purpose: str | None) -> None:
+        key = (src, media_type, purpose or "")
+        if key in seen:
+            return
+        seen.add(key)
+        icon: dict[str, str] = {"src": src, "type": media_type}
+        if sizes:
+            icon["sizes"] = sizes
+        if purpose:
+            icon["purpose"] = purpose
+        icons.append(icon)
+
+    favicon_svg = root / "assets" / "favicon.svg"
+    if favicon_svg.exists():
+        _add_icon("/assets/favicon.svg", "image/svg+xml", "any", "any")
+        _add_icon("/assets/favicon.svg", "image/svg+xml", "any", "maskable")
+
+    assets_root = root / "assets"
+    if assets_root.exists():
+        for img in sorted(assets_root.rglob("*")):
+            if not img.is_file():
+                continue
+            stem_low = img.stem.lower()
+            if "icon" not in stem_low and "favicon" not in stem_low:
+                continue
+            media_type = _guess_media_type(img)
+            if not media_type:
+                continue
+            rel = "/" + img.relative_to(root).as_posix()
+            size_match = _ICON_NAME_SIZE_RE.search(img.stem)
+            sizes = f"{size_match.group(1)}x{size_match.group(2)}" if size_match else ("any" if media_type == "image/svg+xml" else None)
+            _add_icon(rel, media_type, sizes, "any")
+
+    return icons
+
+
+def _collect_manifest_screenshots(root: Path) -> list[dict]:
+    screenshots: list[dict] = []
+    seen_src: set[str] = set()
+    scan_dirs = (root / "assets" / "screenshots", root / "media")
+
+    for base in scan_dirs:
+        if not base.exists():
+            continue
+        for img in sorted(base.rglob("*")):
+            if not img.is_file():
+                continue
+            if img.name.startswith("."):
+                continue
+            media_type = _guess_media_type(img)
+            if not media_type:
+                continue
+            if base.name == "media" and not img.name.lower().startswith("screenshot-"):
+                continue
+            rel = "/" + img.relative_to(root).as_posix()
+            if rel in seen_src:
+                continue
+            seen_src.add(rel)
+            screenshots.append(
+                {
+                    "src": rel,
+                    "type": media_type,
+                    "label": _human_label_from_name(img.name),
+                    "form_factor": "wide",
+                }
+            )
+
+    return screenshots
+
+
+def _build_manifest_shortcuts(default_slug: str, pages: list[dict]) -> list[dict]:
+    by_slug = {str(p.get("slug") or ""): p for p in pages}
+    preferred = [
+        default_slug,
+        "1-user-guide/1-getting-started",
+        "1-user-guide/7.1-rules",
+        "2-technical-notes/bridge-protocol",
+    ]
+    selected: list[str] = []
+    for slug in preferred:
+        s = str(slug or "")
+        if not s or s not in by_slug or s in selected:
+            continue
+        selected.append(s)
+    for p in pages:
+        if len(selected) >= 4:
+            break
+        slug = str(p.get("slug") or "")
+        if slug and slug not in selected:
+            selected.append(slug)
+
+    shortcuts: list[dict] = []
+    for slug in selected[:4]:
+        page = by_slug.get(slug) or {}
+        title = str(page.get("title") or slug).strip()
+        label = title[:28].strip() or "Doc"
+        shortcuts.append(
+            {
+                "name": title,
+                "short_name": label,
+                "description": f"Open {title}",
+                "url": f"/#doc={slug}",
+            }
+        )
+    return shortcuts
+
+
+def _build_manifest_payload(root: Path, default_slug: str, pages: list[dict]) -> dict:
+    screenshots = _collect_manifest_screenshots(root)
+    icons = _collect_manifest_icons(root)
+    shortcuts = _build_manifest_shortcuts(default_slug, pages)
+
+    payload: dict = {
+        "id": "https://docs.pinballctl.com/",
+        "name": "Pinball CTL Documentation",
+        "short_name": "Pinball CTL Docs",
+        "description": "Official Pinball CTL documentation with setup guides, feature walkthroughs, screenshots, and troubleshooting.",
+        "lang": "en-GB",
+        "dir": "ltr",
+        "start_url": "/#doc=README",
+        "scope": "/",
+        "display": "standalone",
+        "display_override": ["window-controls-overlay", "standalone", "minimal-ui", "browser"],
+        "orientation": "any",
+        "background_color": "#071019",
+        "theme_color": "#071019",
+        "categories": ["documentation", "developer", "utilities", "education", "technology"],
+        "prefer_related_applications": False,
+        "related_applications": [],
+        "launch_handler": {"client_mode": ["navigate-existing", "auto"]},
+        "handle_links": "preferred",
+        "icons": icons,
+        "screenshots": screenshots,
+        "shortcuts": shortcuts,
+    }
+    return payload
 
 
 def _slug_for(md_path: Path, root: Path) -> str:
@@ -500,6 +664,7 @@ def _render_index_html(
   <meta name=\"twitter:description\" content=\"{html.escape(description, quote=True)}\">
   <meta name=\"twitter:image\" content=\"{og_image_url}\">
   <meta name=\"twitter:image:alt\" content=\"Pinball CTL Docs icon\">
+  <link rel=\"manifest\" href=\"./site.webmanifest\">
   <link rel=\"stylesheet\" href=\"./assets/css/style.css\">
   <link rel=\"stylesheet\" href=\"./assets/css/docs.css\">
   <script type=\"application/ld+json\">{schema_json}</script>
@@ -602,6 +767,7 @@ def _render_404_html(updated_label: str) -> str:
   <meta name=\"robots\" content=\"noindex,follow\">
   <meta name=\"theme-color\" content=\"#071019\">
   <link rel=\"icon\" type=\"image/svg+xml\" href=\"./assets/favicon.svg\">
+  <link rel=\"manifest\" href=\"./site.webmanifest\">
   <link rel=\"stylesheet\" href=\"./assets/css/style.css\">
   <link rel=\"stylesheet\" href=\"./assets/css/docs.css\">
   <style>
@@ -699,6 +865,7 @@ def build(root: Path, website_root: Path | None = None) -> None:
     out_html = root / "index.html"
     out_404 = root / "404.html"
     out_data = root / "site-data.json"
+    out_manifest = root / "site.webmanifest"
     css_dir = root / "assets" / "css"
     js_dir = root / "assets" / "js"
     out_style = css_dir / "style.css"
@@ -756,10 +923,16 @@ def build(root: Path, website_root: Path | None = None) -> None:
         encoding="utf-8",
     )
     out_404.write_text(_render_404_html(updated_label), encoding="utf-8")
+    manifest_payload = _build_manifest_payload(root, default_slug, pages)
+    out_manifest.write_text(
+        json.dumps(manifest_payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
 
     print(f"Built {out_html}")
     print(f"Built {out_404}")
     print(f"Built {out_data} ({len(pages)} pages)")
+    print(f"Built {out_manifest} ({len(manifest_payload.get('screenshots', []))} screenshots)")
 
 
 def main() -> None:

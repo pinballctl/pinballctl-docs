@@ -11,11 +11,28 @@ Lighting is split into two tabs:
 1. `Stage`
 2. `Fixtures`
 
+
+## Fixtures Tab
+
+<img src="./media/screenshot-feature-lighting-fixtures.png" data-source='{"url":"/login","dark_mode":true,"settle_ms":420,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"},{"action":"click","selector":"[data-menu-toggle]","wait_for":"body.flood-open"},{"action":"click","selector":"[data-nav-link][data-module-name=\"lighting\"]","wait_for":"#lighting-tab-fixtures"},{"action":"click","selector":"#lighting-tab-fixtures","wait_for":"#lighting-tab-fixtures-pane.show.active"}]}' alt="Lighting fixtures tab" style="width: 100%;height: auto;">
+
+Sourced from the hardware mapping, the fixtures lists all the lighting hardware available and allow you to further refine the information. The colour can be selected for single LED's and for RGB strips, the number of pixels, length and layout can be defined.
+
+Use it to:
+
+- review available fixtures
+- inspect fixture layout/type metadata
+- control cast targeting and selection scope
+- validate which fixtures a scene will affect
+
+
 ## Stage Tab
 
 <img src="./media/screenshot-feature-lighting-stage.png" data-source='{"url":"/login","next_url":"/lighting","dark_mode":true,"settle_ms":320,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Lighting stage tab" style="width: 100%;height: auto;">
 
 Stage is where scene playback and scene-level authoring happen.
+
+A scene is a set of lighting patterns build up either on a custom timeline or by choosing pre-defined patterns. Multiple scenes can be created and via the Rules manager can be triggered to play individually or layered.
 
 Main areas:
 
@@ -46,21 +63,6 @@ Playback behavior:
 - preview follows compiled output path
 - updates reflect scene/pattern changes after compile
 
-## Fixtures Tab
-
-<img src="./media/screenshot-feature-lighting-fixtures.png" data-source='{"url":"/login","dark_mode":true,"settle_ms":420,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"},{"action":"click","selector":"[data-menu-toggle]","wait_for":"body.flood-open"},{"action":"click","selector":"[data-nav-link][data-module-name=\"lighting\"]","wait_for":"#lighting-tab-fixtures"},{"action":"click","selector":"#lighting-tab-fixtures","wait_for":"#lighting-tab-fixtures-pane.show.active"}]}' alt="Lighting fixtures tab" style="width: 100%;height: auto;">
-
-Fixtures is focused on fixture inventory, targeting, and per-fixture context.
-
-Use it to:
-
-- review available fixtures
-- inspect fixture layout/type metadata
-- control cast targeting and selection scope
-- validate which fixtures a scene will affect
-
-This tab is useful when tuning cast masks or checking fixture coverage before sync.
-
 ## Top Actions
 
 - `Add Scene`: create a new scene
@@ -69,6 +71,10 @@ This tab is useful when tuning cast masks or checking fixture coverage before sy
 - `Save Changes`: persist local lighting config
 
 If local and ESP revisions differ, an out-of-sync warning is shown.
+
+## Custom Timeline
+
+The custom timeline gives you exact control of which pixels are on/off and the colour at every specific frame. Pixels can be selected individually or multi selected.
 
 ## Timeline Tags
 
