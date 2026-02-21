@@ -15,6 +15,7 @@ import argparse
 import html
 import json
 import re
+import struct
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import quote
@@ -63,6 +64,77 @@ def _title_from_markdown(md_path: Path) -> str:
 
 def _guess_media_type(path: Path) -> str | None:
     return _IMG_MEDIA_TYPES.get(path.suffix.lower())
+
+
+def _image_size(path: Path) -> tuple[int, int] | None:
+    media_type = _guess_media_type(path)
+    if not media_type:
+        return None
+    try:
+        data = path.read_bytes()
+    except Exception:
+        return None
+
+    if media_type == "image/png":
+        if len(data) >= 24 and data.startswith(b"\x89PNG\r\n\x1a\n"):
+            w = int.from_bytes(data[16:20], "big")
+            h = int.from_bytes(data[20:24], "big")
+            if w > 0 and h > 0:
+                return (w, h)
+        return None
+
+    if media_type == "image/jpeg":
+        if len(data) < 4 or data[0:2] != b"\xff\xd8":
+            return None
+        i = 2
+        while i + 9 < len(data):
+            if data[i] != 0xFF:
+                i += 1
+                continue
+            marker = data[i + 1]
+            if marker in (0xD8, 0xD9):
+                i += 2
+                continue
+            if i + 4 > len(data):
+                return None
+            seg_len = int.from_bytes(data[i + 2:i + 4], "big")
+            if seg_len < 2 or i + 2 + seg_len > len(data):
+                return None
+            if marker in (0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7, 0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF):
+                if i + 9 > len(data):
+                    return None
+                h = int.from_bytes(data[i + 5:i + 7], "big")
+                w = int.from_bytes(data[i + 7:i + 9], "big")
+                if w > 0 and h > 0:
+                    return (w, h)
+                return None
+            i += 2 + seg_len
+        return None
+
+    if media_type == "image/webp":
+        if len(data) < 30 or data[0:4] != b"RIFF" or data[8:12] != b"WEBP":
+            return None
+        chunk = data[12:16]
+        if chunk == b"VP8X" and len(data) >= 30:
+            w = 1 + int.from_bytes(data[24:27], "little")
+            h = 1 + int.from_bytes(data[27:30], "little")
+            if w > 0 and h > 0:
+                return (w, h)
+        if chunk == b"VP8 " and len(data) >= 30:
+            # Frame header width/height are 14-bit little-endian fields.
+            w = struct.unpack("<H", data[26:28])[0] & 0x3FFF
+            h = struct.unpack("<H", data[28:30])[0] & 0x3FFF
+            if w > 0 and h > 0:
+                return (w, h)
+        if chunk == b"VP8L" and len(data) >= 25:
+            b0, b1, b2, b3 = data[21], data[22], data[23], data[24]
+            w = 1 + (((b1 & 0x3F) << 8) | b0)
+            h = 1 + (((b3 & 0x0F) << 10) | (b2 << 2) | ((b1 & 0xC0) >> 6))
+            if w > 0 and h > 0:
+                return (w, h)
+        return None
+
+    return None
 
 
 def _human_label_from_name(name: str) -> str:
@@ -136,10 +208,12 @@ def _collect_manifest_screenshots(root: Path) -> list[dict]:
             if rel in seen_src:
                 continue
             seen_src.add(rel)
+            dims = _image_size(img)
             screenshots.append(
                 {
                     "src": rel,
                     "type": media_type,
+                    "sizes": f"{dims[0]}x{dims[1]}" if dims is not None else "1x1",
                     "label": _human_label_from_name(img.name),
                     "form_factor": "wide",
                 }
