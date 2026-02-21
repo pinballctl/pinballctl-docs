@@ -11,9 +11,9 @@ Not in scope:
 
 ## Core Documents
 
-- [App Layout (Physical + Code Paths)](app-layout.md)
-- [Architecture](architecture.md)
+- [App Layout (Physical + Code Paths)](2-app-layout.md)
+- [Architecture](1-architecture.md)
 - [Bridge Protocol](bridge-protocol.md)
-- [Bridge Event Flow and Throughput](bridge-event-flow-and-throughput.md)
+- [Bridge Event Flow and Throughput](3-bridge-event-flow.md)
 - [Event Manager](event-manager.md)
 - [Modules API Surface](modules-api-surface.md)
