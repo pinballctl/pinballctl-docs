@@ -1,14 +1,33 @@
 # Bridge Protocol
 
-Bridge communication is framed JSON only.
+## Framing
 
-## Frame Format
+All Pi -> ESP commands and ESP -> Pi responses/events use framed transport:
+- `uint32_be length`
+- `length` bytes UTF-8 JSON payload
 
-- 4-byte big-endian payload length
-- UTF-8 JSON payload
+No line-based parsing is supported.
 
-## Notes
+## Command Shape
 
-- No line-based parsing.
-- Host commands and responses are framed.
-- Keep command payloads explicit and version-friendly.
+Commands are JSON objects with explicit `cmd` values.
+Typical commands include:
+- `HELLO`
+- `GET_INFO`
+- `SET_RULES`
+- `EVENT_FIRE`
+- `BLOB_BEGIN` / `BLOB_CHUNK` / `BLOB_END`
+
+Response-required commands should include a `reqId` so bridge/clients can correlate replies.
+
+## Bridge Behavior
+
+- Outbound send path serializes compact JSON and writes framed bytes.
+- Inbound receive path decodes frames, parses JSON, and routes by message type.
+- High-rate event traffic is intentionally handled separately from strict RPC flow.
+
+## Safety/Compatibility Rules
+
+- Do not reintroduce newline-delimited command transport.
+- Keep payloads explicit and version-friendly.
+- Preserve backwards compatibility where feasible; version intentional breaking changes.

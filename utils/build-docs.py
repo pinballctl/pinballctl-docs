@@ -260,19 +260,28 @@ def _build_manifest_shortcuts(default_slug: str, pages: list[dict]) -> list[dict
 
 
 def _build_manifest_payload(root: Path, default_slug: str, pages: list[dict]) -> dict:
-    screenshots = _collect_manifest_screenshots(root)
+    site_url = "https://docs.pinballctl.com"
     icons = _collect_manifest_icons(root)
     shortcuts = _build_manifest_shortcuts(default_slug, pages)
 
+    for icon in icons:
+        src = str(icon.get("src") or "")
+        if src.startswith("/"):
+            icon["src"] = f"{site_url}{src}"
+    for shortcut in shortcuts:
+        url = str(shortcut.get("url") or "")
+        if url.startswith("/"):
+            shortcut["url"] = f"{site_url}{url}"
+
     payload: dict = {
-        "id": "https://docs.pinballctl.com/",
+        "id": f"{site_url}/",
         "name": "Pinball CTL Documentation",
         "short_name": "Pinball CTL Docs",
         "description": "Official Pinball CTL documentation with setup guides, feature walkthroughs, screenshots, and troubleshooting.",
         "lang": "en-GB",
         "dir": "ltr",
-        "start_url": "/#doc=README",
-        "scope": "/",
+        "start_url": f"{site_url}/#doc=README",
+        "scope": f"{site_url}/",
         "display": "standalone",
         "display_override": ["window-controls-overlay", "standalone", "minimal-ui", "browser"],
         "orientation": "any",
@@ -284,7 +293,6 @@ def _build_manifest_payload(root: Path, default_slug: str, pages: list[dict]) ->
         "launch_handler": {"client_mode": ["navigate-existing", "auto"]},
         "handle_links": "preferred",
         "icons": icons,
-        "screenshots": screenshots,
         "shortcuts": shortcuts,
     }
     return payload
@@ -1006,7 +1014,10 @@ def build(root: Path, website_root: Path | None = None) -> None:
     print(f"Built {out_html}")
     print(f"Built {out_404}")
     print(f"Built {out_data} ({len(pages)} pages)")
-    print(f"Built {out_manifest} ({len(manifest_payload.get('screenshots', []))} screenshots)")
+    print(
+        f"Built {out_manifest} "
+        f"({len(manifest_payload.get('icons', []))} icons, {len(manifest_payload.get('shortcuts', []))} shortcuts)"
+    )
 
 
 def main() -> None:
