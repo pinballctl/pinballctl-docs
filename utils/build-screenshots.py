@@ -26,6 +26,7 @@ Supported keys:
     - value: value for type action
     - timeout_ms: optional wait timeout override
     - wait_for: optional selector to wait for after step
+- next_click: click path run after next_url navigation (same format as click)
 """
 from __future__ import annotations
 
@@ -72,6 +73,7 @@ class ShotPlan:
     settle_ms: int
     highlight: list[dict[str, str]]
     click: list[Any]
+    next_click: list[Any]
     username_selector: str
     password_selector: str
     submit_selector: str
@@ -241,6 +243,9 @@ def build_plan(
     click = spec.get("click", [])
     if not isinstance(click, list):
         raise ValueError(f"{source}:{line} 'click' must be a list")
+    next_click = spec.get("next_click", [])
+    if not isinstance(next_click, list):
+        raise ValueError(f"{source}:{line} 'next_click' must be a list")
 
     return ShotPlan(
         source=source,
@@ -260,6 +265,7 @@ def build_plan(
         settle_ms=settle_ms,
         highlight=highlight,
         click=click,
+        next_click=next_click,
         username_selector=str(spec.get("username_selector", "input[name='username']")),
         password_selector=str(spec.get("password_selector", "input[name='password']")),
         submit_selector=str(spec.get("submit_selector", "button[type='submit']")),
@@ -322,7 +328,7 @@ def _run_login(page: Any, plan: ShotPlan, timeout_ms: int) -> None:
         page.click(alt_submit, timeout=timeout_ms)
 
 
-def _run_click_steps(page: Any, plan: ShotPlan, timeout_ms: int) -> None:
+def _run_click_steps(page: Any, plan: ShotPlan, timeout_ms: int, steps: list[Any]) -> None:
     username_selectors = {
         plan.username_selector,
         "input[name='username']",
@@ -342,7 +348,7 @@ def _run_click_steps(page: Any, plan: ShotPlan, timeout_ms: int) -> None:
         "input[type='password']",
     }
 
-    for idx, step in enumerate(plan.click, start=1):
+    for idx, step in enumerate(steps, start=1):
         if isinstance(step, str):
             page.wait_for_selector(step, timeout=timeout_ms, state="visible")
             page.click(step, timeout=timeout_ms)
@@ -468,9 +474,10 @@ def run_capture(plans: list[ShotPlan], timeout_ms: int, headed: bool, overwrite:
                         _run_login(page, plan, timeout_ms)
                     if plan.dark_toggle:
                         page.click(plan.dark_toggle, timeout=timeout_ms)
-                    _run_click_steps(page, plan, timeout_ms)
+                    _run_click_steps(page, plan, timeout_ms, plan.click)
                     if plan.next_url:
                         page.goto(plan.next_url, wait_until="domcontentloaded", timeout=timeout_ms)
+                        _run_click_steps(page, plan, timeout_ms, plan.next_click)
                     if plan.wait_for:
                         page.wait_for_selector(plan.wait_for, timeout=timeout_ms)
                     _apply_highlight(page, plan)
