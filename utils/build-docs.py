@@ -749,6 +749,14 @@ def _render_index_html(
   <link rel=\"manifest\" href=\"./site.webmanifest\">
   <link rel=\"stylesheet\" href=\"./assets/css/style.css\">
   <link rel=\"stylesheet\" href=\"./assets/css/docs.css\">
+  <!-- Google tag (gtag.js) -->
+  <script async src=\"https://www.googletagmanager.com/gtag/js?id=G-MH2T2SDF1P\"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){{dataLayer.push(arguments);}}
+    gtag('js', new Date());
+    gtag('config', 'G-MH2T2SDF1P');
+  </script>
   <script type=\"application/ld+json\">{schema_json}</script>
 </head>
 <body>
@@ -852,6 +860,14 @@ def _render_404_html(updated_label: str) -> str:
   <link rel=\"manifest\" href=\"./site.webmanifest\">
   <link rel=\"stylesheet\" href=\"./assets/css/style.css\">
   <link rel=\"stylesheet\" href=\"./assets/css/docs.css\">
+  <!-- Google tag (gtag.js) -->
+  <script async src=\"https://www.googletagmanager.com/gtag/js?id=G-MH2T2SDF1P\"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){{dataLayer.push(arguments);}}
+    gtag('js', new Date());
+    gtag('config', 'G-MH2T2SDF1P');
+  </script>
   <style>
     body {{
       background:
