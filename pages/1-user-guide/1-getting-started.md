@@ -104,6 +104,8 @@ sudo apt install -y python3-venv python3-pip git
 
 ### Create and activate a venv
 
+A venv keeps each project self-contained, portable, and much easier to manage—especially as projects grow or when working across multiple machines.
+
 ```bash
 mkdir -p ~/pinballctl
 cd ~/pinballctl
