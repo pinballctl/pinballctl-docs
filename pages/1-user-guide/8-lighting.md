@@ -63,10 +63,17 @@ Playback behavior:
 - preview follows compiled output path
 - updates reflect scene/pattern changes after compile
 
+Selection controls (available on Stage in both timeline and non-timeline modes):
+
+- click a pixel to select it
+- click and drag on the stage to box-select multiple pixels
+- hold `Shift` and click pixels to add/remove individual pixels from the current selection
+
 ## Top Actions
 
 - `Add Scene`: create a new scene
 - `Play` / `Stop`: preview selected scene
+- `All Lights On/Off`: force all visible lights on to help locate fixtures quickly, then toggle back to normal preview
 - `Sync Lighting`: compile and queue lighting sync to ESP
 - `Save Changes`: persist local lighting config
 
@@ -74,7 +81,7 @@ If local and ESP revisions differ, an out-of-sync warning is shown.
 
 ## Custom Timeline
 
-The custom timeline gives you exact control of which pixels are on/off and the colour at every specific frame. Pixels can be selected individually or multi selected.
+The custom timeline gives you exact control of which pixels are on/off and the colour at every specific frame.
 
 ## Timeline Tags
 
