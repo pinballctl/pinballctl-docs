@@ -35,13 +35,13 @@
   "handle_links": "preferred",
   "icons": [
     {
-      "src": "https://docs.pinballctl.com/assets/favicon.svg",
+      "src": "https://docs.pinballctl.com/assets/img/favicon.svg",
       "type": "image/svg+xml",
       "sizes": "any",
       "purpose": "any"
     },
     {
-      "src": "https://docs.pinballctl.com/assets/favicon.svg",
+      "src": "https://docs.pinballctl.com/assets/img/favicon.svg",
       "type": "image/svg+xml",
       "sizes": "any",
       "purpose": "maskable"

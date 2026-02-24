@@ -162,10 +162,10 @@ def _collect_manifest_icons(root: Path) -> list[dict]:
             icon["purpose"] = purpose
         icons.append(icon)
 
-    favicon_svg = root / "assets" / "favicon.svg"
+    favicon_svg = root / "assets" / "img" / "favicon.svg"
     if favicon_svg.exists():
-        _add_icon("/assets/favicon.svg", "image/svg+xml", "any", "any")
-        _add_icon("/assets/favicon.svg", "image/svg+xml", "any", "maskable")
+        _add_icon("/assets/img/favicon.svg", "image/svg+xml", "any", "any")
+        _add_icon("/assets/img/favicon.svg", "image/svg+xml", "any", "maskable")
 
     assets_root = root / "assets"
     if assets_root.exists():
@@ -667,7 +667,7 @@ def _render_index_html(
     )
     site_url = "https://docs.pinballctl.com/"
     org_url = "https://www.pinballctl.com/"
-    og_image_url = f"{site_url}assets/favicon.svg"
+    og_image_url = f"{site_url}assets/img/favicon.svg"
     schema_graph = {
         "@context": "https://schema.org",
         "@graph": [
@@ -725,8 +725,8 @@ def _render_index_html(
   <meta name=\"apple-mobile-web-app-capable\" content=\"yes\">
   <meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black-translucent\">
   <link rel=\"canonical\" href=\"{site_url}\">
-  <link rel=\"icon\" type=\"image/svg+xml\" href=\"./assets/favicon.svg\">
-  <link rel=\"shortcut icon\" href=\"./assets/favicon.svg\">
+  <link rel=\"icon\" type=\"image/svg+xml\" href=\"./assets/img/favicon.svg\">
+  <link rel=\"shortcut icon\" href=\"./assets/img/favicon.svg\">
   <meta property=\"og:type\" content=\"website\">
   <meta property=\"og:locale\" content=\"en_GB\">
   <meta property=\"og:site_name\" content=\"Pinball CTL Docs\">
@@ -856,7 +856,7 @@ def _render_404_html(updated_label: str) -> str:
   <meta name=\"description\" content=\"The requested documentation page was not found.\">
   <meta name=\"robots\" content=\"noindex,follow\">
   <meta name=\"theme-color\" content=\"#071019\">
-  <link rel=\"icon\" type=\"image/svg+xml\" href=\"./assets/favicon.svg\">
+  <link rel=\"icon\" type=\"image/svg+xml\" href=\"./assets/img/favicon.svg\">
   <link rel=\"manifest\" href=\"./site.webmanifest\">
   <link rel=\"stylesheet\" href=\"./assets/css/style.css\">
   <link rel=\"stylesheet\" href=\"./assets/css/docs.css\">
