@@ -15,7 +15,7 @@ Media is split into four tabs:
 
 ## Stage Tab
 
-<img src="./media/screenshot-feature-media-stage.png" data-source='{"url":"/login","next_url":"/media","dark_mode":true,"settle_ms":1800,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}],"next_click":[{"action":"click","selector":"#media-tab-scenes"},{"action":"click","selector":"#media-preview-play"}]}' alt="Media stage tab" style="width: 100%;height: auto;">
+<img src="./media/screenshot-feature-media-stage.webp" data-source='{"url":"/login","next_url":"/media","dark_mode":true,"settle_ms":1800,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}],"next_click":[{"action":"click","selector":"#media-tab-scenes"},{"action":"click","selector":"#media-preview-play"}]}' alt="Media stage tab" style="width: 100%;height: auto;">
 
 Stage is the authoring tab for scene composition and playback preview.
 
@@ -41,7 +41,7 @@ Overlay editing includes:
 
 ## Library Tab
 
-<img src="./media/screenshot-feature-media-library.png" data-source='{"url":"/login","next_url":"/media","dark_mode":true,"settle_ms":1800,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}],"next_click":[{"action":"click","selector":"#media-tab-library"},{"action":"click","selector":"#media-assets-table [data-media-asset-preview]"},{"action":"wait","selector":"#media-asset-preview-modal.show"}]}' alt="Media library tab" style="width: 100%;height: auto;">
+<img src="./media/screenshot-feature-media-library.webp" data-source='{"url":"/login","next_url":"/media","dark_mode":true,"settle_ms":1800,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}],"next_click":[{"action":"click","selector":"#media-tab-library"},{"action":"click","selector":"#media-assets-table [data-media-asset-preview]"},{"action":"wait","selector":"#media-asset-preview-modal.show"}]}' alt="Media library tab" style="width: 100%;height: auto;">
 
 Library manages media assets.
 
@@ -57,7 +57,7 @@ Cards:
 
 ## Displays Tab
 
-<img src="./media/screenshot-feature-media-displays.png" data-source='{"url":"/login","next_url":"/media","dark_mode":true,"settle_ms":1800,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}],"next_click":[{"action":"click","selector":"#media-tab-displays"},{"action":"wait","selector":"#media-displays-table"}]}' alt="Media displays tab" style="width: 100%;height: auto;">
+<img src="./media/screenshot-feature-media-displays.webp" data-source='{"url":"/login","next_url":"/media","dark_mode":true,"settle_ms":1800,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}],"next_click":[{"action":"click","selector":"#media-tab-displays"},{"action":"wait","selector":"#media-displays-table"}]}' alt="Media displays tab" style="width: 100%;height: auto;">
 
 Displays is for output-target configuration and host readiness.
 
@@ -72,7 +72,7 @@ Cards:
 
 ## Runtime Tab
 
-<img src="./media/screenshot-feature-media-runtime.png" data-source='{"url":"/login","next_url":"/media","dark_mode":true,"settle_ms":1800,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}],"next_click":[{"action":"click","selector":"#media-tab-runtime"},{"action":"wait","selector":"#media-runtime-table"}]}' alt="Media runtime tab" style="width: 100%;height: auto;">
+<img src="./media/screenshot-feature-media-runtime.webp" data-source='{"url":"/login","next_url":"/media","dark_mode":true,"settle_ms":1800,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}],"next_click":[{"action":"click","selector":"#media-tab-runtime"},{"action":"wait","selector":"#media-runtime-table"}]}' alt="Media runtime tab" style="width: 100%;height: auto;">
 
 Runtime shows active scene sessions and runtime controls.
 

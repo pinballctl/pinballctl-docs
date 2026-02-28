@@ -2,7 +2,7 @@
 
 Integrity Check audits cross-module dependencies and helps you safely resolve orphaned references.
 
-<img src="./media/screenshot-feature-integrity-check.png" data-source='{"url":"/login","next_url":"/integrity","dark_mode":true,"settle_ms":420,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Integrity Check feature overview" style="width: 100%;height: auto;">
+<img src="./media/screenshot-feature-integrity-check.webp" data-source='{"url":"/login","next_url":"/integrity","dark_mode":true,"settle_ms":420,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Integrity Check feature overview" style="width: 100%;height: auto;">
 
 ## What It Checks
 

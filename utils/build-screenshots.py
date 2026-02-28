@@ -2,9 +2,9 @@
 """Build screenshots from markdown directives.
 
 Directive format in markdown:
-<!-- pinballctl-shot {"url":"/login","output":"assets/screenshots/login.png"} -->
+<!-- pinballctl-shot {"url":"/login","output":"assets/screenshots/login.webp"} -->
 or on image tags:
-<img src="/api/manual/assets/screenshots/login.png" data-source='{"url":"/login"}' ...>
+<img src="/api/manual/assets/screenshots/login.webp" data-source='{"url":"/login"}' ...>
 
 Supported keys:
 - url: Absolute URL or path (path is joined to domain)
@@ -33,8 +33,12 @@ from __future__ import annotations
 import argparse
 import html
 import json
+import os
 import re
+import shutil
+import subprocess
 import sys
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -408,18 +412,60 @@ def _run_click_steps(page: Any, plan: ShotPlan, timeout_ms: int, steps: list[Any
 
 def _capture(page: Any, plan: ShotPlan, timeout_ms: int) -> None:
     plan.output.parent.mkdir(parents=True, exist_ok=True)
+    suffix = plan.output.suffix.lower()
+    capture_path = plan.output
+    tmp_path: Path | None = None
+
+    # Playwright writes PNG/JPEG; convert to WebP when requested.
+    if suffix == ".webp":
+        fd, temp_name = tempfile.mkstemp(prefix="doc_shot_", suffix=".png")
+        os.close(fd)
+        tmp_path = Path(temp_name)
+        capture_path = tmp_path
 
     if plan.target:
         locator = page.locator(plan.target).first
         locator.wait_for(state="visible", timeout=timeout_ms)
-        locator.screenshot(path=str(plan.output))
-        return
+        locator.screenshot(path=str(capture_path))
+    elif plan.with_frame:
+        page.screenshot(path=str(capture_path), full_page=plan.full_page)
+    else:
+        page.screenshot(path=str(capture_path), full_page=False)
 
-    if plan.with_frame:
-        page.screenshot(path=str(plan.output), full_page=plan.full_page)
-        return
+    if suffix == ".webp":
+        try:
+            _convert_to_webp(capture_path, plan.output)
+        finally:
+            if tmp_path and tmp_path.exists():
+                tmp_path.unlink(missing_ok=True)
 
-    page.screenshot(path=str(plan.output), full_page=False)
+
+def _convert_to_webp(source: Path, target: Path) -> None:
+    try:
+        from PIL import Image  # type: ignore
+
+        with Image.open(source) as image:
+            image.save(target, format="WEBP", quality=86, method=6)
+        return
+    except Exception:
+        pass
+
+    tool = shutil.which("cwebp")
+    if tool:
+        result = subprocess.run(
+            [tool, "-quiet", "-q", "86", str(source), "-o", str(target)],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if result.returncode == 0:
+            return
+        raise RuntimeError(result.stderr.strip() or "cwebp failed")
+
+    raise RuntimeError(
+        "WebP output requested but no encoder available. Install Pillow "
+        "(`pip install pillow`) or install `cwebp`."
+    )
 
 
 def _apply_highlight(page: Any, plan: ShotPlan) -> None:

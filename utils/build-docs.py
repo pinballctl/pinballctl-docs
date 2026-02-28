@@ -444,6 +444,16 @@ def _safe_resolve(base: Path, rel_path: str) -> Path | None:
     return resolved
 
 
+def _parse_tag_attrs(tag: str) -> dict[str, str]:
+    attrs: dict[str, str] = {}
+    for key, value in re.findall(r'([:@\w-]+)\s*=\s*(".*?"|\'.*?\'|[^\s>]+)', tag, re.DOTALL):
+        val = value.strip()
+        if (val.startswith('"') and val.endswith('"')) or (val.startswith("'") and val.endswith("'")):
+            val = val[1:-1]
+        attrs[key.lower()] = html.unescape(val)
+    return attrs
+
+
 def _rewrite_links(html_text: str, doc_md: Path, pages_root: Path, assets_root: Path) -> str:
     doc_dir = doc_md.parent
 
@@ -506,6 +516,57 @@ def _rewrite_links(html_text: str, doc_md: Path, pages_root: Path, assets_root: 
         return f" style={quote}{style}{quote}"
 
     rewritten = re.sub(r"""\sstyle=(["'])(.*?)\1""", _clean_style, rewritten, flags=re.IGNORECASE)
+
+    docs_root = assets_root.parent
+
+    def _set_src(tag: str, new_src: str) -> str:
+        def _replace_src(match: re.Match) -> str:
+            quote_ch = match.group(1)
+            return f"src={quote_ch}{html.escape(new_src, quote=True)}{quote_ch}"
+
+        return re.sub(
+            r"""\bsrc\s*=\s*(["']).*?\1""",
+            _replace_src,
+            tag,
+            count=1,
+            flags=re.IGNORECASE,
+        )
+
+    def _append_attr(tag: str, name: str, value: str) -> str:
+        if re.search(fr"""\b{name}\s*=""", tag, flags=re.IGNORECASE):
+            return tag
+        return re.sub(r"\s*/?>$", f' {name}="{value}"\\g<0>', tag, count=1)
+
+    def _enhance_img(match: re.Match) -> str:
+        tag = match.group(0)
+        attrs = _parse_tag_attrs(tag)
+        src = str(attrs.get("src", "")).strip()
+        if not src:
+            return tag
+
+        if re.search(r"screenshot-[^/?#]+\.png(?:[?#].*)?$", src, flags=re.IGNORECASE):
+            src = re.sub(r"\.png(?=([?#].*)?$)", ".webp", src, flags=re.IGNORECASE)
+            tag = _set_src(tag, src)
+
+        tag = _append_attr(tag, "loading", "lazy")
+        tag = _append_attr(tag, "decoding", "async")
+
+        rel: str | None = None
+        if src.startswith("./"):
+            rel = src[2:]
+        elif src.startswith("/"):
+            rel = src[1:]
+
+        if rel:
+            img_path = _safe_resolve(docs_root, rel)
+            if img_path and img_path.is_file():
+                dims = _image_size(img_path)
+                if dims:
+                    tag = _append_attr(tag, "width", str(dims[0]))
+                    tag = _append_attr(tag, "height", str(dims[1]))
+        return tag
+
+    rewritten = re.sub(r"<img\b[^>]*>", _enhance_img, rewritten, flags=re.IGNORECASE)
     return rewritten
 
 
@@ -651,10 +712,27 @@ def _build_tree(pages: list[dict]) -> list[dict]:
     return _normalize_tree(raw_tree)
 
 
+def _minify_css(css_text: str) -> str:
+    css_text = re.sub(r"/\*.*?\*/", "", css_text, flags=re.DOTALL)
+    css_text = re.sub(r"\s+", " ", css_text)
+    css_text = re.sub(r"\s*([{}:;,>])\s*", r"\1", css_text)
+    css_text = re.sub(r";}", "}", css_text)
+    return css_text.strip()
+
+
+def _load_inline_css(style_path: Path, docs_css_path: Path) -> str:
+    return _minify_css(
+        style_path.read_text(encoding="utf-8")
+        + "\n"
+        + docs_css_path.read_text(encoding="utf-8")
+    )
+
+
 def _render_index_html(
     embedded_data_json: str,
     updated_label: str,
     generated_at_iso: str,
+    inline_css: str,
     title: str = "Pinball CTL Docs | Build, Test, and Run Homebrew Pinball",
 ) -> str:
     description = (
@@ -747,8 +825,9 @@ def _render_index_html(
   <meta name=\"twitter:image\" content=\"{og_image_url}\">
   <meta name=\"twitter:image:alt\" content=\"Pinball CTL Docs icon\">
   <link rel=\"manifest\" href=\"./site.webmanifest\">
-  <link rel=\"stylesheet\" href=\"./assets/css/style.css\">
-  <link rel=\"stylesheet\" href=\"./assets/css/docs.css\">
+  <link rel=\"preconnect\" href=\"https://www.googletagmanager.com\" crossorigin>
+  <link rel=\"dns-prefetch\" href=\"//www.googletagmanager.com\">
+  <style>{inline_css}</style>
   <!-- Google tag (gtag.js) -->
   <script async src=\"https://www.googletagmanager.com/gtag/js?id=G-MH2T2SDF1P\"></script>
   <script>
@@ -840,13 +919,13 @@ def _render_index_html(
     </div>
   </div>
 
-  <script id=\"site-data-inline\" type=\"application/json\">{embedded_data_json}</script>\n  <script src=\"./assets/js/main.js\"></script>
+  <script id=\"site-data-inline\" type=\"application/json\">{embedded_data_json}</script>\n  <script src=\"./assets/js/main.js\" defer></script>
 </body>
 </html>
 """
 
 
-def _render_404_html(updated_label: str) -> str:
+def _render_404_html(updated_label: str, inline_css: str) -> str:
     return f"""<!DOCTYPE html>
 <html lang=\"en\">
 <head>
@@ -858,8 +937,9 @@ def _render_404_html(updated_label: str) -> str:
   <meta name=\"theme-color\" content=\"#071019\">
   <link rel=\"icon\" type=\"image/svg+xml\" href=\"./assets/img/favicon.svg\">
   <link rel=\"manifest\" href=\"./site.webmanifest\">
-  <link rel=\"stylesheet\" href=\"./assets/css/style.css\">
-  <link rel=\"stylesheet\" href=\"./assets/css/docs.css\">
+  <link rel=\"preconnect\" href=\"https://www.googletagmanager.com\" crossorigin>
+  <link rel=\"dns-prefetch\" href=\"//www.googletagmanager.com\">
+  <style>{inline_css}</style>
   <!-- Google tag (gtag.js) -->
   <script async src=\"https://www.googletagmanager.com/gtag/js?id=G-MH2T2SDF1P\"></script>
   <script>
@@ -987,6 +1067,7 @@ def build(root: Path, website_root: Path | None = None) -> None:
         raise FileNotFoundError(f"docs.css missing: {out_docs_css}")
     if not out_main_js.exists():
         raise FileNotFoundError(f"main.js missing: {out_main_js}")
+    inline_css = _load_inline_css(out_style, out_docs_css)
 
     pages = _scan_pages(pages_root)
     if not pages:
@@ -1017,10 +1098,10 @@ def build(root: Path, website_root: Path | None = None) -> None:
     out_data.write_text(payload_json, encoding="utf-8")
     updated_label = build_now.strftime("%Y-%m-%d %H:%M UTC")
     out_html.write_text(
-        _render_index_html(payload_json, updated_label, build_now.isoformat()),
+        _render_index_html(payload_json, updated_label, build_now.isoformat(), inline_css),
         encoding="utf-8",
     )
-    out_404.write_text(_render_404_html(updated_label), encoding="utf-8")
+    out_404.write_text(_render_404_html(updated_label, inline_css), encoding="utf-8")
     manifest_payload = _build_manifest_payload(root, default_slug, pages)
     out_manifest.write_text(
         json.dumps(manifest_payload, ensure_ascii=False, indent=2) + "\n",

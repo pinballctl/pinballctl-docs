@@ -4,7 +4,7 @@ Live View is the runtime emulator page for watching table events in real time.
 
 It is read-only for configuration and is intended for live validation of event flow, rule outputs, playfield animations, and media displays.
 
-<img src="./media/screenshot-feature-live-view.png" data-source='{"url":"/login","next_url":"/liveview","dark_mode":true,"settle_ms":3000,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Live View feature overview" style="width: 100%;height: auto;">
+<img src="./media/screenshot-feature-live-view.webp" data-source='{"url":"/login","next_url":"/liveview","dark_mode":true,"settle_ms":3000,"click":[{"action":"type","selector":"input[name=\"username\"]"},{"action":"type","selector":"input[name=\"password\"]"},{"action":"click","selector":"button[type=\"submit\"]","wait_for":"[data-menu-toggle]"}]}' alt="Live View feature overview" style="width: 100%;height: auto;">
 
 ## Purpose
 
