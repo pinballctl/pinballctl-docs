@@ -245,9 +245,8 @@
 }
 
 .docs-page-link.active {
-  background: linear-gradient(130deg, rgba(31, 141, 255, 0.2), rgba(22, 166, 201, 0.15));
-  border-color: rgba(70, 193, 226, 0.35);
-  box-shadow: inset 2px 0 0 #47c5e8;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .docs-search-result {

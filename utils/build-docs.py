@@ -2,7 +2,7 @@
 """Build a static docs site from markdown pages.
 
 Source of truth:
-- pages/**/*.md
+- docs/**/*.md
 - assets/**
 
 Generated:
@@ -146,6 +146,86 @@ def _human_label_from_name(name: str) -> str:
     return text.title() or "Screenshot"
 
 
+def _slug_to_page_href(slug: str) -> str:
+    s = str(slug or "").strip()
+    if not s or s.lower() == "readme":
+        return "/"
+    parts = [p for p in s.split("/") if p]
+    cleaned_parts: list[str] = []
+    for raw_part in parts:
+        part = str(raw_part)
+        if part.lower().endswith(".md"):
+            part = part[:-3]
+        part = _ordered_name(part)[1] or part
+        part = re.sub(r"^\d+\s*[-_. )]+\s*", "", part).strip()
+        part = part.strip().lower()
+        part = re.sub(r"[^a-z0-9]+", "-", part)
+        part = re.sub(r"-{2,}", "-", part).strip("-")
+        if part:
+            cleaned_parts.append(part)
+    if not cleaned_parts:
+        return "/"
+    flat_name = "-".join(cleaned_parts)
+    return f"/pages/{quote(flat_name, safe='')}.html"
+
+
+def _asset_prefix_for_href(rel_href: str) -> str:
+    path = str(rel_href or "/").strip()
+    if path in ("", "/"):
+        return "./"
+    parts = [p for p in path.lstrip("/").split("/") if p]
+    depth = max(0, len(parts) - 1)
+    return "../" * depth or "./"
+
+
+def _truncate_meta(text: str, max_len: int = 160) -> str:
+    raw = re.sub(r"\s+", " ", str(text or "").strip())
+    if len(raw) <= max_len:
+        return raw
+    cut = raw.rfind(" ", 0, max_len)
+    if cut < max_len // 2:
+        cut = max_len
+    return raw[:cut].rstrip(" ,.;:") + "..."
+
+
+def _page_meta(page: dict) -> tuple[str, str, str]:
+    slug = str(page.get("slug") or "").strip()
+    title = str(page.get("title") or slug or "Pinball CTL Docs").strip()
+    excerpt = str(page.get("excerpt") or "").strip()
+    plain = str(page.get("plain") or "").strip()
+    description = _truncate_meta(excerpt or plain or f"Documentation page: {title}")
+
+    base_keywords = [
+        "Pinball CTL",
+        "pinball docs",
+        "pinball controller",
+        "ESP32",
+        "Raspberry Pi",
+        "rules engine",
+        "lighting",
+        "playfield",
+        "firmware",
+        "hardware",
+    ]
+    tokens = [title]
+    parts = [p for p in slug.split("/") if p]
+    if parts:
+        section = parts[0].replace("-", " ")
+        section = re.sub(r"^\s*\d+\s*", "", section).strip()
+        if section:
+            tokens.append(section)
+    seen: set[str] = set()
+    keywords: list[str] = []
+    for item in base_keywords + tokens:
+        k = re.sub(r"\s+", " ", str(item or "").strip())
+        low = k.lower()
+        if not k or low in seen:
+            continue
+        seen.add(low)
+        keywords.append(k)
+    return (title, description, ", ".join(keywords))
+
+
 def _collect_manifest_icons(root: Path) -> list[dict]:
     icons: list[dict] = []
     seen: set[tuple[str, str, str]] = set()
@@ -253,7 +333,7 @@ def _build_manifest_shortcuts(default_slug: str, pages: list[dict]) -> list[dict
                 "name": title,
                 "short_name": label,
                 "description": f"Open {title}",
-                "url": f"/#doc={slug}",
+                "url": _slug_to_page_href(slug),
             }
         )
     return shortcuts
@@ -479,7 +559,8 @@ def _rewrite_links(html_text: str, doc_md: Path, pages_root: Path, assets_root: 
 
         if target.suffix.lower() == ".md" and target.exists():
             slug = _slug_for(target, pages_root)
-            return f'{attr}="#doc={html.escape(slug)}"'
+            href = _slug_to_page_href(slug)
+            return f'{attr}="{html.escape(href, quote=True)}" data-doc-slug="{html.escape(slug, quote=True)}"'
 
         if target.exists() and target.is_file():
             if target.is_relative_to(assets_root):
@@ -734,18 +815,26 @@ def _render_index_html(
     generated_at_iso: str,
     inline_css: str,
     title: str = "Pinball CTL Docs | Build, Test, and Run Homebrew Pinball",
+    description: str | None = None,
+    keywords: str | None = None,
+    og_type: str = "website",
+    canonical_url: str | None = None,
+    initial_article_html: str = "",
+    include_inline_data: bool = True,
+    asset_prefix: str = "./",
 ) -> str:
-    description = (
+    page_description = description or (
         "Official Pinball CTL documentation with setup guides, feature walkthroughs, "
         "screenshots, and troubleshooting."
     )
-    keywords = (
+    page_keywords = keywords or (
         "Pinball CTL, pinball docs, pinball controller, ESP32, Raspberry Pi, "
         "rules engine, lighting, playfield, firmware, hardware"
     )
     site_url = "https://docs.pinballctl.com/"
     org_url = "https://www.pinballctl.com/"
     og_image_url = f"{site_url}assets/img/favicon.svg"
+    page_canonical = canonical_url or site_url
     schema_graph = {
         "@context": "https://schema.org",
         "@graph": [
@@ -761,7 +850,7 @@ def _render_index_html(
                 "@id": f"{site_url}#website",
                 "url": site_url,
                 "name": "Pinball CTL Docs",
-                "description": description,
+                "description": page_description,
                 "inLanguage": "en",
                 "publisher": {"@id": f"{org_url}#organization"},
                 "potentialAction": {
@@ -772,10 +861,10 @@ def _render_index_html(
             },
             {
                 "@type": "WebPage",
-                "@id": f"{site_url}#webpage",
-                "url": site_url,
+                "@id": f"{page_canonical}#webpage",
+                "url": page_canonical,
                 "name": title,
-                "description": description,
+                "description": page_description,
                 "isPartOf": {"@id": f"{site_url}#website"},
                 "about": {"@id": f"{org_url}#organization"},
                 "inLanguage": "en",
@@ -786,14 +875,19 @@ def _render_index_html(
     }
     schema_json = json.dumps(schema_graph, ensure_ascii=False, separators=(",", ":"))
     schema_json = schema_json.replace("</", "<\\/")
+    inline_data_block = (
+        f'<script id="site-data-inline" type="application/json">{embedded_data_json}</script>\n  '
+        if include_inline_data
+        else ""
+    )
     return f"""<!DOCTYPE html>
 <html lang=\"en\">
 <head>
   <meta charset=\"UTF-8\">
   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
   <title>{html.escape(title)}</title>
-  <meta name=\"description\" content=\"{html.escape(description, quote=True)}\">
-  <meta name=\"keywords\" content=\"{html.escape(keywords, quote=True)}\">
+  <meta name=\"description\" content=\"{html.escape(page_description, quote=True)}\">
+  <meta name=\"keywords\" content=\"{html.escape(page_keywords, quote=True)}\">
   <meta name=\"author\" content=\"Pinball CTL\">
   <meta name=\"robots\" content=\"index,follow,max-image-preview:large\">
   <meta name=\"theme-color\" content=\"#071019\">
@@ -802,15 +896,15 @@ def _render_index_html(
   <meta name=\"application-name\" content=\"Pinball CTL Docs\">
   <meta name=\"apple-mobile-web-app-capable\" content=\"yes\">
   <meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black-translucent\">
-  <link rel=\"canonical\" href=\"{site_url}\">
-  <link rel=\"icon\" type=\"image/svg+xml\" href=\"./assets/img/favicon.svg\">
-  <link rel=\"shortcut icon\" href=\"./assets/img/favicon.svg\">
-  <meta property=\"og:type\" content=\"website\">
+  <link rel=\"canonical\" href=\"{html.escape(page_canonical, quote=True)}\">
+  <link rel=\"icon\" type=\"image/svg+xml\" href=\"{asset_prefix}assets/img/favicon.svg\">
+  <link rel=\"shortcut icon\" href=\"{asset_prefix}assets/img/favicon.svg\">
+  <meta property=\"og:type\" content=\"{html.escape(og_type, quote=True)}\">
   <meta property=\"og:locale\" content=\"en_GB\">
   <meta property=\"og:site_name\" content=\"Pinball CTL Docs\">
   <meta property=\"og:title\" content=\"{html.escape(title, quote=True)}\">
-  <meta property=\"og:description\" content=\"{html.escape(description, quote=True)}\">
-  <meta property=\"og:url\" content=\"{site_url}\">
+  <meta property=\"og:description\" content=\"{html.escape(page_description, quote=True)}\">
+  <meta property=\"og:url\" content=\"{html.escape(page_canonical, quote=True)}\">
   <meta property=\"og:image\" content=\"{og_image_url}\">
   <meta property=\"og:image:secure_url\" content=\"{og_image_url}\">
   <meta property=\"og:image:type\" content=\"image/svg+xml\">
@@ -821,10 +915,10 @@ def _render_index_html(
   <meta name=\"twitter:card\" content=\"summary\">
   <meta name=\"twitter:site\" content=\"@pinballctl\">
   <meta name=\"twitter:title\" content=\"{html.escape(title, quote=True)}\">
-  <meta name=\"twitter:description\" content=\"{html.escape(description, quote=True)}\">
+  <meta name=\"twitter:description\" content=\"{html.escape(page_description, quote=True)}\">
   <meta name=\"twitter:image\" content=\"{og_image_url}\">
   <meta name=\"twitter:image:alt\" content=\"Pinball CTL Docs icon\">
-  <link rel=\"manifest\" href=\"./site.webmanifest\">
+  <link rel=\"manifest\" href=\"{asset_prefix}site.webmanifest\">
   <link rel=\"preconnect\" href=\"https://www.googletagmanager.com\" crossorigin>
   <link rel=\"dns-prefetch\" href=\"//www.googletagmanager.com\">
   <style>{inline_css}</style>
@@ -840,7 +934,7 @@ def _render_index_html(
 </head>
 <body>
   <header class=\"site-header\">
-    <a class=\"brand\" href=\"#doc=README\" aria-label=\"Pinball CTL docs home\">
+    <a class=\"brand\" href=\"{asset_prefix}index.html\" aria-label=\"Pinball CTL docs home\">
       <span class=\"brand-dot\" aria-hidden=\"true\"></span>
       <span>Pinball CTL Docs</span>
     </a>
@@ -894,7 +988,7 @@ def _render_index_html(
               <path d=\"M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z\"></path>
             </svg>
           </button>
-          <div class=\"doc-panel\" id=\"docs-article\"></div>
+          <div class=\"doc-panel\" id=\"docs-article\">{initial_article_html}</div>
         </article>
       </div>
     </section>
@@ -919,7 +1013,7 @@ def _render_index_html(
     </div>
   </div>
 
-  <script id=\"site-data-inline\" type=\"application/json\">{embedded_data_json}</script>\n  <script src=\"./assets/js/main.js\" defer></script>\n  <script src=\"./assets/js/components.js\" defer></script>
+  {inline_data_block}<script src=\"{asset_prefix}site-data.js\"></script>\n  <script src=\"{asset_prefix}assets/js/main.js\" defer></script>\n  <script src=\"{asset_prefix}assets/js/components.js\" defer></script>
 </body>
 </html>
 """
@@ -1003,7 +1097,7 @@ def _render_404_html(updated_label: str, inline_css: str) -> str:
 </head>
 <body>
   <header class=\"site-header\">
-    <a class=\"brand\" href=\"./index.html#doc=README\" aria-label=\"Pinball CTL docs home\">
+    <a class=\"brand\" href=\"./index.html\" aria-label=\"Pinball CTL docs home\">
       <span class=\"brand-dot\" aria-hidden=\"true\"></span>
       <span>Pinball CTL Docs</span>
     </a>
@@ -1025,7 +1119,7 @@ def _render_404_html(updated_label: str, inline_css: str) -> str:
         <h1>Page Not Found</h1>
         <p class=\"lead\">The page you requested does not exist in Pinball CTL Docs.</p>
         <div class=\"error-actions\">
-          <a class=\"error-cta primary\" href=\"./index.html#doc=README\">Docs Home</a>
+          <a class=\"error-cta primary\" href=\"./index.html\">Docs Home</a>
           <a class=\"error-cta\" href=\"https://pinballctl.com\" target=\"_blank\" rel=\"noopener noreferrer\">Website</a>
           <a class=\"error-cta\" href=\"https://github.com/pinballctl/pinballctl\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub Project</a>
         </div>
@@ -1037,13 +1131,44 @@ def _render_404_html(updated_label: str, inline_css: str) -> str:
 """
 
 
+def _render_sitemap_xml(site_url: str, urls: list[str], generated_at_iso: str) -> str:
+    base = site_url.rstrip("/")
+    lastmod = generated_at_iso.split("T", 1)[0]
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ]
+    for path in urls:
+        loc = f"{base}{path if path.startswith('/') else '/' + path}"
+        lines.append("  <url>")
+        lines.append(f"    <loc>{html.escape(loc)}</loc>")
+        lines.append(f"    <lastmod>{html.escape(lastmod)}</lastmod>")
+        lines.append("  </url>")
+    lines.append("</urlset>")
+    return "\n".join(lines) + "\n"
+
+
+def _purge_generated_page_html(pages_root: Path) -> int:
+    removed = 0
+    for html_file in pages_root.rglob("*.html"):
+        try:
+            html_file.unlink()
+            removed += 1
+        except Exception:
+            continue
+    return removed
+
+
 def build(root: Path, website_root: Path | None = None) -> None:
+    source_root = root / "docs"
     pages_root = root / "pages"
     assets_root = root / "assets"
     out_html = root / "index.html"
     out_404 = root / "404.html"
     out_data = root / "site-data.json"
+    out_data_js = root / "site-data.js"
     out_manifest = root / "site.webmanifest"
+    out_sitemap = root / "sitemap.xml"
     css_dir = root / "assets" / "css"
     js_dir = root / "assets" / "js"
     out_style = css_dir / "style.css"
@@ -1051,8 +1176,8 @@ def build(root: Path, website_root: Path | None = None) -> None:
     out_main_js = js_dir / "main.js"
     out_components_js = js_dir / "components.js"
 
-    if not pages_root.exists():
-        raise FileNotFoundError(f"pages directory not found: {pages_root}")
+    if not source_root.exists():
+        raise FileNotFoundError(f"docs directory not found: {source_root}")
     if not assets_root.exists():
         raise FileNotFoundError(f"assets directory not found: {assets_root}")
 
@@ -1072,15 +1197,18 @@ def build(root: Path, website_root: Path | None = None) -> None:
         raise FileNotFoundError(f"components.js missing: {out_components_js}")
     inline_css = _load_inline_css(out_style, out_docs_css)
 
-    pages = _scan_pages(pages_root)
+    purged_pages = _purge_generated_page_html(pages_root)
+
+    pages = _scan_pages(source_root)
     if not pages:
-        raise RuntimeError("No markdown files found under pages/")
+        raise RuntimeError("No markdown files found under docs/")
 
     for page in pages:
         md_text = page["md_path"].read_text(encoding="utf-8")
-        page["html"] = _render_markdown(md_text, page["md_path"], pages_root, assets_root)
+        page["html"] = _render_markdown(md_text, page["md_path"], source_root, assets_root)
         page["plain"] = _plain_text_from_markdown(md_text)
         page["excerpt"] = _extract_excerpt(md_text)
+        page["href"] = _slug_to_page_href(str(page.get("slug") or ""))
         page.pop("md_path", None)
 
     tree = _build_tree(pages)
@@ -1099,21 +1227,72 @@ def build(root: Path, website_root: Path | None = None) -> None:
 
     payload_json = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
     out_data.write_text(payload_json, encoding="utf-8")
+    out_data_js.write_text(f"window.__PINBALLCTL_SITE_DATA__={payload_json};\n", encoding="utf-8")
     updated_label = build_now.strftime("%Y-%m-%d %H:%M UTC")
+    site_url = "https://docs.pinballctl.com/"
     out_html.write_text(
-        _render_index_html(payload_json, updated_label, build_now.isoformat(), inline_css),
+        _render_index_html(
+            payload_json,
+            updated_label,
+            build_now.isoformat(),
+            inline_css,
+            canonical_url=site_url,
+            initial_article_html=str((default or pages[0]).get("html") or ""),
+            include_inline_data=False,
+            asset_prefix="./",
+        ),
         encoding="utf-8",
     )
+
+    page_urls: list[str] = ["/", "/index.html"]
+    for page in pages:
+        slug = str(page.get("slug") or "").strip()
+        if not slug:
+            continue
+        rel_href = str(page.get("href") or _slug_to_page_href(slug))
+        page_urls.append(rel_href)
+        if rel_href == "/":
+            continue
+        rel_file = rel_href.lstrip("/")
+        out_page = root / rel_file
+        out_page.parent.mkdir(parents=True, exist_ok=True)
+        page_title_raw, page_desc, page_keywords = _page_meta(page)
+        out_page.write_text(
+            _render_index_html(
+                "",
+                updated_label,
+                build_now.isoformat(),
+                inline_css,
+                title=f"{page_title_raw} | Pinball CTL Docs",
+                description=page_desc,
+                keywords=page_keywords,
+                og_type="article",
+                canonical_url=f"{site_url.rstrip('/')}{rel_href}",
+                initial_article_html=str(page.get("html") or ""),
+                include_inline_data=False,
+                asset_prefix=_asset_prefix_for_href(rel_href),
+            ),
+            encoding="utf-8",
+        )
+
     out_404.write_text(_render_404_html(updated_label, inline_css), encoding="utf-8")
     manifest_payload = _build_manifest_payload(root, default_slug, pages)
     out_manifest.write_text(
         json.dumps(manifest_payload, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
+    unique_urls = list(dict.fromkeys(page_urls))
+    out_sitemap.write_text(
+        _render_sitemap_xml(site_url, unique_urls, build_now.isoformat()),
+        encoding="utf-8",
+    )
 
     print(f"Built {out_html}")
     print(f"Built {out_404}")
     print(f"Built {out_data} ({len(pages)} pages)")
+    print(f"Built {out_data_js}")
+    print(f"Built {out_sitemap} ({len(unique_urls)} URLs)")
+    print(f"Purged {purged_pages} generated page HTML files under {pages_root}")
     print(
         f"Built {out_manifest} "
         f"({len(manifest_payload.get('icons', []))} icons, {len(manifest_payload.get('shortcuts', []))} shortcuts)"

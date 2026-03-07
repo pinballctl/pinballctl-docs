@@ -52,25 +52,25 @@
       "name": "Pinball CTL Manual",
       "short_name": "Pinball CTL Manual",
       "description": "Open Pinball CTL Manual",
-      "url": "https://docs.pinballctl.com/#doc=README"
+      "url": "https://docs.pinballctl.com/"
     },
     {
       "name": "Getting Started",
       "short_name": "Getting Started",
       "description": "Open Getting Started",
-      "url": "https://docs.pinballctl.com/#doc=1-user-guide/1-getting-started"
+      "url": "https://docs.pinballctl.com/pages/user-guide-getting-started.html"
     },
     {
       "name": "Rules",
       "short_name": "Rules",
       "description": "Open Rules",
-      "url": "https://docs.pinballctl.com/#doc=1-user-guide/7.1-rules"
+      "url": "https://docs.pinballctl.com/pages/user-guide-rules.html"
     },
     {
       "name": "Bridge Protocol",
       "short_name": "Bridge Protocol",
       "description": "Open Bridge Protocol",
-      "url": "https://docs.pinballctl.com/#doc=2-technical-notes/bridge-protocol"
+      "url": "https://docs.pinballctl.com/pages/technical-notes-bridge-protocol.html"
     }
   ]
 }

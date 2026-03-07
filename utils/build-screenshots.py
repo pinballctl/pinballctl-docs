@@ -559,9 +559,11 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     docs_root = args.root.resolve()
-    pages_root = docs_root / "pages"
+    source_root = docs_root / "docs"
+    if not source_root.exists():
+        raise FileNotFoundError(f"docs source directory not found: {source_root}")
 
-    parsed = parse_directives(pages_root, docs_root)
+    parsed = parse_directives(source_root, docs_root)
     if not parsed:
         print("No screenshot directives found.")
         return

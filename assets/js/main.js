@@ -23,6 +23,8 @@
   const state = {
     tree: [],
     pagesBySlug: new Map(),
+    hrefBySlug: new Map(),
+    slugByPath: new Map(),
     pageOrder: [],
     activeSlug: "",
     bookmarks: [],
@@ -97,13 +99,13 @@
 
     wrap.innerHTML = [
       prevPage ? `
-        <a href="#doc=${encodeURIComponent(prevSlug)}" data-doc-slug="${esc(prevSlug)}" class="docs-page-nav-btn docs-page-nav-btn-prev" aria-label="Previous document: ${esc(prevTitle)}">
+        <a href="${slugHref(prevSlug)}" data-doc-slug="${esc(prevSlug)}" class="docs-page-nav-btn docs-page-nav-btn-prev" aria-label="Previous document: ${esc(prevTitle)}">
           <span class="docs-page-nav-dir">Back</span>
           <span class="docs-page-nav-title">${esc(prevTitle)}</span>
         </a>
       ` : "",
       nextPage ? `
-        <a href="#doc=${encodeURIComponent(nextSlug)}" data-doc-slug="${esc(nextSlug)}" class="docs-page-nav-btn docs-page-nav-btn-next" aria-label="Next document: ${esc(nextTitle)}">
+        <a href="${slugHref(nextSlug)}" data-doc-slug="${esc(nextSlug)}" class="docs-page-nav-btn docs-page-nav-btn-next" aria-label="Next document: ${esc(nextTitle)}">
           <span class="docs-page-nav-dir">Next</span>
           <span class="docs-page-nav-title">${esc(nextTitle)}</span>
         </a>
@@ -209,11 +211,80 @@
     return m ? decodeURIComponent(m[1]) : "";
   }
 
-  function setHashSlug(slug) {
-    const clean = encodeURIComponent(slug);
-    if (window.location.hash !== `#doc=${clean}`) {
-      window.location.hash = `doc=${clean}`;
+  function docsRootPrefix() {
+    const parts = String(window.location.pathname || "")
+      .split("/")
+      .filter(Boolean);
+    const idx = parts.lastIndexOf("pages");
+    if (idx < 0) return "./";
+    const depth = Math.max(0, parts.length - idx - 1);
+    return "../".repeat(depth) || "./";
+  }
+
+  function normalisePathname(pathname) {
+    const s = String(pathname || "").trim();
+    if (!s) return "/";
+    const noQuery = s.split("?")[0].split("#")[0] || "/";
+    if (noQuery === "/") return "/";
+    return noQuery.replace(/\/+$/, "") || "/";
+  }
+
+  function toRelativeHref(absHref) {
+    const base = docsRootPrefix();
+    const clean = String(absHref || "").trim();
+    if (!clean || clean === "/") return `${base}index.html`;
+    if (clean.startsWith("/")) return `${base}${clean.slice(1)}`;
+    return `${base}${clean}`;
+  }
+
+  function slugHref(slug) {
+    const clean = String(slug || "").trim();
+    const mapped = state.hrefBySlug.get(clean);
+    if (mapped) return toRelativeHref(mapped);
+    return toRelativeHref(clean && clean.toUpperCase() === "README" ? "/" : "/");
+  }
+
+  function slugFromPathname(pathname) {
+    const key = normalisePathname(pathname);
+    if (key === "/" || key === "/index.html") return "README";
+    const direct = state.slugByPath.get(key);
+    if (direct) return direct;
+
+    // In file:// mode, pathname is an absolute local path
+    // (e.g. /Users/.../pages/user-guide-lighting.html), while
+    // generated href keys are site-relative (/pages/user-guide-lighting.html).
+    // Match by suffix so we still resolve the active slug correctly.
+    if (window.location.protocol === "file:") {
+      for (const [mappedPath, slug] of state.slugByPath.entries()) {
+        if (key.endsWith(mappedPath)) return slug;
+      }
     }
+
+    return "";
+  }
+
+  function navigateToSlug(slug, options) {
+    const target = String(slug || "").trim();
+    if (!target) return;
+    const opts = options || {};
+    const href = slugHref(target);
+    const currentUrl = new URL(window.location.href);
+    const targetUrl = new URL(href, window.location.href);
+    const currentKey = `${currentUrl.pathname}${currentUrl.search}`;
+    const targetKey = `${targetUrl.pathname}${targetUrl.search}`;
+    if (currentKey === targetKey) {
+      renderArticle(target);
+      return;
+    }
+    if (window.location.protocol === "file:") {
+      window.location.href = href;
+      return;
+    }
+    if (opts.replace) {
+      window.location.replace(href);
+      return;
+    }
+    window.location.href = href;
   }
 
   function loadState() {
@@ -260,7 +331,7 @@
     wrap.classList.remove("hidden");
     el.innerHTML = state.bookmarks.map((b) => `
       <div class="docs-bookmark-item">
-        <a href="#doc=${encodeURIComponent(b.slug)}" data-doc-slug="${esc(b.slug)}" class="docs-page-link${state.activeSlug === b.slug ? " active" : ""}">${esc(menuTitleFor(b.slug, b.title || b.slug))}</a>
+        <a href="${slugHref(b.slug)}" data-doc-slug="${esc(b.slug)}" class="docs-page-link${state.activeSlug === b.slug ? " active" : ""}">${esc(menuTitleFor(b.slug, b.title || b.slug))}</a>
         <button type="button" class="docs-bookmark-remove" data-bookmark-remove="${esc(b.slug)}" aria-label="Remove bookmark">x</button>
       </div>
     `).join("");
@@ -289,7 +360,7 @@
           <div class="docs-folder-children ${open ? "" : "hidden"}">${renderTreeNodes(n.children || [])}</div>
         </li>`;
       }
-      return `<li><a href="#doc=${encodeURIComponent(n.slug)}" data-doc-slug="${esc(n.slug)}" class="docs-page-link${state.activeSlug === n.slug ? " active" : ""}">${esc(menuTitleFor(n.slug, n.title || n.slug))}</a></li>`;
+      return `<li><a href="${slugHref(n.slug)}" data-doc-slug="${esc(n.slug)}" class="docs-page-link${state.activeSlug === n.slug ? " active" : ""}">${esc(menuTitleFor(n.slug, n.title || n.slug))}</a></li>`;
     }).join("")}</ul>`;
   }
 
@@ -330,6 +401,37 @@
     });
   }
 
+  function normaliseArticleRelativePaths(articleEl) {
+    const prefix = docsRootPrefix();
+    const mapUrl = (raw) => {
+      const url = String(raw || "").trim();
+      if (!url) return url;
+      if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("mailto:") || url.startsWith("tel:") || url.startsWith("#")) {
+        return url;
+      }
+
+      const m = url.match(/^(\.\/)?(media|assets|pages)\/(.*)$/i);
+      if (!m) return url;
+      const folder = String(m[2] || "").toLowerCase();
+      const rest = String(m[3] || "");
+      return `${prefix}${folder}/${rest}`;
+    };
+
+    articleEl.querySelectorAll("img[src],source[src],video[src],audio[src]").forEach((el) => {
+      const src = el.getAttribute("src");
+      if (!src) return;
+      const next = mapUrl(src);
+      if (next !== src) el.setAttribute("src", next);
+    });
+
+    articleEl.querySelectorAll("a[href]").forEach((el) => {
+      const href = el.getAttribute("href");
+      if (!href) return;
+      const next = mapUrl(href);
+      if (next !== href) el.setAttribute("href", next);
+    });
+  }
+
   function renderArticle(slug) {
     const article = document.getElementById("docs-article");
     if (!article) return;
@@ -338,6 +440,7 @@
 
     state.activeSlug = slug;
     article.innerHTML = page.html || `<h1>${esc(page.title || slug)}</h1><p>No content.</p>`;
+    normaliseArticleRelativePaths(article);
     const bottomNav = renderBottomNav(slug);
     if (bottomNav) article.appendChild(bottomNav);
     attachImageModal(article);
@@ -347,7 +450,7 @@
         e.preventDefault();
         const h = a.getAttribute("href") || "";
         const s = (h.split("#doc=")[1] || "").trim();
-        if (s) setHashSlug(decodeURIComponent(s));
+        if (s) navigateToSlug(decodeURIComponent(s));
       });
     });
 
@@ -400,7 +503,7 @@
     });
 
     resultsEl.innerHTML = results.map((p) => `
-      <a href="#doc=${encodeURIComponent(p.slug)}" data-doc-slug="${esc(p.slug)}" class="docs-search-result docs-page-link${state.activeSlug === p.slug ? " active" : ""}">
+      <a href="${slugHref(p.slug)}" data-doc-slug="${esc(p.slug)}" class="docs-search-result docs-page-link${state.activeSlug === p.slug ? " active" : ""}">
         <div class="docs-search-result-title">${esc(stripOrderPrefix(p.title || p.slug))}</div>
         <div class="docs-result-excerpt">${esc(p.excerpt || "")}</div>
       </a>
@@ -462,7 +565,6 @@
 
       const link = target.closest("[data-doc-slug]");
       if (link) {
-        e.preventDefault();
         const slug = link.getAttribute("data-doc-slug") || "";
         if (link.classList.contains("docs-search-result")) {
           trackEvent("select_content", {
@@ -471,7 +573,6 @@
             search_term: state.searchTerm || "",
           });
         }
-        if (slug) setHashSlug(slug);
       }
     });
 
@@ -505,7 +606,12 @@
     });
 
     window.addEventListener("hashchange", () => {
-      const slug = hashSlug() || defaultSlug;
+      const slug = hashSlug();
+      if (slug) navigateToSlug(slug);
+    });
+
+    window.addEventListener("popstate", () => {
+      const slug = hashSlug() || slugFromPathname(window.location.pathname) || defaultSlug;
       if (slug) renderArticle(slug);
     });
 
@@ -540,10 +646,19 @@
     }
   }
 
-  function loadSiteData() {
+  async function loadSiteData() {
+    const globalData = window.__PINBALLCTL_SITE_DATA__;
+    if (globalData && typeof globalData === "object") return globalData;
     const inline = readInlineData();
     if (inline && typeof inline === "object") return inline;
-    throw new Error("Missing inline docs data (#site-data-inline). Re-run build-docs.py.");
+    if (window.location.protocol === "file:") {
+      throw new Error(
+        "Missing site data in file mode. Ensure site-data.js is present and loaded via a relative script tag."
+      );
+    }
+    const res = await fetch(`${docsRootPrefix()}site-data.json`, { credentials: "same-origin" });
+    if (!res.ok) throw new Error(`Failed to fetch /site-data.json (${res.status})`);
+    return res.json();
   }
 
   async function init() {
@@ -554,7 +669,16 @@
     const data = await loadSiteData();
     state.tree = Array.isArray(data.tree) ? data.tree : [];
     const pages = Array.isArray(data.pages) ? data.pages : [];
-    pages.forEach((p) => state.pagesBySlug.set(String(p.slug || ""), p));
+    pages.forEach((p) => {
+      const slug = String(p.slug || "");
+      if (!slug) return;
+      state.pagesBySlug.set(slug, p);
+      const href = String(p.href || "");
+      if (href) {
+        state.hrefBySlug.set(slug, href);
+        state.slugByPath.set(normalisePathname(href), slug);
+      }
+    });
     buildPageOrder();
 
     renderTree();
@@ -564,10 +688,8 @@
     const defaultSlug = hasReadme ? "README" : String(data.default_slug || pages[0]?.slug || "");
     wireEvents(defaultSlug);
 
-    const hash = hashSlug();
-    const slug = hash || defaultSlug;
-    if (!hash && slug) setHashSlug(slug);
-    if (slug) renderArticle(slug);
+    const slug = hashSlug() || slugFromPathname(window.location.pathname) || defaultSlug;
+    if (slug) navigateToSlug(slug, { replace: true });
   }
 
   document.addEventListener("DOMContentLoaded", init);
