@@ -32,6 +32,8 @@
     searchTerm: "",
     lastResults: [],
     lastTrackedSearchTerm: "",
+    mobileNavStack: [],
+    mobileNavSlide: "",
   };
 
   function flattenTreeSlugs(nodes, out) {
@@ -139,6 +141,13 @@
     return window.innerWidth <= 1080;
   }
 
+  function syncHeaderHeightVar() {
+    const header = document.querySelector(".site-header");
+    if (!(header instanceof HTMLElement)) return;
+    const h = Math.max(1, Math.round(header.getBoundingClientRect().height));
+    document.documentElement.style.setProperty("--site-header-height", `${h}px`);
+  }
+
   function wireHeaderMenu() {
     const menuBtn = document.querySelector(".menu-toggle");
     const nav = document.querySelector(".site-nav");
@@ -151,7 +160,9 @@
     }
 
     menuBtn.addEventListener("click", () => {
-      setOpen(!nav.classList.contains("open"));
+      const open = !nav.classList.contains("open");
+      if (open) resetMobileNavStack();
+      setOpen(open);
     });
 
     document.addEventListener("click", (e) => {
@@ -164,23 +175,29 @@
 
     window.addEventListener("resize", () => {
       if (window.innerWidth > 920) setOpen(false);
+      syncHeaderHeightVar();
     });
   }
 
   function wireDocsSidebarMenu() {
-    const toggleBtn = document.getElementById("docs-sidebar-toggle");
+    const toggleBtns = Array.from(document.querySelectorAll("[data-docs-sidebar-toggle]"));
     const sidebar = document.getElementById("docs-sidebar");
     const closeBtn = document.getElementById("docs-sidebar-close");
-    if (!(toggleBtn instanceof HTMLElement) || !(sidebar instanceof HTMLElement)) return;
+    if (!(sidebar instanceof HTMLElement) || !toggleBtns.length) return;
 
     function setOpen(open) {
       sidebar.classList.toggle("open", open);
-      toggleBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      toggleBtns.forEach((btn) => btn.setAttribute("aria-expanded", open ? "true" : "false"));
       document.body.classList.toggle("docs-sidebar-open", open && window.innerWidth <= 1080);
     }
 
-    toggleBtn.addEventListener("click", () => {
-      setOpen(!sidebar.classList.contains("open"));
+    toggleBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        setOpen(!sidebar.classList.contains("open"));
+        const nav = document.querySelector(".site-nav");
+        if (nav instanceof HTMLElement) nav.classList.remove("open");
+        document.body.classList.remove("menu-open");
+      });
     });
 
     closeBtn?.addEventListener("click", () => setOpen(false));
@@ -190,7 +207,7 @@
       if (!(t instanceof Element)) return;
       if (!sidebar.classList.contains("open")) return;
       if (window.innerWidth > 1080) return;
-      if (t.closest("#docs-sidebar") || t.closest("#docs-sidebar-toggle")) return;
+      if (t.closest("#docs-sidebar") || t.closest("[data-docs-sidebar-toggle]")) return;
       setOpen(false);
     });
 
@@ -252,6 +269,82 @@
     window.addEventListener("resize", () => {
       if (!isMobileViewport()) setOpen(false);
     });
+  }
+
+  function resetMobileNavStack() {
+    state.mobileNavStack = [{
+      kind: "root",
+      title: "Menu",
+      nodes: Array.isArray(state.tree) ? state.tree : [],
+    }];
+    state.mobileNavSlide = "";
+  }
+
+  function currentMobileNavFrame() {
+    if (!Array.isArray(state.mobileNavStack) || !state.mobileNavStack.length) {
+      resetMobileNavStack();
+    }
+    return state.mobileNavStack[state.mobileNavStack.length - 1];
+  }
+
+  function renderMobileNavList() {
+    const list = document.getElementById("docs-mobile-nav-list");
+    if (!(list instanceof HTMLElement)) return;
+    const frame = currentMobileNavFrame();
+    const slideClass = state.mobileNavSlide === "back" ? "slide-back" : (state.mobileNavSlide === "forward" ? "slide-forward" : "");
+    const canGoBack = state.mobileNavStack.length > 1;
+
+    let rowsHtml = "";
+    if (frame.kind === "bookmarks") {
+      if (!state.bookmarks.length) {
+        rowsHtml = `<div class="docs-mobile-empty">You do not have any saved bookmarks.<br/>Click the <span class="docs-mobile-empty-icon" aria-hidden="true"><svg class="docs-bookmark-icon" viewBox="0 0 24 24" focusable="false"><path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path></svg></span> on a page to save it here.</div>`;
+      } else {
+        rowsHtml = state.bookmarks.map((b) => `
+          <div class="docs-mobile-bookmark-row">
+            <a href="${slugHref(b.slug)}" data-doc-slug="${esc(b.slug)}" class="docs-mobile-link${state.activeSlug === b.slug ? " active" : ""}">${esc(menuTitleFor(b.slug, b.title || b.slug))}</a>
+            <button type="button" class="docs-mobile-bookmark-remove" data-bookmark-remove="${esc(b.slug)}" aria-label="Remove bookmark">×</button>
+          </div>
+        `).join("");
+      }
+    } else if (frame.kind === "folder") {
+      const nodes = Array.isArray(frame.nodes) ? frame.nodes : [];
+      rowsHtml = nodes.map((n, idx) => {
+        if (n?.type === "folder") {
+          return `<button type="button" class="docs-mobile-link docs-mobile-folder" data-mobile-nav-open="folder:${idx}">${esc(stripOrderPrefix(n.name || "Folder"))}</button>`;
+        }
+        const slug = String(n?.slug || "");
+        const title = menuTitleFor(slug, n?.title || slug);
+        return `<a href="${slugHref(slug)}" data-doc-slug="${esc(slug)}" class="docs-mobile-link${state.activeSlug === slug ? " active" : ""}">${esc(title)}</a>`;
+      }).join("");
+    } else {
+      const nodes = Array.isArray(frame.nodes) ? frame.nodes : [];
+      const topRows = nodes.map((n, idx) => {
+        if (n?.type === "folder") {
+          return `<button type="button" class="docs-mobile-link docs-mobile-folder" data-mobile-nav-open="folder:${idx}">${esc(stripOrderPrefix(n.name || "Folder"))}</button>`;
+        }
+        const slug = String(n?.slug || "");
+        if (slug.toLowerCase() === "readme") return "";
+        const title = menuTitleFor(slug, n?.title || slug);
+        return `<a href="${slugHref(slug)}" data-doc-slug="${esc(slug)}" class="docs-mobile-link${state.activeSlug === slug ? " active" : ""}">${esc(title)}</a>`;
+      }).join("");
+
+      rowsHtml = [
+        `<a href="${slugHref("README")}" data-doc-slug="README" class="docs-mobile-link${state.activeSlug === "README" ? " active" : ""}">Home</a>`,
+        `<button type="button" class="docs-mobile-link docs-mobile-folder" data-mobile-nav-open="bookmarks">Bookmarks</button>`,
+        topRows,
+      ].join("");
+    }
+
+    const headHtml = canGoBack
+      ? `<div class="docs-mobile-nav-head"><button type="button" class="docs-mobile-nav-back" data-mobile-nav-back>Back</button></div>`
+      : "";
+    list.innerHTML = `
+      ${headHtml}
+      <div class="docs-mobile-nav-pane ${slideClass}">
+        ${rowsHtml}
+      </div>
+    `;
+    state.mobileNavSlide = "";
   }
 
   function hashSlug() {
@@ -369,11 +462,15 @@
   function renderBookmarks() {
     const wrap = document.getElementById("docs-bookmarks-wrap");
     const el = document.getElementById("docs-bookmarks");
-    if (!wrap || !el) return;
+    if (!wrap || !el) {
+      renderMobileNavList();
+      return;
+    }
 
     if (!state.bookmarks.length) {
       wrap.classList.add("hidden");
       el.innerHTML = "";
+      renderMobileNavList();
       return;
     }
     wrap.classList.remove("hidden");
@@ -383,6 +480,7 @@
         <button type="button" class="docs-bookmark-remove" data-bookmark-remove="${esc(b.slug)}" aria-label="Remove bookmark">x</button>
       </div>
     `).join("");
+    renderMobileNavList();
   }
 
   function refreshBookmarkToggle() {
@@ -677,6 +775,49 @@
       const target = e.target;
       if (!(target instanceof Element)) return;
 
+      const mobileBack = target.closest("[data-mobile-nav-back]");
+      if (mobileBack) {
+        e.preventDefault();
+        if (state.mobileNavStack.length > 1) {
+          state.mobileNavStack.pop();
+          state.mobileNavSlide = "back";
+          renderMobileNavList();
+        }
+        return;
+      }
+
+      const mobileOpen = target.closest("[data-mobile-nav-open]");
+      if (mobileOpen) {
+        e.preventDefault();
+        const action = String(mobileOpen.getAttribute("data-mobile-nav-open") || "");
+        const frame = currentMobileNavFrame();
+        if (action === "bookmarks") {
+          state.mobileNavStack.push({
+            kind: "bookmarks",
+            title: "Bookmarks",
+            nodes: [],
+          });
+          state.mobileNavSlide = "forward";
+          renderMobileNavList();
+          return;
+        }
+        if (action.startsWith("folder:")) {
+          const idx = Number(action.split(":")[1]);
+          const nodes = Array.isArray(frame?.nodes) ? frame.nodes : [];
+          const folder = nodes[idx];
+          if (folder && folder.type === "folder") {
+            state.mobileNavStack.push({
+              kind: "folder",
+              title: stripOrderPrefix(String(folder.name || "Folder")),
+              nodes: Array.isArray(folder.children) ? folder.children : [],
+            });
+            state.mobileNavSlide = "forward";
+            renderMobileNavList();
+          }
+          return;
+        }
+      }
+
       const remove = target.closest("[data-bookmark-remove]");
       if (remove) {
         e.preventDefault();
@@ -708,6 +849,13 @@
             item_id: slug,
             search_term: state.searchTerm || "",
           });
+        }
+        const nav = document.querySelector(".site-nav");
+        const menuBtn = document.querySelector(".menu-toggle");
+        if (window.innerWidth <= 920 && nav instanceof HTMLElement && nav.classList.contains("open")) {
+          nav.classList.remove("open");
+          document.body.classList.remove("menu-open");
+          if (menuBtn instanceof HTMLElement) menuBtn.setAttribute("aria-expanded", "false");
         }
       }
     });
@@ -803,6 +951,7 @@
 
   async function init() {
     loadState();
+    syncHeaderHeightVar();
     wireHeaderMenu();
     wireDocsSidebarMenu();
     wireMobileSearchModal();
@@ -821,6 +970,7 @@
       }
     });
     buildPageOrder();
+    resetMobileNavStack();
 
     renderTree();
     renderBookmarks();

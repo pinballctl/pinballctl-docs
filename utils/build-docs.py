@@ -938,16 +938,19 @@ def _render_index_html(
       <span class=\"brand-dot\" aria-hidden=\"true\"></span>
       <span>Pinball CTL Docs</span>
     </a>
-    <button id=\"docs-mobile-search-toggle\" class=\"docs-mobile-search-toggle\" type=\"button\" aria-label=\"Open search\">
-      <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\" focusable=\"false\">
-        <path d=\"M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zm9 16-3.6-3.6\"/>
-      </svg>
-    </button>
-    <button class=\"menu-toggle\" type=\"button\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
-      <span></span><span></span><span></span>
-    </button>
+    <div class=\"header-actions\">
+      <button id=\"docs-mobile-search-toggle\" class=\"docs-mobile-search-toggle\" type=\"button\" aria-label=\"Open search\">
+        <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\" focusable=\"false\">
+          <path d=\"M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zm9 16-3.6-3.6\"/>
+        </svg>
+      </button>
+      <button class=\"menu-toggle\" type=\"button\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
     <nav class=\"site-nav\" aria-label=\"Main navigation\">
       <span class=\"docs-updated\">Updated {html.escape(updated_label)}</span>
+      <div id=\"docs-mobile-nav-list\" class=\"docs-mobile-nav-list\"></div>
       <a href=\"https://pinballctl.com\" class=\"nav-link website-link\">
         <svg class=\"website-link__icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" focusable=\"false\">
           <path d=\"M3 12h18M12 3a16 16 0 0 1 0 18M12 3a16 16 0 0 0 0 18M4.5 7.5h15M4.5 16.5h15\"/>
@@ -964,7 +967,7 @@ def _render_index_html(
       <p class=\"lead\">Find setup guides, feature walkthroughs, and troubleshooting help for Pinball CTL.</p>
 
       <div class=\"docs-toolbar\">
-        <button id=\"docs-sidebar-toggle\" class=\"docs-sidebar-toggle\" type=\"button\" aria-expanded=\"false\" aria-controls=\"docs-sidebar\">Docs Menu</button>
+        <button class=\"docs-sidebar-toggle\" type=\"button\" data-docs-sidebar-toggle aria-expanded=\"false\" aria-controls=\"docs-sidebar\">Docs Menu</button>
         <input type=\"search\" id=\"docs-search\" data-docs-search=\"desktop\" class=\"docs-search-input docs-search-desktop\" placeholder=\"Search docs...\" />
         <span id=\"docs-search-status\" data-docs-search-status=\"desktop\" class=\"docs-search-status docs-search-status-desktop\"></span>
       </div>

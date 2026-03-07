@@ -724,12 +724,7 @@
   }
 
   .docs-sidebar-toggle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 0.65rem;
-    border-color: rgba(145, 233, 199, 0.34);
+    display: none;
   }
 
   .docs-sidebar {
@@ -839,6 +834,10 @@
   .docs-search-result-title {
     font-size: 1rem;
   }
+
+  .doc-panel {
+    padding-top: 2.75rem;
+  }
 }
 
 @media (max-width: 680px) {
@@ -847,7 +846,7 @@
   }
 
   .doc-panel {
-    padding: 1rem;
+    padding: 2.75rem 1rem 1rem;
   }
 
   .docs-toolbar {
@@ -909,5 +908,11 @@
   .doc-panel table#component-cost-table td:first-child a {
     overflow-wrap: anywhere;
     word-break: break-word;
+  }
+
+  .doc-panel ul,
+  .doc-panel ol {
+    margin-left: 0.75rem;
+    padding-left: 0.75rem;
   }
 }
