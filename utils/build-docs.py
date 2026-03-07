@@ -963,6 +963,7 @@ def _render_index_html(
         <input type=\"search\" id=\"docs-search\" data-docs-search=\"desktop\" class=\"docs-search-input docs-search-desktop\" placeholder=\"Search docs...\" />
         <span id=\"docs-search-status\" data-docs-search-status=\"desktop\" class=\"docs-search-status docs-search-status-desktop\"></span>
       </div>
+      <div id=\"docs-search-results-top\" class=\"docs-search-results docs-search-results-top hidden\"></div>
 
       <div class=\"docs-layout\">
         <aside id=\"docs-sidebar\" class=\"docs-sidebar\">
@@ -979,7 +980,6 @@ def _render_index_html(
             <div id=\"docs-bookmarks\" class=\"docs-bookmarks\"></div>
           </div>
           <div id=\"docs-tree\" class=\"docs-tree\"></div>
-          <div id=\"docs-search-results\" class=\"docs-search-results hidden\"></div>
         </aside>
 
         <article class=\"docs-content\">

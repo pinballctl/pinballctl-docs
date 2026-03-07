@@ -481,14 +481,16 @@
 
   function renderSearchResults(results) {
     const tree = document.getElementById("docs-tree");
-    const resultsEl = document.getElementById("docs-search-results");
+    const resultsEl = document.getElementById("docs-search-results-top");
+    const layout = document.querySelector(".docs-layout");
     const statusEls = getSearchStatuses();
-    if (!tree || !resultsEl) return;
+    if (!tree || !resultsEl || !(layout instanceof HTMLElement)) return;
 
     if (!state.searchTerm || state.searchTerm.length < 2) {
       tree.classList.remove("hidden");
       resultsEl.classList.add("hidden");
       resultsEl.innerHTML = "";
+      layout.classList.remove("hidden");
       statusEls.forEach((el) => {
         el.textContent = "";
       });
@@ -496,11 +498,17 @@
     }
 
     tree.classList.add("hidden");
+    layout.classList.add("hidden");
     resultsEl.classList.remove("hidden");
     const statusText = `${results.length} result${results.length === 1 ? "" : "s"}`;
     statusEls.forEach((el) => {
       el.textContent = statusText;
     });
+
+    if (!results.length) {
+      resultsEl.innerHTML = `<div class="docs-search-empty">No results found. Try a different keyword.</div>`;
+      return;
+    }
 
     resultsEl.innerHTML = results.map((p) => `
       <a href="${slugHref(p.slug)}" data-doc-slug="${esc(p.slug)}" class="docs-search-result docs-page-link${state.activeSlug === p.slug ? " active" : ""}">

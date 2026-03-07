@@ -20,6 +20,7 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  min-height: 100%;
 }
 
 body {
@@ -28,6 +29,10 @@ body {
   overflow-x: hidden;
   color: var(--text);
   font-family: "Space Grotesk", "Segoe UI", -apple-system, system-ui, sans-serif;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
 
   background:
     radial-gradient(1200px 500px at 8% -2%, rgba(35, 209, 139, 0.15), transparent 55%),
@@ -656,6 +661,7 @@ p {
   border-top: 1px solid var(--line);
   background: rgba(4, 10, 17, 0.88);
   backdrop-filter: blur(8px);
+  margin-top: auto;
 }
 
 .site-footer__inner {

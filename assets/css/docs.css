@@ -250,7 +250,7 @@
 }
 
 .docs-search-result {
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.6rem;
   padding: 0.48rem 0.55rem;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 0.62rem;
@@ -260,6 +260,18 @@
 .docs-search-result:hover {
   border-color: rgba(70, 193, 226, 0.35);
   background: rgba(70, 193, 226, 0.08);
+}
+
+.docs-search-results-top {
+  margin-bottom: 0.85rem;
+}
+
+.docs-search-empty {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.7rem;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--muted);
+  padding: 0.8rem 0.9rem;
 }
 
 .docs-search-result-title {
