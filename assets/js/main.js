@@ -135,6 +135,10 @@
     return Array.from(document.querySelectorAll("[data-docs-search-status]"));
   }
 
+  function isMobileViewport() {
+    return window.innerWidth <= 1080;
+  }
+
   function wireHeaderMenu() {
     const menuBtn = document.querySelector(".menu-toggle");
     const nav = document.querySelector(".site-nav");
@@ -203,6 +207,50 @@
 
     window.addEventListener("resize", () => {
       if (window.innerWidth > 1080) setOpen(false);
+    });
+  }
+
+  function wireMobileSearchModal() {
+    const modal = document.getElementById("docs-search-modal");
+    const toggle = document.getElementById("docs-mobile-search-toggle");
+    const closeBtn = document.getElementById("docs-search-modal-close");
+    const input = document.getElementById("docs-search-modal-input");
+    if (!(modal instanceof HTMLElement) || !(toggle instanceof HTMLElement) || !(input instanceof HTMLElement)) return;
+
+    function setOpen(open) {
+      modal.classList.toggle("open", open);
+      modal.setAttribute("aria-hidden", open ? "false" : "true");
+      document.body.classList.toggle("docs-search-open", open);
+      if (open) {
+        window.setTimeout(() => {
+          input.focus();
+          input.select();
+        }, 0);
+      }
+    }
+
+    toggle.addEventListener("click", () => setOpen(true));
+    closeBtn?.addEventListener("click", () => setOpen(false));
+
+    modal.addEventListener("click", (e) => {
+      const t = e.target;
+      if (!(t instanceof Element)) return;
+      if (t.classList.contains("docs-search-modal__backdrop")) setOpen(false);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("open")) setOpen(false);
+    });
+
+    document.addEventListener("click", (e) => {
+      const t = e.target;
+      if (!(t instanceof Element)) return;
+      if (!t.closest(".docs-search-results-modal [data-doc-slug]")) return;
+      setOpen(false);
+    });
+
+    window.addEventListener("resize", () => {
+      if (!isMobileViewport()) setOpen(false);
     });
   }
 
@@ -550,14 +598,20 @@
   function renderSearchResults(results) {
     const tree = document.getElementById("docs-tree");
     const resultsEl = document.getElementById("docs-search-results-top");
+    const modal = document.getElementById("docs-search-modal");
+    const modalResultsEl = document.getElementById("docs-search-results-modal");
     const layout = document.querySelector(".docs-layout");
     const statusEls = getSearchStatuses();
-    if (!tree || !resultsEl || !(layout instanceof HTMLElement)) return;
+    if (!tree || !resultsEl || !modalResultsEl || !(layout instanceof HTMLElement)) return;
+
+    const useModal = isMobileViewport() && modal instanceof HTMLElement && modal.classList.contains("open");
+    const activeResultsEl = useModal ? modalResultsEl : resultsEl;
 
     if (!state.searchTerm || state.searchTerm.length < 2) {
       tree.classList.remove("hidden");
       resultsEl.classList.add("hidden");
       resultsEl.innerHTML = "";
+      modalResultsEl.innerHTML = "";
       layout.classList.remove("hidden");
       statusEls.forEach((el) => {
         el.textContent = "";
@@ -565,20 +619,26 @@
       return;
     }
 
-    tree.classList.add("hidden");
-    layout.classList.add("hidden");
-    resultsEl.classList.remove("hidden");
+    if (useModal) {
+      tree.classList.remove("hidden");
+      layout.classList.remove("hidden");
+      resultsEl.classList.add("hidden");
+    } else {
+      tree.classList.add("hidden");
+      layout.classList.add("hidden");
+      resultsEl.classList.remove("hidden");
+    }
     const statusText = `${results.length} result${results.length === 1 ? "" : "s"}`;
     statusEls.forEach((el) => {
       el.textContent = statusText;
     });
 
     if (!results.length) {
-      resultsEl.innerHTML = `<div class="docs-search-empty">No results found. Try a different keyword.</div>`;
+      activeResultsEl.innerHTML = `<div class="docs-search-empty">No results found. Try a different keyword.</div>`;
       return;
     }
 
-    resultsEl.innerHTML = results.map((p) => `
+    activeResultsEl.innerHTML = results.map((p) => `
       <a href="${slugHref(p.slug)}" data-doc-slug="${esc(p.slug)}" class="docs-search-result docs-page-link${state.activeSlug === p.slug ? " active" : ""}">
         <div class="docs-search-result-title">${esc(stripOrderPrefix(p.title || p.slug))}</div>
         <div class="docs-result-excerpt">${snippetForSearch(p, state.searchTerm)}</div>
@@ -700,10 +760,14 @@
       const inField = target instanceof Element && !!target.closest("input,textarea,select,[contenteditable='true']");
       if (!inField && e.key === "/") {
         e.preventDefault();
-        const mobileOpen = window.innerWidth <= 1080 && document.getElementById("docs-sidebar")?.classList.contains("open");
+        const mobileOpen = isMobileViewport();
         const desktopSearch = document.getElementById("docs-search");
-        const mobileSearch = document.getElementById("docs-search-mobile");
+        const mobileSearch = document.getElementById("docs-search-modal-input");
         const searchEl = mobileOpen ? mobileSearch : desktopSearch;
+        if (mobileOpen) {
+          const modalToggle = document.getElementById("docs-mobile-search-toggle");
+          if (modalToggle instanceof HTMLElement) modalToggle.click();
+        }
         searchEl?.focus();
         searchEl?.select();
       }
@@ -741,6 +805,7 @@
     loadState();
     wireHeaderMenu();
     wireDocsSidebarMenu();
+    wireMobileSearchModal();
 
     const data = await loadSiteData();
     state.tree = Array.isArray(data.tree) ? data.tree : [];

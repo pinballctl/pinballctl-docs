@@ -938,6 +938,11 @@ def _render_index_html(
       <span class=\"brand-dot\" aria-hidden=\"true\"></span>
       <span>Pinball CTL Docs</span>
     </a>
+    <button id=\"docs-mobile-search-toggle\" class=\"docs-mobile-search-toggle\" type=\"button\" aria-label=\"Open search\">
+      <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\" focusable=\"false\">
+        <path d=\"M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zm9 16-3.6-3.6\"/>
+      </svg>
+    </button>
     <button class=\"menu-toggle\" type=\"button\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
       <span></span><span></span><span></span>
     </button>
@@ -970,10 +975,6 @@ def _render_index_html(
           <div class=\"docs-sidebar-head\">
             <span class=\"docs-sidebar-title\">Docs Menu</span>
             <button id=\"docs-sidebar-close\" class=\"docs-sidebar-close\" type=\"button\" aria-label=\"Close docs menu\">Close</button>
-          </div>
-          <div class=\"docs-sidebar-search\">
-            <input type=\"search\" id=\"docs-search-mobile\" data-docs-search=\"mobile\" class=\"docs-search-input\" placeholder=\"Search docs...\" />
-            <span id=\"docs-search-status-mobile\" data-docs-search-status=\"mobile\" class=\"docs-search-status\"></span>
           </div>
           <div id=\"docs-bookmarks-wrap\" class=\"docs-bookmarks-wrap hidden\">
             <div class=\"docs-bookmarks-title\">Bookmarks</div>
@@ -1010,6 +1011,18 @@ def _render_index_html(
     <div class=\"img-modal__body\">
       <button class=\"img-modal__close\" aria-label=\"Close preview\">Close</button>
       <img src=\"\" alt=\"Screenshot preview\" class=\"img-modal__img\">
+    </div>
+  </div>
+  <div id=\"docs-search-modal\" class=\"docs-search-modal\" aria-hidden=\"true\" role=\"dialog\" aria-label=\"Search docs\">
+    <div class=\"docs-search-modal__backdrop\"></div>
+    <div class=\"docs-search-modal__panel\">
+      <div class=\"docs-search-modal__head\">
+        <div class=\"docs-search-modal__title\">Search docs</div>
+        <button id=\"docs-search-modal-close\" class=\"docs-search-modal__close\" type=\"button\" aria-label=\"Close search\">Close</button>
+      </div>
+      <input type=\"search\" id=\"docs-search-modal-input\" data-docs-search=\"modal\" class=\"docs-search-input\" placeholder=\"Search docs...\" />
+      <span id=\"docs-search-status-modal\" data-docs-search-status=\"modal\" class=\"docs-search-status\"></span>
+      <div id=\"docs-search-results-modal\" class=\"docs-search-results docs-search-results-modal\"></div>
     </div>
   </div>
 
