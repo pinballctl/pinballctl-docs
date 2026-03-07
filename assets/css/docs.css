@@ -277,6 +277,8 @@
 
 .docs-content {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   padding: 0;
   position: relative;
 }
@@ -287,6 +289,8 @@
   background: linear-gradient(165deg, rgba(17, 34, 55, 0.92), rgba(11, 24, 39, 0.88));
   box-shadow: 0 18px 34px rgba(2, 8, 14, 0.28);
   padding: 1.28rem;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .docs-bookmark-toggle-card {
@@ -364,6 +368,7 @@
   margin: 0.6rem 0 0.8rem;
   display: block;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   max-width: 100%;
 }
 
@@ -385,6 +390,52 @@
   color: #8deec8;
   text-decoration: underline;
   text-underline-offset: 2px;
+}
+
+.component-table-controls {
+  margin: 0.5rem 0 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.component-table-controls__label {
+  color: var(--text);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.component-table-controls__select {
+  min-width: 220px;
+  max-width: 360px;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.75rem;
+  background: linear-gradient(145deg, rgba(16, 34, 54, 0.9), rgba(11, 24, 39, 0.86));
+  color: var(--text);
+  padding: 0.56rem 0.78rem;
+  font: inherit;
+  box-shadow: 0 10px 20px rgba(6, 16, 26, 0.24);
+}
+
+.component-table-controls__select:focus {
+  outline: none;
+  border-color: rgba(126, 250, 210, 0.52);
+  box-shadow: 0 0 0 3px rgba(126, 250, 210, 0.16), 0 14px 24px rgba(6, 16, 26, 0.34);
+}
+
+.doc-panel table#component-cost-table,
+.doc-panel table#project-cost-summary-table,
+.doc-panel table#project-cost-breakdown-table {
+  width: 100%;
+}
+
+.doc-panel table#project-cost-summary-table,
+.doc-panel table#project-cost-breakdown-table {
+  display: table;
+  overflow-x: visible;
+  max-width: 100%;
 }
 
 .docs-page-nav {
@@ -450,7 +501,74 @@
 
 .manual-table-wrap {
   width: 100%;
-  overflow-x: auto;
+  max-width: 100%;
+  min-width: 0;
+  overflow: visible;
+}
+
+.manual-table-wrap > table {
+  display: table;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow: visible;
+}
+
+.doc-panel table#component-cost-table th:nth-child(3),
+.doc-panel table#component-cost-table td:nth-child(3) {
+  min-width: 20rem;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+.doc-panel table#component-cost-table th:nth-child(2),
+.doc-panel table#component-cost-table td:nth-child(2),
+.doc-panel table#component-cost-table th:nth-child(4),
+.doc-panel table#component-cost-table td:nth-child(4),
+.doc-panel table#software-stack-table th:nth-child(1),
+.doc-panel table#software-stack-table td:nth-child(1),
+.doc-panel table#project-cost-summary-table th:nth-child(1),
+.doc-panel table#project-cost-summary-table td:nth-child(1),
+.doc-panel table#project-cost-summary-table th:nth-child(3),
+.doc-panel table#project-cost-summary-table td:nth-child(3),
+.doc-panel table#project-cost-breakdown-table th:nth-child(1),
+.doc-panel table#project-cost-breakdown-table td:nth-child(1),
+.doc-panel table#project-cost-breakdown-table th:nth-child(3),
+.doc-panel table#project-cost-breakdown-table td:nth-child(3) {
+  white-space: nowrap;
+}
+
+@media (min-width: 1266px) {
+  .doc-panel table#component-cost-table th[style*="white-space: nowrap"],
+  .doc-panel table#component-cost-table td[style*="white-space: nowrap"],
+  .doc-panel table#project-cost-summary-table th[style*="white-space: nowrap"],
+  .doc-panel table#project-cost-summary-table td[style*="white-space: nowrap"],
+  .doc-panel table#project-cost-breakdown-table th[style*="white-space: nowrap"],
+  .doc-panel table#project-cost-breakdown-table td[style*="white-space: nowrap"] {
+    white-space: normal !important;
+  }
+}
+
+@media (max-width: 1265px) {
+  .manual-table-wrap {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .manual-table-wrap > table {
+    min-width: 42rem;
+    max-width: none;
+  }
+
+  .manual-table-wrap > table#component-cost-table {
+    min-width: 64rem;
+  }
+
+  .manual-table-wrap > table#project-cost-summary-table,
+  .manual-table-wrap > table#project-cost-breakdown-table {
+    min-width: 32rem;
+  }
 }
 
 .manual-note {
@@ -638,5 +756,53 @@
   .docs-page-nav-btn-next {
     grid-column: 1;
     text-align: left;
+  }
+
+  .doc-panel table {
+    font-size: 0.88rem;
+  }
+
+  .doc-panel th,
+  .doc-panel td {
+    padding: 0.36rem 0.44rem;
+  }
+
+  .component-table-controls {
+    width: 100%;
+    gap: 0.35rem;
+  }
+
+  .component-table-controls__label {
+    width: 100%;
+    white-space: normal;
+  }
+
+  .component-table-controls__select {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    flex: 1 1 100%;
+  }
+
+  /* On small screens, allow legacy nowrap columns to wrap on general docs tables. */
+  .doc-panel table:not(#component-cost-table):not(#project-cost-summary-table):not(#project-cost-breakdown-table) th[nowrap],
+  .doc-panel table:not(#component-cost-table):not(#project-cost-summary-table):not(#project-cost-breakdown-table) td[nowrap],
+  .doc-panel table:not(#component-cost-table):not(#project-cost-summary-table):not(#project-cost-breakdown-table) th[style*="white-space: nowrap"],
+  .doc-panel table:not(#component-cost-table):not(#project-cost-summary-table):not(#project-cost-breakdown-table) td[style*="white-space: nowrap"] {
+    white-space: normal !important;
+  }
+
+  .doc-panel table#component-cost-table th[style*="white-space: nowrap"],
+  .doc-panel table#component-cost-table td[style*="white-space: nowrap"],
+  .doc-panel table#project-cost-summary-table th[style*="white-space: nowrap"],
+  .doc-panel table#project-cost-summary-table td[style*="white-space: nowrap"],
+  .doc-panel table#project-cost-breakdown-table th[style*="white-space: nowrap"],
+  .doc-panel table#project-cost-breakdown-table td[style*="white-space: nowrap"] {
+    white-space: normal !important;
+  }
+
+  .doc-panel table#component-cost-table td:first-child a {
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 }

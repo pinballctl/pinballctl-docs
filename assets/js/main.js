@@ -354,6 +354,7 @@
     renderTree();
     renderBookmarks();
     refreshBookmarkToggle();
+    document.dispatchEvent(new CustomEvent("docs:article-rendered", { detail: { slug } }));
     window.scrollTo({ top: 0, behavior: "auto" });
   }
 

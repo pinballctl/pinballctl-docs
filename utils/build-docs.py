@@ -919,7 +919,7 @@ def _render_index_html(
     </div>
   </div>
 
-  <script id=\"site-data-inline\" type=\"application/json\">{embedded_data_json}</script>\n  <script src=\"./assets/js/main.js\" defer></script>
+  <script id=\"site-data-inline\" type=\"application/json\">{embedded_data_json}</script>\n  <script src=\"./assets/js/main.js\" defer></script>\n  <script src=\"./assets/js/components.js\" defer></script>
 </body>
 </html>
 """
@@ -1049,6 +1049,7 @@ def build(root: Path, website_root: Path | None = None) -> None:
     out_style = css_dir / "style.css"
     out_docs_css = css_dir / "docs.css"
     out_main_js = js_dir / "main.js"
+    out_components_js = js_dir / "components.js"
 
     if not pages_root.exists():
         raise FileNotFoundError(f"pages directory not found: {pages_root}")
@@ -1067,6 +1068,8 @@ def build(root: Path, website_root: Path | None = None) -> None:
         raise FileNotFoundError(f"docs.css missing: {out_docs_css}")
     if not out_main_js.exists():
         raise FileNotFoundError(f"main.js missing: {out_main_js}")
+    if not out_components_js.exists():
+        raise FileNotFoundError(f"components.js missing: {out_components_js}")
     inline_css = _load_inline_css(out_style, out_docs_css)
 
     pages = _scan_pages(pages_root)
