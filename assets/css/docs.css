@@ -286,6 +286,13 @@
   line-height: 1.45;
 }
 
+.docs-result-excerpt mark {
+  background: rgba(126, 250, 210, 0.22);
+  color: #eafcff;
+  border-radius: 0.2rem;
+  padding: 0 0.15em;
+}
+
 .docs-content {
   width: 100%;
   max-width: 100%;

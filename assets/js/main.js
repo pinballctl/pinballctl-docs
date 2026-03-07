@@ -479,6 +479,74 @@
     return s;
   }
 
+  function queryTokens(query) {
+    return (String(query || "").toLowerCase().match(/[a-z0-9][a-z0-9_-]*/g) || []);
+  }
+
+  function matchesPage(page, query) {
+    const q = String(query || "").trim().toLowerCase();
+    if (!q) return true;
+    const title = String(page?.title || "").toLowerCase();
+    const body = String(page?.plain || "").toLowerCase();
+    const excerpt = String(page?.excerpt || "").toLowerCase();
+    const hay = `${title}\n${excerpt}\n${body}`;
+
+    const tokens = queryTokens(q);
+    if (!tokens.length) return hay.includes(q);
+
+    // AND semantics, order-independent, partial-word matching via substring includes.
+    return tokens.every((t) => hay.includes(t));
+  }
+
+  function snippetForSearch(page, query) {
+    const q = String(query || "").trim();
+    const plain = String(page?.plain || "").replace(/\s+/g, " ").trim();
+    const fallback = String(page?.excerpt || "").trim();
+    const source = plain || fallback;
+    if (!source) return "";
+    if (!q) return esc(fallback || source.slice(0, 220));
+
+    const lowSource = source.toLowerCase();
+    const lowQ = q.toLowerCase();
+    let idx = lowSource.indexOf(lowQ);
+    if (idx < 0) {
+      const tokens = q.match(/[a-z0-9][a-z0-9_-]*/gi) || [];
+      for (let i = 0; i < tokens.length; i += 1) {
+        const t = tokens[i].toLowerCase();
+        idx = lowSource.indexOf(t);
+        if (idx >= 0) break;
+      }
+    }
+
+    const left = 100;
+    const right = 140;
+    let start = idx >= 0 ? Math.max(0, idx - left) : 0;
+    let end = idx >= 0 ? Math.min(source.length, idx + Math.max(q.length, 1) + right) : Math.min(source.length, 240);
+
+    if (start > 0) {
+      const ws = source.indexOf(" ", start);
+      if (ws > 0) start = ws + 1;
+    }
+    if (end < source.length) {
+      const ws = source.lastIndexOf(" ", end);
+      if (ws > start) end = ws;
+    }
+
+    let snippet = source.slice(start, end).trim();
+    if (start > 0) snippet = `...${snippet}`;
+    if (end < source.length) snippet = `${snippet}...`;
+
+    const escaped = esc(snippet);
+    const bits = q.match(/[a-z0-9][a-z0-9_-]*/gi) || [];
+    if (!bits.length) return escaped;
+
+    const uniq = Array.from(new Set(bits.map((b) => b.toLowerCase()))).sort((a, b) => b.length - a.length);
+    const pattern = uniq.map((b) => b.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|");
+    if (!pattern) return escaped;
+    const re = new RegExp(`(${pattern})`, "gi");
+    return escaped.replace(re, "<mark>$1</mark>");
+  }
+
   function renderSearchResults(results) {
     const tree = document.getElementById("docs-tree");
     const resultsEl = document.getElementById("docs-search-results-top");
@@ -513,7 +581,7 @@
     resultsEl.innerHTML = results.map((p) => `
       <a href="${slugHref(p.slug)}" data-doc-slug="${esc(p.slug)}" class="docs-search-result docs-page-link${state.activeSlug === p.slug ? " active" : ""}">
         <div class="docs-search-result-title">${esc(stripOrderPrefix(p.title || p.slug))}</div>
-        <div class="docs-result-excerpt">${esc(p.excerpt || "")}</div>
+        <div class="docs-result-excerpt">${snippetForSearch(p, state.searchTerm)}</div>
       </a>
     `).join("");
   }
@@ -527,8 +595,8 @@
       return;
     }
     const scored = Array.from(state.pagesBySlug.values())
+      .filter((p) => matchesPage(p, query))
       .map((p) => ({ p, score: scorePage(p, query) }))
-      .filter((x) => x.score > 0)
       .sort((a, b) => b.score - a.score || String(a.p.title).localeCompare(String(b.p.title)))
       .map((x) => x.p)
       .slice(0, 120);
