@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="Lighting | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Lighting Lighting is the scene authoring workflow for playfield effects and event-driven feedback. It lets you build scenes, preview compiler output, and sync...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-lighting.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-lighting.html","name":"Lighting | Pinball CTL Docs","description":"Lighting Lighting is the scene authoring workflow for playfield effects and event-driven feedback. It lets you build scenes, preview compiler output, and sync...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Lighting Lighting is the scene authoring workflow for playfield effects and event-driven feedback. It lets you build scenes, preview compiler output, and sync...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-lighting.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-lighting.html","name":"Lighting | Pinball CTL Docs","description":"Lighting Lighting is the scene authoring workflow for playfield effects and event-driven feedback. It lets you build scenes, preview compiler output, and sync...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,176 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>Lighting</h1><p>Lighting is the scene authoring workflow for playfield effects and event-driven feedback.</p><p>It lets you build scenes, preview compiler output, and sync lighting data to ESP.</p><h2>Page Structure</h2><p>Lighting is split into three tabs:</p><ol><li><code>Stage</code></li><li><code>Fixtures</code></li><li><code>Runtime</code></li></ol><h2>Fixtures Tab</h2><img src="./media/screenshot-feature-lighting-fixtures.webp" alt="Lighting fixtures tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><p>Sourced from the hardware mapping, the fixtures list all available lighting hardware and let you refine metadata. For single LEDs you can set colour defaults, and for RGB strips you can define pixel count, length, and layout.</p><p>Use it to:</p><ul><li>review available fixtures</li><li>inspect fixture layout/type metadata</li><li>control cast targeting and selection scope</li><li>validate which fixtures a scene will affect</li></ul><h2>Stage Tab</h2><img src="./media/screenshot-feature-lighting-stage.webp" alt="Lighting stage tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><p>Stage is where scene playback and scene-level authoring happen.</p><p>A scene is a set of lighting patterns built either on a custom timeline or by choosing pre-defined patterns. Multiple scenes can be created and then triggered by Rules, either individually or layered.</p><p>Main areas:</p><ul><li>scene preview/stage area</li><li>scene selector and <code>Add Scene</code></li><li>options/editor card for selected scene</li><li>save and sync actions in the header</li></ul><p>Scene options include:</p><ul><li>title</li><li>duration (<code>seconds</code>, <code>minutes</code>, <code>frames</code>)</li><li>end behavior (<code>stop</code>, <code>repeat</code>, <code>bounce</code>)</li><li>pattern selection</li><li>priority and blend mode</li><li>cast scope/mask</li></ul><p>When pattern is <code>Custom Timeline</code>, timeline editing is available:</p><ul><li>frame scrubber and frame stepping</li><li>marker/tag pins</li><li>clear frame action</li><li>per-frame visual editing</li></ul><p>Playback behavior:</p><ul><li><code>Play</code> / <code>Stop</code> controls</li><li>preview follows compiled output path</li><li>updates reflect scene/pattern changes after compile</li></ul><p>Selection controls (available on Stage in both timeline and non-timeline modes):</p><ul><li>click a pixel to select it</li><li>click and drag on the stage to box-select multiple pixels</li><li>hold <code>Shift</code> and click pixels to add/remove individual pixels from the current selection</li></ul><h2>Runtime Tab</h2><img src="./media/screenshot-feature-lighting-runtime.webp" alt="Lighting runtime tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><p>Runtime shows what the ESP is doing right now, using the currently synced lighting data.</p><p>Use it to:</p><ul><li>confirm ESP connection/headless state</li><li>check whether a scene is actively playing</li><li>see the active scene list (or current scene fallback)</li><li>monitor priority/blend/pause/order context for scene layering</li><li>spot pixel overrides that are currently holding LEDs</li></ul><h2>Layering and Scene Overlays (Simple Explanation)</h2><p>Think of scenes as stacked transparent sheets of light.</p><ul><li>the base sheet is usually a background scene (for example <code>Attract</code>)</li><li>higher-priority sheets can appear above it (for example <code>Game Mode</code>, then <code>Bonus</code>)</li><li>blend mode decides what happens to lower sheets when a higher one starts:</li><li><code>Stop Lower</code>: lower scene is stopped and does not continue</li><li><code>Pause Lower</code>: lower scene is paused, then can continue when the top scene ends</li><li><code>Play Over</code>: higher scene plays on top without stopping lower scenes</li></ul><p>Direct pixel commands from Rules (like <code>LIGHT_PIXELS_SET</code>) are treated as immediate overrides, so those LEDs stay in the requested state until released. After release, scene-driven output resumes.</p><h2>Top Actions</h2><ul><li><code>Add Scene</code>: create a new scene</li><li><code>Play</code> / <code>Stop</code>: preview selected scene locally</li><li><code>Run selected scene on ESP</code>: start/stop selected scene on hardware</li><li><code>All Lights On/Off</code>: force all visible lights on to help locate fixtures quickly, then toggle back to normal preview</li><li><code>Sync Lighting</code>: compile and queue lighting sync to ESP</li><li><code>Save Changes</code>: persist local lighting config</li></ul><p>If local and ESP revisions differ, an out-of-sync warning is shown.</p><h2>Custom Timeline</h2><p>The custom timeline gives you exact control of which pixels are on/off and the colour at every specific frame.</p><h2>Timeline Tags</h2><p>Frame tags are managed from the tag modal.</p><p>Rules:</p><ul><li>lowercase letters/numbers with <code>_</code> or <code>-</code></li><li>max length <code>64</code></li><li>unique per scene</li></ul><p>Tags are available in Rules <code>Apply Lighting Scene</code> actions (<code>Start at: Tag</code>).</p><h2>Save and Sync Workflow</h2><ol><li>Build or edit scene in <code>Stage</code>.</li><li>Validate cast/fixture targeting in <code>Fixtures</code>.</li><li>Click <code>Save Changes</code>.</li><li>Click <code>Sync Lighting</code>.</li><li>Optionally open <code>Runtime</code> to confirm live ESP state.</li></ol><h2>Pattern Reference</h2><table>  <thead>    <tr>      <th>Pattern</th>      <th>What It Looks Like</th>      <th>Options</th>    </tr>  </thead>  <tbody>      <tr><td><code>solid</code><br>Solid</td><td>A steady colour fill across the selected cast.</td><td><code>Colour</code>, <code>Brightness</code></td></tr>      <tr><td><code>pulse</code><br>Pulse</td><td>All selected lights pulse brighter and dimmer together.</td><td><code>Colour</code>, <code>Brightness</code>, <code>PeriodMs</code></td></tr>      <tr><td><code>rainbow</code><br>Rainbow</td><td>A flowing rainbow cycle moving across fixtures.</td><td><code>Brightness</code>, <code>Speed</code>, <code>Segments</code>, <code>Saturation</code></td></tr>      <tr><td><code>alternating</code><br>Alternating</td><td>Alternates odd/even pixels between Colour 1 and Colour 2.</td><td><code>Brightness</code>, <code>SwitchMs</code>, <code>Colour 1</code>, <code>Colour 2</code></td></tr>      <tr><td><code>chase</code><br>Chase</td><td>A moving block of light that travels along strips.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Width</code></td></tr>      <tr><td><code>wave</code><br>Wave</td><td>A directional wave band sweeping across the playfield.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Direction</code>, <code>ColourMode</code>, <code>Band</code>, <code>Hold</code></td></tr>      <tr><td><code>rainbow_gradient</code><br>Rainbow Gradient</td><td>A smooth rainbow gradient drift over time.</td><td><code>Brightness</code>, <code>Speed</code>, <code>Spread</code>, <code>Saturation</code></td></tr>      <tr><td><code>sparkle</code><br>Sparkle</td><td>Random twinkles that pop on and off.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Density</code>, <code>MinOnMs</code>, <code>MaxOnMs</code>, <code>Seed</code></td></tr>      <tr><td><code>strobe</code><br>Strobe</td><td>Fast flashing strobe effect.</td><td><code>Colour</code>, <code>Brightness</code>, <code>RateHz</code>, <code>DutyCycle</code></td></tr>      <tr><td><code>breath</code><br>Breath</td><td>A soft inhale/exhale fade effect.</td><td><code>Colour</code>, <code>Brightness</code>, <code>PeriodMs</code>, <code>MinIntensity</code>, <code>MaxIntensity</code></td></tr>      <tr><td><code>fade_in_out</code><br>Fade In Out</td><td>Classic full-scene fade in and fade out.</td><td><code>Colour</code>, <code>Brightness</code>, <code>PeriodMs</code>, <code>MinBrightness</code>, <code>MaxBrightness</code></td></tr>      <tr><td><code>fade_stagger</code><br>Fade Stagger</td><td>Fade pattern with per-light phase offsets.</td><td><code>Colour</code>, <code>Brightness</code>, <code>PeriodMs</code>, <code>MinBrightness</code>, <code>MaxBrightness</code>, <code>PhaseOffset</code>, <code>Seed</code></td></tr>      <tr><td><code>color_wipe</code><br>Color Wipe</td><td>Colour wipes from one side/direction to the other.</td><td><code>Colour</code>, <code>Brightness</code>, <code>StepMs</code>, <code>Direction</code>, <code>ClearAfter</code></td></tr>      <tr><td><code>theater_chase</code><br>Theater Chase</td><td>Marquee-style dotted chase pattern.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Spacing</code>, <code>Tail</code></td></tr>      <tr><td><code>scanner</code><br>Scanner</td><td>A back-and-forth scanner beam.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Width</code>, <code>Bounce</code></td></tr>      <tr><td><code>twinkle_fade</code><br>Twinkle Fade</td><td>Twinkles that rise and fade smoothly.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Density</code>, <code>RiseMs</code>, <code>FallMs</code>, <code>Seed</code></td></tr>      <tr><td><code>fire</code><br>Fire</td><td>Heat-like flicker fire simulation.</td><td><code>Brightness</code>, <code>Speed</code>, <code>Cooling</code>, <code>Sparking</code>, <code>Seed</code></td></tr>      <tr><td><code>meteor_rain</code><br>Meteor Rain</td><td>Comet/meteor streaks with trailing fade.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>TailLength</code>, <code>Decay</code>, <code>Bounce</code></td></tr>      <tr><td><code>ping</code><br>Ping</td><td>A pulse expanding from an origin point.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Thickness</code>, <code>Falloff</code>, <code>Origin</code></td></tr>      <tr><td><code>radar</code><br>Radar</td><td>A rotating sweep beam like a radar arm.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>SweepDeg</code>, <code>Tail</code></td></tr>      <tr><td><code>ripple</code><br>Ripple</td><td>Concentric ripple rings radiating outward.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Rings</code>, <code>Thickness</code>, <code>Falloff</code></td></tr>      <tr><td><code>chevron</code><br>Chevron</td><td>Angled chevron sweep pattern.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Direction</code>, <code>SpreadDeg</code>, <code>Length</code>, <code>Thickness</code>, <code>Tail</code></td></tr>      <tr><td><code>spiral</code><br>Spiral</td><td>A rotating spiral movement around an origin.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Turns</code>, <code>Thickness</code>, <code>Direction</code>, <code>Origin</code></td></tr>      <tr><td><code>lightning</code><br>Lightning</td><td>Irregular lightning-style flashes and branches.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Density</code>, <code>Width</code>, <code>Decay</code>, <code>Branches</code>, <code>Seed</code></td></tr>      <tr><td><code>orbit</code><br>Orbit</td><td>A point/beam orbiting around a centre radius.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Radius</code>, <code>Tail</code>, <code>Direction</code></td></tr>      <tr><td><code>equalizer</code><br>Equalizer</td><td>Bar-like motion inspired by audio equalizers.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Bands</code>, <code>Smoothing</code>, <code>Direction</code>, <code>Seed</code></td></tr>      <tr><td><code>comet_burst</code><br>Comet Burst</td><td>Multiple comet bursts fired from an origin.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Count</code>, <code>SpreadDeg</code>, <code>Tail</code>, <code>Width</code>, <code>Origin</code>, <code>Seed</code></td></tr>      <tr><td><code>cross_sweep</code><br>Cross Sweep</td><td>Cross (plus or X) sweep across the cast.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Width</code>, <code>Style</code>, <code>Direction</code></td></tr>      <tr><td><code>noise_wash</code><br>Noise Wash</td><td>Organic noise shimmer/wash with optional rainbow mode.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Scale</code>, <code>Contrast</code>, <code>ColourMode</code></td></tr>      <tr><td><code>zone_pulse</code><br>Zone Pulse</td><td>Grouped zone pulsing based on fixture IDs.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>GroupBy</code>, <code>PrefixLen</code>, <code>Overlap</code></td></tr>      <tr><td><code>arc_fan</code><br>Arc Fan</td><td>Fan of arc beams sweeping from an origin.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>BeamCount</code>, <code>BeamSpreadDeg</code>, <code>BeamWidthDeg</code>, <code>Tail</code>, <code>Origin</code>, <code>Direction</code></td></tr>      <tr><td><code>ticker</code><br>Ticker</td><td>Scrolling ticker-style moving window.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Window</code>, <code>Direction</code>, <code>Text</code></td></tr>      <tr><td><code>morse_beacon</code><br>Morse Beacon</td><td>Flashes a text message in Morse timing.</td><td><code>Colour</code>, <code>Brightness</code>, <code>DotMs</code>, <code>Message</code></td></tr>      <tr><td><code>step_sequence</code><br>Step Sequence</td><td>User-defined sequence of colour/time/intensity steps.</td><td><code>Steps</code>, <code>Brightness</code></td></tr>      <tr><td><code>dual_scanner</code><br>Dual Scanner</td><td>Two scanner beams using two colours.</td><td><code>Colour 1</code>, <code>Colour 2</code>, <code>Brightness</code>, <code>Speed</code>, <code>Trail</code>, <code>Direction</code></td></tr>      <tr><td><code>spark_gap</code><br>Spark Gap</td><td>Spark effect with dynamic dark gaps.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>GapWidth</code>, <code>GapCount</code>, <code>Softness</code></td></tr>      <tr><td><code>impact_burst</code><br>Impact Burst</td><td>Impact ring burst with decay.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>RingWidth</code>, <code>Decay</code>, <code>Origin</code>, <code>Seed</code></td></tr>      <tr><td><code>drift_palette</code><br>Drift Palette</td><td>Palette-driven colour drift across fixtures.</td><td><code>Palette</code>, <code>Brightness</code>, <code>Speed</code>, <code>Spread</code></td></tr>      <tr><td><code>random_strobe_groups</code><br>Random Strobe Groups</td><td>Grouped random strobe bursts.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>GroupCount</code>, <code>Duty</code>, <code>Seed</code></td></tr>      <tr><td><code>heartbeat_double</code><br>Heartbeat Double</td><td>Double-beat heartbeat pulse shape.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>SecondLevel</code>, <code>Sharpness</code></td></tr>      <tr><td><code>custom</code><br>Custom Timeline</td><td>Timeline-authored frames and markers for exact control.</td><td><code>Brightness</code>, <code>Tween</code></td></tr>  </tbody></table><h2>Related Features</h2><ul><li><a href="7-rules.md">Rules</a></li><li><a href="/pages/user-guide-layout.html" data-doc-slug="1-user-guide/9-layout">Playfield</a></li><li><a href="10-hardware.md">Hardware</a></li></ul></div>
+          <div class="doc-panel" id="docs-article"><h1 id="lighting">Lighting</h1>
+<p>Lighting is the scene authoring workflow for playfield effects and event-driven feedback.</p>
+<p>It lets you build scenes, preview compiler output, and sync lighting data to ESP.</p>
+<h2 id="page-structure">Page Structure</h2>
+<p>Lighting is split into three tabs:</p>
+<ol>
+<li><code>Stage</code></li>
+<li><code>Fixtures</code></li>
+<li><code>Runtime</code></li>
+</ol>
+<h2 id="fixtures-tab">Fixtures Tab</h2>
+<p><img src="./media/screenshot-feature-lighting-fixtures.webp" alt="Lighting fixtures tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<p>Sourced from the hardware mapping, the fixtures list all available lighting hardware and let you refine metadata. For single LEDs you can set colour defaults, and for RGB strips you can define pixel count, length, and layout.</p>
+<p>Use it to:</p>
+<ul>
+<li>review available fixtures</li>
+<li>inspect fixture layout/type metadata</li>
+<li>control cast targeting and selection scope</li>
+<li>validate which fixtures a scene will affect</li>
+</ul>
+<h2 id="stage-tab">Stage Tab</h2>
+<p><img src="./media/screenshot-feature-lighting-stage.webp" alt="Lighting stage tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<p>Stage is where scene playback and scene-level authoring happen.</p>
+<p>A scene is a set of lighting patterns built either on a custom timeline or by choosing pre-defined patterns. Multiple scenes can be created and then triggered by Rules, either individually or layered.</p>
+<p>Main areas:</p>
+<ul>
+<li>scene preview/stage area</li>
+<li>scene selector and <code>Add Scene</code></li>
+<li>options/editor card for selected scene</li>
+<li>save and sync actions in the header</li>
+</ul>
+<p>Scene options include:</p>
+<ul>
+<li>title</li>
+<li>duration (<code>seconds</code>, <code>minutes</code>, <code>frames</code>)</li>
+<li>end behavior (<code>stop</code>, <code>repeat</code>, <code>bounce</code>)</li>
+<li>pattern selection</li>
+<li>priority and blend mode</li>
+<li>cast scope/mask</li>
+</ul>
+<p>When pattern is <code>Custom Timeline</code>, timeline editing is available:</p>
+<ul>
+<li>frame scrubber and frame stepping</li>
+<li>marker/tag pins</li>
+<li>clear frame action</li>
+<li>per-frame visual editing</li>
+</ul>
+<p>Playback behavior:</p>
+<ul>
+<li><code>Play</code> / <code>Stop</code> controls</li>
+<li>preview follows compiled output path</li>
+<li>updates reflect scene/pattern changes after compile</li>
+</ul>
+<p>Selection controls (available on Stage in both timeline and non-timeline modes):</p>
+<ul>
+<li>click a pixel to select it</li>
+<li>click and drag on the stage to box-select multiple pixels</li>
+<li>hold <code>Shift</code> and click pixels to add/remove individual pixels from the current selection</li>
+</ul>
+<h2 id="runtime-tab">Runtime Tab</h2>
+<p><img src="./media/screenshot-feature-lighting-runtime.webp" alt="Lighting runtime tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<p>Runtime shows what the ESP is doing right now, using the currently synced lighting data.</p>
+<p>Use it to:</p>
+<ul>
+<li>confirm ESP connection/headless state</li>
+<li>check whether a scene is actively playing</li>
+<li>see the active scene list (or current scene fallback)</li>
+<li>monitor priority/blend/pause/order context for scene layering</li>
+<li>spot pixel overrides that are currently holding LEDs</li>
+</ul>
+<h2 id="layering-and-scene-overlays-simple-explanation">Layering and Scene Overlays (Simple Explanation)</h2>
+<p>Think of scenes as stacked transparent sheets of light.</p>
+<ul>
+<li>the base sheet is usually a background scene (for example <code>Attract</code>)</li>
+<li>higher-priority sheets can appear above it (for example <code>Game Mode</code>, then <code>Bonus</code>)</li>
+<li>blend mode decides what happens to lower sheets when a higher one starts:</li>
+<li><code>Stop Lower</code>: lower scene is stopped and does not continue</li>
+<li><code>Pause Lower</code>: lower scene is paused, then can continue when the top scene ends</li>
+<li><code>Play Over</code>: higher scene plays on top without stopping lower scenes</li>
+</ul>
+<p>Direct pixel commands from Rules (like <code>LIGHT_PIXELS_SET</code>) are treated as immediate overrides, so those LEDs stay in the requested state until released. After release, scene-driven output resumes.</p>
+<h2 id="top-actions">Top Actions</h2>
+<ul>
+<li><code>Add Scene</code>: create a new scene</li>
+<li><code>Play</code> / <code>Stop</code>: preview selected scene locally</li>
+<li><code>Run selected scene on ESP</code>: start/stop selected scene on hardware</li>
+<li><code>All Lights On/Off</code>: force all visible lights on to help locate fixtures quickly, then toggle back to normal preview</li>
+<li><code>Sync Lighting</code>: compile and queue lighting sync to ESP</li>
+<li><code>Save Changes</code>: persist local lighting config</li>
+</ul>
+<p>If local and ESP revisions differ, an out-of-sync warning is shown.</p>
+<h2 id="custom-timeline">Custom Timeline</h2>
+<p>The custom timeline gives you exact control of which pixels are on/off and the colour at every specific frame.</p>
+<h2 id="timeline-tags">Timeline Tags</h2>
+<p>Frame tags are managed from the tag modal.</p>
+<p>Rules:</p>
+<ul>
+<li>lowercase letters/numbers with <code>_</code> or <code>-</code></li>
+<li>max length <code>64</code></li>
+<li>unique per scene</li>
+</ul>
+<p>Tags are available in Rules <code>Apply Lighting Scene</code> actions (<code>Start at: Tag</code>).</p>
+<h2 id="save-and-sync-workflow">Save and Sync Workflow</h2>
+<ol>
+<li>Build or edit scene in <code>Stage</code>.</li>
+<li>Validate cast/fixture targeting in <code>Fixtures</code>.</li>
+<li>Click <code>Save Changes</code>.</li>
+<li>Click <code>Sync Lighting</code>.</li>
+<li>Optionally open <code>Runtime</code> to confirm live ESP state.</li>
+</ol>
+<h2 id="pattern-reference">Pattern Reference</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Pattern</th>
+      <th>What It Looks Like</th>
+      <th>Options</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr><td><code>solid</code><br>Solid</td><td>A steady colour fill across the selected cast.</td><td><code>Colour</code>, <code>Brightness</code></td></tr>
+      <tr><td><code>pulse</code><br>Pulse</td><td>All selected lights pulse brighter and dimmer together.</td><td><code>Colour</code>, <code>Brightness</code>, <code>PeriodMs</code></td></tr>
+      <tr><td><code>rainbow</code><br>Rainbow</td><td>A flowing rainbow cycle moving across fixtures.</td><td><code>Brightness</code>, <code>Speed</code>, <code>Segments</code>, <code>Saturation</code></td></tr>
+      <tr><td><code>alternating</code><br>Alternating</td><td>Alternates odd/even pixels between Colour 1 and Colour 2.</td><td><code>Brightness</code>, <code>SwitchMs</code>, <code>Colour 1</code>, <code>Colour 2</code></td></tr>
+      <tr><td><code>chase</code><br>Chase</td><td>A moving block of light that travels along strips.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Width</code></td></tr>
+      <tr><td><code>wave</code><br>Wave</td><td>A directional wave band sweeping across the playfield.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Direction</code>, <code>ColourMode</code>, <code>Band</code>, <code>Hold</code></td></tr>
+      <tr><td><code>rainbow_gradient</code><br>Rainbow Gradient</td><td>A smooth rainbow gradient drift over time.</td><td><code>Brightness</code>, <code>Speed</code>, <code>Spread</code>, <code>Saturation</code></td></tr>
+      <tr><td><code>sparkle</code><br>Sparkle</td><td>Random twinkles that pop on and off.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Density</code>, <code>MinOnMs</code>, <code>MaxOnMs</code>, <code>Seed</code></td></tr>
+      <tr><td><code>strobe</code><br>Strobe</td><td>Fast flashing strobe effect.</td><td><code>Colour</code>, <code>Brightness</code>, <code>RateHz</code>, <code>DutyCycle</code></td></tr>
+      <tr><td><code>breath</code><br>Breath</td><td>A soft inhale/exhale fade effect.</td><td><code>Colour</code>, <code>Brightness</code>, <code>PeriodMs</code>, <code>MinIntensity</code>, <code>MaxIntensity</code></td></tr>
+      <tr><td><code>fade_in_out</code><br>Fade In Out</td><td>Classic full-scene fade in and fade out.</td><td><code>Colour</code>, <code>Brightness</code>, <code>PeriodMs</code>, <code>MinBrightness</code>, <code>MaxBrightness</code></td></tr>
+      <tr><td><code>fade_stagger</code><br>Fade Stagger</td><td>Fade pattern with per-light phase offsets.</td><td><code>Colour</code>, <code>Brightness</code>, <code>PeriodMs</code>, <code>MinBrightness</code>, <code>MaxBrightness</code>, <code>PhaseOffset</code>, <code>Seed</code></td></tr>
+      <tr><td><code>color_wipe</code><br>Color Wipe</td><td>Colour wipes from one side/direction to the other.</td><td><code>Colour</code>, <code>Brightness</code>, <code>StepMs</code>, <code>Direction</code>, <code>ClearAfter</code></td></tr>
+      <tr><td><code>theater_chase</code><br>Theater Chase</td><td>Marquee-style dotted chase pattern.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Spacing</code>, <code>Tail</code></td></tr>
+      <tr><td><code>scanner</code><br>Scanner</td><td>A back-and-forth scanner beam.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Width</code>, <code>Bounce</code></td></tr>
+      <tr><td><code>twinkle_fade</code><br>Twinkle Fade</td><td>Twinkles that rise and fade smoothly.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Density</code>, <code>RiseMs</code>, <code>FallMs</code>, <code>Seed</code></td></tr>
+      <tr><td><code>fire</code><br>Fire</td><td>Heat-like flicker fire simulation.</td><td><code>Brightness</code>, <code>Speed</code>, <code>Cooling</code>, <code>Sparking</code>, <code>Seed</code></td></tr>
+      <tr><td><code>meteor_rain</code><br>Meteor Rain</td><td>Comet/meteor streaks with trailing fade.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>TailLength</code>, <code>Decay</code>, <code>Bounce</code></td></tr>
+      <tr><td><code>ping</code><br>Ping</td><td>A pulse expanding from an origin point.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Thickness</code>, <code>Falloff</code>, <code>Origin</code></td></tr>
+      <tr><td><code>radar</code><br>Radar</td><td>A rotating sweep beam like a radar arm.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>SweepDeg</code>, <code>Tail</code></td></tr>
+      <tr><td><code>ripple</code><br>Ripple</td><td>Concentric ripple rings radiating outward.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Rings</code>, <code>Thickness</code>, <code>Falloff</code></td></tr>
+      <tr><td><code>chevron</code><br>Chevron</td><td>Angled chevron sweep pattern.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Direction</code>, <code>SpreadDeg</code>, <code>Length</code>, <code>Thickness</code>, <code>Tail</code></td></tr>
+      <tr><td><code>spiral</code><br>Spiral</td><td>A rotating spiral movement around an origin.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Turns</code>, <code>Thickness</code>, <code>Direction</code>, <code>Origin</code></td></tr>
+      <tr><td><code>lightning</code><br>Lightning</td><td>Irregular lightning-style flashes and branches.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Density</code>, <code>Width</code>, <code>Decay</code>, <code>Branches</code>, <code>Seed</code></td></tr>
+      <tr><td><code>orbit</code><br>Orbit</td><td>A point/beam orbiting around a centre radius.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Radius</code>, <code>Tail</code>, <code>Direction</code></td></tr>
+      <tr><td><code>equalizer</code><br>Equalizer</td><td>Bar-like motion inspired by audio equalizers.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Bands</code>, <code>Smoothing</code>, <code>Direction</code>, <code>Seed</code></td></tr>
+      <tr><td><code>comet_burst</code><br>Comet Burst</td><td>Multiple comet bursts fired from an origin.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Count</code>, <code>SpreadDeg</code>, <code>Tail</code>, <code>Width</code>, <code>Origin</code>, <code>Seed</code></td></tr>
+      <tr><td><code>cross_sweep</code><br>Cross Sweep</td><td>Cross (plus or X) sweep across the cast.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Width</code>, <code>Style</code>, <code>Direction</code></td></tr>
+      <tr><td><code>noise_wash</code><br>Noise Wash</td><td>Organic noise shimmer/wash with optional rainbow mode.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Scale</code>, <code>Contrast</code>, <code>ColourMode</code></td></tr>
+      <tr><td><code>zone_pulse</code><br>Zone Pulse</td><td>Grouped zone pulsing based on fixture IDs.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>GroupBy</code>, <code>PrefixLen</code>, <code>Overlap</code></td></tr>
+      <tr><td><code>arc_fan</code><br>Arc Fan</td><td>Fan of arc beams sweeping from an origin.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>BeamCount</code>, <code>BeamSpreadDeg</code>, <code>BeamWidthDeg</code>, <code>Tail</code>, <code>Origin</code>, <code>Direction</code></td></tr>
+      <tr><td><code>ticker</code><br>Ticker</td><td>Scrolling ticker-style moving window.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>Window</code>, <code>Direction</code>, <code>Text</code></td></tr>
+      <tr><td><code>morse_beacon</code><br>Morse Beacon</td><td>Flashes a text message in Morse timing.</td><td><code>Colour</code>, <code>Brightness</code>, <code>DotMs</code>, <code>Message</code></td></tr>
+      <tr><td><code>step_sequence</code><br>Step Sequence</td><td>User-defined sequence of colour/time/intensity steps.</td><td><code>Steps</code>, <code>Brightness</code></td></tr>
+      <tr><td><code>dual_scanner</code><br>Dual Scanner</td><td>Two scanner beams using two colours.</td><td><code>Colour 1</code>, <code>Colour 2</code>, <code>Brightness</code>, <code>Speed</code>, <code>Trail</code>, <code>Direction</code></td></tr>
+      <tr><td><code>spark_gap</code><br>Spark Gap</td><td>Spark effect with dynamic dark gaps.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>GapWidth</code>, <code>GapCount</code>, <code>Softness</code></td></tr>
+      <tr><td><code>impact_burst</code><br>Impact Burst</td><td>Impact ring burst with decay.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>RingWidth</code>, <code>Decay</code>, <code>Origin</code>, <code>Seed</code></td></tr>
+      <tr><td><code>drift_palette</code><br>Drift Palette</td><td>Palette-driven colour drift across fixtures.</td><td><code>Palette</code>, <code>Brightness</code>, <code>Speed</code>, <code>Spread</code></td></tr>
+      <tr><td><code>random_strobe_groups</code><br>Random Strobe Groups</td><td>Grouped random strobe bursts.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>GroupCount</code>, <code>Duty</code>, <code>Seed</code></td></tr>
+      <tr><td><code>heartbeat_double</code><br>Heartbeat Double</td><td>Double-beat heartbeat pulse shape.</td><td><code>Colour</code>, <code>Brightness</code>, <code>Speed</code>, <code>SecondLevel</code>, <code>Sharpness</code></td></tr>
+      <tr><td><code>custom</code><br>Custom Timeline</td><td>Timeline-authored frames and markers for exact control.</td><td><code>Brightness</code>, <code>Tween</code></td></tr>
+  </tbody>
+</table>
+
+<h2 id="related-features">Related Features</h2>
+<ul>
+<li><a href="7-rules.md">Rules</a></li>
+<li><a href="/pages/user-guide-layout.html" data-doc-slug="1-user-guide/9-layout">Playfield</a></li>
+<li><a href="10-hardware.md">Hardware</a></li>
+</ul></div>
         </article>
       </div>
     </section>

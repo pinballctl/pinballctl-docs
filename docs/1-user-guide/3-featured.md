@@ -21,6 +21,7 @@ Use the table for a quick summary, and find the detailed sections to understand 
       <tr><td>Audio</td><td>Manage sound assets, cue playback behavior, output routing, and usage mapping.</td></tr>
       <tr><td>Media</td><td>Build visual scenes with assets and overlays, then launch kiosk displays for runtime.</td></tr>
       <tr><td>Lighting</td><td>Author scene-based lighting with rich live preview before rollout.</td></tr>
+      <tr><td>Accelerometer</td><td>Calibrate table level, monitor live motion data, and track nudge/lift activity.</td></tr>
       <tr><td>Playfield</td><td>Visual playfield editor with live simulation preview for faster iteration.</td></tr>
       <tr><td>Hardware</td><td>Discover hardware, map inputs/outputs, and manage hardware configuration.</td></tr>
       <tr><td>ESPLink</td><td>Manage ESP32 link status, versions, and manifest sync workflow.</td></tr>
@@ -119,6 +120,17 @@ Key features:
 - Build your lighting plan by scene, timeline, and target selection.
 - Apply pattern/show behaviour and test playback in preview before rollout.
 - Tune behaviour safely without requiring immediate live hardware control.
+
+## Accelerometer
+
+Accelerometer provides live motion and level visibility for the table, with baseline calibration and runtime diagnostics.
+
+Key features:
+
+- Save Baseline workflow to capture the current table position as your reference point.
+- Live pitch and roll spirit-level indicators for quick levelling checks.
+- Nudge and lift activity counters with immediate runtime feedback.
+- Raw sensor values and status details for diagnostics and setup validation.
 
 
 ## Hardware

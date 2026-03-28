@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="Wi Fi | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Wi-Fi Wi-Fi is the feature for viewing and updating network connection settings. What This Feature Does It shows live network state and lets you update...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-wifi.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-wifi.html","name":"Wi Fi | Pinball CTL Docs","description":"Wi-Fi Wi-Fi is the feature for viewing and updating network connection settings. What This Feature Does It shows live network state and lets you update...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Wi-Fi Wi-Fi is the feature for viewing and updating network connection settings. What This Feature Does It shows live network state and lets you update...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-wifi.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-wifi.html","name":"Wi Fi | Pinball CTL Docs","description":"Wi-Fi Wi-Fi is the feature for viewing and updating network connection settings. What This Feature Does It shows live network state and lets you update...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,55 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>Wi-Fi</h1><p>Wi-Fi is the feature for viewing and updating network connection settings.</p><img src="./media/screenshot-feature-wifi.webp" alt="Wi-Fi feature overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><h2>What This Feature Does</h2><p>It shows live network state and lets you update SSID/password from the web interface.</p><h2>Current Status Card</h2><p>Displays:</p><ul><li>SSID</li><li>IP</li><li>State</li><li>Connected badge (<code>Yes</code>/<code>No</code>)</li></ul><p>Status refreshes regularly (about every 5 seconds).</p><h2>Update Settings Form</h2><p>Fields:</p><ul><li>SSID (required)</li><li>Password</li></ul><p>Actions:</p><ul><li><code>Save</code></li></ul><p>UI feedback:</p><ul><li>saving spinner</li><li>success message</li><li>error alert if save fails</li></ul><h2>Save Behaviour</h2><p>Saves are submitted to Wi-Fi API and status refresh is triggered after successful update.</p><p>Use this for first setup changes or network migration.</p><h2>Planned Capability</h2><p>Planned: Wi-Fi connected services will provide support for global leaderboards.</p><h2>Practical Examples</h2><h3>Move machine to new venue network</h3><ol><li>Enter new SSID/password.</li><li>Save.</li><li>Confirm new IP and connected badge.</li></ol><h3>Verify remote support readiness</h3><p>Confirm connected badge and IP before remote browser/API operations.</p><h2>Related Features</h2><ul><li><a href="/pages/user-guide-dashboard.html" data-doc-slug="1-user-guide/5-dashboard">Dashboard</a></li><li><a href="/pages/user-guide-settings.html" data-doc-slug="1-user-guide/16-settings">Settings</a></li></ul></div>
+          <div class="doc-panel" id="docs-article"><h1 id="wi-fi">Wi-Fi</h1>
+<p>Wi-Fi is the feature for viewing and updating network connection settings.</p>
+<p><img src="./media/screenshot-feature-wifi.webp" alt="Wi-Fi feature overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<h2 id="what-this-feature-does">What This Feature Does</h2>
+<p>It shows live network state and lets you update SSID/password from the web interface.</p>
+<h2 id="current-status-card">Current Status Card</h2>
+<p>Displays:</p>
+<ul>
+<li>SSID</li>
+<li>IP</li>
+<li>State</li>
+<li>Connected badge (<code>Yes</code>/<code>No</code>)</li>
+</ul>
+<p>Status refreshes regularly (about every 5 seconds).</p>
+<h2 id="update-settings-form">Update Settings Form</h2>
+<p>Fields:</p>
+<ul>
+<li>SSID (required)</li>
+<li>Password</li>
+</ul>
+<p>Actions:</p>
+<ul>
+<li><code>Save</code></li>
+</ul>
+<p>UI feedback:</p>
+<ul>
+<li>saving spinner</li>
+<li>success message</li>
+<li>error alert if save fails</li>
+</ul>
+<h2 id="save-behaviour">Save Behaviour</h2>
+<p>Saves are submitted to Wi-Fi API and status refresh is triggered after successful update.</p>
+<p>Use this for first setup changes or network migration.</p>
+<h2 id="planned-capability">Planned Capability</h2>
+<p>Planned: Wi-Fi connected services will provide support for global leaderboards.</p>
+<h2 id="practical-examples">Practical Examples</h2>
+<h3 id="move-machine-to-new-venue-network">Move machine to new venue network</h3>
+<ol>
+<li>Enter new SSID/password.</li>
+<li>Save.</li>
+<li>Confirm new IP and connected badge.</li>
+</ol>
+<h3 id="verify-remote-support-readiness">Verify remote support readiness</h3>
+<p>Confirm connected badge and IP before remote browser/API operations.</p>
+<h2 id="related-features">Related Features</h2>
+<ul>
+<li><a href="/pages/user-guide-dashboard.html" data-doc-slug="1-user-guide/5-dashboard">Dashboard</a></li>
+<li><a href="/pages/user-guide-settings.html" data-doc-slug="1-user-guide/16-settings">Settings</a></li>
+</ul></div>
         </article>
       </div>
     </section>

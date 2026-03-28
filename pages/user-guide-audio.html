@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="Audio | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Audio Audio manages sound assets, output routing, and cue-based playback behavior. It is designed so gameplay systems can trigger predictable audio without...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-audio.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-audio.html","name":"Audio | Pinball CTL Docs","description":"Audio Audio manages sound assets, output routing, and cue-based playback behavior. It is designed so gameplay systems can trigger predictable audio without...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Audio Audio manages sound assets, output routing, and cue-based playback behavior. It is designed so gameplay systems can trigger predictable audio without...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-audio.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-audio.html","name":"Audio | Pinball CTL Docs","description":"Audio Audio manages sound assets, output routing, and cue-based playback behavior. It is designed so gameplay systems can trigger predictable audio without...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,94 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>Audio</h1><p>Audio manages sound assets, output routing, and cue-based playback behavior.</p><p>It is designed so gameplay systems can trigger predictable audio without embedding sound logic in ESP firmware.</p><h2>Page Structure</h2><p>Audio is split into four tabs:</p><ol><li><code>Library</code></li><li><code>Cues</code></li><li><code>Outputs</code></li><li><code>Audio Usage Map</code></li></ol><h2>Library Tab</h2><img src="./media/screenshot-feature-audio-library.webp" alt="Audio library tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><p>Library is where audio files are uploaded and managed.</p><p>Key behavior:</p><ul><li>drag-and-drop multi-file upload</li><li>per-row inline player</li><li>friendly name editing</li><li>sort by name, added date, and duration</li><li>usage count pills per asset</li></ul><p>Notes:</p><ul><li>if no friendly name is set, UI derives one from filename</li><li>very short assets are shown with fractional-second durations</li></ul><h2>Cues Tab</h2><img src="./media/screenshot-feature-audio-cues.webp" alt="Audio cues tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><p>Cues define how assets play at runtime.</p><p>Per cue settings include:</p><ul><li>cue name</li><li>linked library asset</li><li>output target</li><li>bus (<code>SFX</code>, <code>Music</code>, <code>Voice</code>, <code>Ambient</code>)</li><li>volume (<code>0.0</code> to <code>2.0</code>)</li><li>loop toggle</li><li>repeat count</li><li>cooldown (ms)</li></ul><p>Editor behavior:</p><ul><li><code>Save Changes</code> enables only when there are real changes</li><li>unsaved exit prompts use the shared confirm flow</li><li>preview playback goes through backend routing for runtime-accurate output targeting</li></ul><h2>Outputs Tab</h2><img src="./media/screenshot-feature-audio-outputs.webp" alt="Audio outputs tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><p>Outputs shows devices and runtime playback state.</p><p>Key behavior:</p><ul><li>detected playback devices for current host</li><li>active runtime entries and orphan entries</li><li>stop actions for active/orphan playback processes</li><li>environment checks for audio backend/library readiness</li></ul><h2>Audio Usage Map Tab</h2><img src="./media/screenshot-feature-audio-audio-usage-map.webp" alt="Audio usage map tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><p>Audio Usage Map is a read-only reference of where assets are used.</p><p>Use it for:</p><ul><li>audit and cleanup</li><li>verifying reuse before adding duplicate assets</li><li>debugging event-to-cue mappings quickly</li></ul><h2>Runtime Model</h2><p>Audio subscribes to Pi-side event flow.</p><p>In practice:</p><ul><li>events can trigger cues</li><li>multiple systems can reference the same cue</li><li>behavior stays centrally configurable from Audio</li></ul><h2>Typical Workflow</h2><ol><li>Upload assets in <code>Library</code>.</li><li>Define cue behavior in <code>Cues</code>.</li><li>Validate devices and playback in <code>Outputs</code>.</li><li>Confirm usage and reuse in <code>Audio Usage Map</code>.</li></ol><h2>Related Features</h2><ul><li><a href="7-rules.md">Rules</a></li><li><a href="7.1-scoring.md">Scoring</a></li><li><a href="/pages/user-guide-layout.html" data-doc-slug="1-user-guide/9-layout">Playfield</a></li><li><a href="/pages/user-guide-settings.html" data-doc-slug="1-user-guide/16-settings">Settings</a></li></ul></div>
+          <div class="doc-panel" id="docs-article"><h1 id="audio">Audio</h1>
+<p>Audio manages sound assets, output routing, and cue-based playback behavior.</p>
+<p>It is designed so gameplay systems can trigger predictable audio without embedding sound logic in ESP firmware.</p>
+<h2 id="page-structure">Page Structure</h2>
+<p>Audio is split into four tabs:</p>
+<ol>
+<li><code>Library</code></li>
+<li><code>Cues</code></li>
+<li><code>Outputs</code></li>
+<li><code>Audio Usage Map</code></li>
+</ol>
+<h2 id="library-tab">Library Tab</h2>
+<p><img src="./media/screenshot-feature-audio-library.webp" alt="Audio library tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<p>Library is where audio files are uploaded and managed.</p>
+<p>Key behavior:</p>
+<ul>
+<li>drag-and-drop multi-file upload</li>
+<li>per-row inline player</li>
+<li>friendly name editing</li>
+<li>sort by name, added date, and duration</li>
+<li>usage count pills per asset</li>
+</ul>
+<p>Notes:</p>
+<ul>
+<li>if no friendly name is set, UI derives one from filename</li>
+<li>very short assets are shown with fractional-second durations</li>
+</ul>
+<h2 id="cues-tab">Cues Tab</h2>
+<p><img src="./media/screenshot-feature-audio-cues.webp" alt="Audio cues tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<p>Cues define how assets play at runtime.</p>
+<p>Per cue settings include:</p>
+<ul>
+<li>cue name</li>
+<li>linked library asset</li>
+<li>output target</li>
+<li>bus (<code>SFX</code>, <code>Music</code>, <code>Voice</code>, <code>Ambient</code>)</li>
+<li>volume (<code>0.0</code> to <code>2.0</code>)</li>
+<li>loop toggle</li>
+<li>repeat count</li>
+<li>cooldown (ms)</li>
+</ul>
+<p>Editor behavior:</p>
+<ul>
+<li><code>Save Changes</code> enables only when there are real changes</li>
+<li>unsaved exit prompts use the shared confirm flow</li>
+<li>preview playback goes through backend routing for runtime-accurate output targeting</li>
+</ul>
+<h2 id="outputs-tab">Outputs Tab</h2>
+<p><img src="./media/screenshot-feature-audio-outputs.webp" alt="Audio outputs tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<p>Outputs shows devices and runtime playback state.</p>
+<p>Key behavior:</p>
+<ul>
+<li>detected playback devices for current host</li>
+<li>active runtime entries and orphan entries</li>
+<li>stop actions for active/orphan playback processes</li>
+<li>environment checks for audio backend/library readiness</li>
+</ul>
+<h2 id="audio-usage-map-tab">Audio Usage Map Tab</h2>
+<p><img src="./media/screenshot-feature-audio-audio-usage-map.webp" alt="Audio usage map tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<p>Audio Usage Map is a read-only reference of where assets are used.</p>
+<p>Use it for:</p>
+<ul>
+<li>audit and cleanup</li>
+<li>verifying reuse before adding duplicate assets</li>
+<li>debugging event-to-cue mappings quickly</li>
+</ul>
+<h2 id="runtime-model">Runtime Model</h2>
+<p>Audio subscribes to Pi-side event flow.</p>
+<p>In practice:</p>
+<ul>
+<li>events can trigger cues</li>
+<li>multiple systems can reference the same cue</li>
+<li>behavior stays centrally configurable from Audio</li>
+</ul>
+<h2 id="typical-workflow">Typical Workflow</h2>
+<ol>
+<li>Upload assets in <code>Library</code>.</li>
+<li>Define cue behavior in <code>Cues</code>.</li>
+<li>Validate devices and playback in <code>Outputs</code>.</li>
+<li>Confirm usage and reuse in <code>Audio Usage Map</code>.</li>
+</ol>
+<h2 id="related-features">Related Features</h2>
+<ul>
+<li><a href="7-rules.md">Rules</a></li>
+<li><a href="7.1-scoring.md">Scoring</a></li>
+<li><a href="/pages/user-guide-layout.html" data-doc-slug="1-user-guide/9-layout">Playfield</a></li>
+<li><a href="/pages/user-guide-settings.html" data-doc-slug="1-user-guide/16-settings">Settings</a></li>
+</ul></div>
         </article>
       </div>
     </section>

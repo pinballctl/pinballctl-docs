@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="Bridge Protocol | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Bridge Protocol Framing All Pi -> ESP commands and ESP -> Pi responses/events use framed transport: uint32be length length bytes UTF-8 JSON payload No...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/technical-notes-bridge-protocol.html#webpage","url":"https://docs.pinballctl.com/pages/technical-notes-bridge-protocol.html","name":"Bridge Protocol | Pinball CTL Docs","description":"Bridge Protocol Framing All Pi -> ESP commands and ESP -> Pi responses/events use framed transport: uint32be length length bytes UTF-8 JSON payload No...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Bridge Protocol Framing All Pi -> ESP commands and ESP -> Pi responses/events use framed transport: uint32be length length bytes UTF-8 JSON payload No...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/technical-notes-bridge-protocol.html#webpage","url":"https://docs.pinballctl.com/pages/technical-notes-bridge-protocol.html","name":"Bridge Protocol | Pinball CTL Docs","description":"Bridge Protocol Framing All Pi -> ESP commands and ESP -> Pi responses/events use framed transport: uint32be length length bytes UTF-8 JSON payload No...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,33 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>Bridge Protocol</h1><h2>Framing</h2><p>All Pi -&gt; ESP commands and ESP -&gt; Pi responses/events use framed transport:</p><ul><li><code>uint32_be length</code></li><li><code>length</code> bytes UTF-8 JSON payload</li></ul><p>No line-based parsing is supported.</p><h2>Command Shape</h2><p>Commands are JSON objects with explicit <code>cmd</code> values. Typical commands include:</p><ul><li><code>HELLO</code></li><li><code>GET_INFO</code></li><li><code>SET_RULES</code></li><li><code>EVENT_FIRE</code></li><li><code>BLOB_BEGIN</code> / <code>BLOB_CHUNK</code> / <code>BLOB_END</code></li></ul><p>Response-required commands should include a <code>reqId</code> so bridge/clients can correlate replies.</p><h2>Bridge Behavior</h2><ul><li>Outbound send path serializes compact JSON and writes framed bytes.</li><li>Inbound receive path decodes frames, parses JSON, and routes by message type.</li><li>High-rate event traffic is intentionally handled separately from strict RPC flow.</li></ul><h2>Safety/Compatibility Rules</h2><ul><li>Do not reintroduce newline-delimited command transport.</li><li>Keep payloads explicit and version-friendly.</li><li>Preserve backwards compatibility where feasible; version intentional breaking changes.</li></ul></div>
+          <div class="doc-panel" id="docs-article"><h1 id="bridge-protocol">Bridge Protocol</h1>
+<h2 id="framing">Framing</h2>
+<p>All Pi -&gt; ESP commands and ESP -&gt; Pi responses/events use framed transport:
+- <code>uint32_be length</code>
+- <code>length</code> bytes UTF-8 JSON payload</p>
+<p>No line-based parsing is supported.</p>
+<h2 id="command-shape">Command Shape</h2>
+<p>Commands are JSON objects with explicit <code>cmd</code> values.
+Typical commands include:
+- <code>HELLO</code>
+- <code>GET_INFO</code>
+- <code>SET_RULES</code>
+- <code>EVENT_FIRE</code>
+- <code>BLOB_BEGIN</code> / <code>BLOB_CHUNK</code> / <code>BLOB_END</code></p>
+<p>Response-required commands should include a <code>reqId</code> so bridge/clients can correlate replies.</p>
+<h2 id="bridge-behavior">Bridge Behavior</h2>
+<ul>
+<li>Outbound send path serializes compact JSON and writes framed bytes.</li>
+<li>Inbound receive path decodes frames, parses JSON, and routes by message type.</li>
+<li>High-rate event traffic is intentionally handled separately from strict RPC flow.</li>
+</ul>
+<h2 id="safetycompatibility-rules">Safety/Compatibility Rules</h2>
+<ul>
+<li>Do not reintroduce newline-delimited command transport.</li>
+<li>Keep payloads explicit and version-friendly.</li>
+<li>Preserve backwards compatibility where feasible; version intentional breaking changes.</li>
+</ul></div>
         </article>
       </div>
     </section>

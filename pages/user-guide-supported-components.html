@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="Supported Components | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Supported Components This page tracks hardware and platform support for Pinball CTL. At this stage, support is naturally based on the equipment used during...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-supported-components.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-supported-components.html","name":"Supported Components | Pinball CTL Docs","description":"Supported Components This page tracks hardware and platform support for Pinball CTL. At this stage, support is naturally based on the equipment used during...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Supported Components This page tracks hardware and platform support for Pinball CTL. At this stage, support is naturally based on the equipment used during...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-supported-components.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-supported-components.html","name":"Supported Components | Pinball CTL Docs","description":"Supported Components This page tracks hardware and platform support for Pinball CTL. At this stage, support is naturally based on the equipment used during...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,89 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>Supported Components</h1><p>This page tracks hardware and platform support for Pinball CTL.</p><p>At this stage, support is naturally based on the equipment used during development and testing.</p><h2>Support Levels</h2><div class="manual-table-wrap">  <table class="manual-table">    <thead>      <tr>        <th>Status</th>        <th>Meaning</th>      </tr>    </thead>    <tbody>      <tr><td>✅ Supported</td><td>Used and verified in this project</td></tr>      <tr><td>⚠️ Limited</td><td>Partially tested or expected to work, but not fully validated</td></tr>      <tr><td>❓ Unknown</td><td>Not tested yet</td></tr>    </tbody>  </table></div><h2>Core Platform</h2><div class="manual-table-wrap">  <table class="manual-table">    <thead>      <tr>        <th>Component</th>        <th>Status</th>        <th>Notes</th>      </tr>    </thead>    <tbody>      <tr><td>Raspberry Pi 5</td><td>✅ Supported</td><td>Main runtime platform</td></tr>      <tr><td>Raspberry Pi OS (64-bit)</td><td>✅ Supported</td><td>Recommended for Pi 5</td></tr>      <tr><td>macOS (development host)</td><td>✅ Supported</td><td>Used for development workflow</td></tr>      <tr><td>Other Linux distributions</td><td>⚠️ Limited</td><td>Likely workable but not formally tested</td></tr>      <tr><td>Windows development host</td><td>❓ Unknown</td><td>Not validated yet</td></tr>    </tbody>  </table></div><h2>Control Hardware</h2><div class="manual-table-wrap">  <table class="manual-table">    <thead>      <tr>        <th>Component</th>        <th>Status</th>        <th>Notes</th>      </tr>    </thead>    <tbody>      <tr><td>ESP32-S3 board used by this project</td><td>✅ Supported</td><td>Primary real-time controller</td></tr>      <tr><td>Other ESP32 variants</td><td>⚠️ Limited</td><td>May require firmware/protocol adjustments</td></tr>      <tr><td>USB serial bridge (Pi &lt;-&gt; ESP32)</td><td>✅ Supported</td><td>Required for normal operation</td></tr>    </tbody>  </table></div><h2>I/O Expansion and Devices</h2><div class="manual-table-wrap">  <table class="manual-table">    <thead>      <tr>        <th>Component</th>        <th>Status</th>        <th>Notes</th>      </tr>    </thead>    <tbody>      <tr><td>MCP23017 I2C expanders</td><td>✅ Supported</td><td>Used in current hardware stack</td></tr>      <tr><td>Basic switches/buttons</td><td>✅ Supported</td><td>Via mapped input flow</td></tr>      <tr><td>Solenoids/coils</td><td>✅ Supported</td><td>Safety controls expected on ESP side</td></tr>      <tr><td>RGB strips (configured in mapping)</td><td>✅ Supported</td><td>Supported in current lighting flow</td></tr>      <tr><td>Other lighting drivers/chipsets</td><td>⚠️ Limited</td><td>Depends on firmware support</td></tr>    </tbody>  </table></div><h2>Notes</h2><ul><li>This list will grow as more boards and devices are tested.</li><li>If your setup differs from the list above, Pinball CTL may still work, but behaviour can vary.</li></ul></div>
+          <div class="doc-panel" id="docs-article"><h1 id="supported-components">Supported Components</h1>
+<p>This page tracks hardware and platform support for Pinball CTL.</p>
+<p>At this stage, support is naturally based on the equipment used during development and testing.</p>
+<h2 id="support-levels">Support Levels</h2>
+<div class="manual-table-wrap">
+  <table class="manual-table">
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>✅ Supported</td><td>Used and verified in this project</td></tr>
+      <tr><td>⚠️ Limited</td><td>Partially tested or expected to work, but not fully validated</td></tr>
+      <tr><td>❓ Unknown</td><td>Not tested yet</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="core-platform">Core Platform</h2>
+<div class="manual-table-wrap">
+  <table class="manual-table">
+    <thead>
+      <tr>
+        <th>Component</th>
+        <th>Status</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Raspberry Pi 5</td><td>✅ Supported</td><td>Main runtime platform</td></tr>
+      <tr><td>Raspberry Pi OS (64-bit)</td><td>✅ Supported</td><td>Recommended for Pi 5</td></tr>
+      <tr><td>macOS (development host)</td><td>✅ Supported</td><td>Used for development workflow</td></tr>
+      <tr><td>Other Linux distributions</td><td>⚠️ Limited</td><td>Likely workable but not formally tested</td></tr>
+      <tr><td>Windows development host</td><td>❓ Unknown</td><td>Not validated yet</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="control-hardware">Control Hardware</h2>
+<div class="manual-table-wrap">
+  <table class="manual-table">
+    <thead>
+      <tr>
+        <th>Component</th>
+        <th>Status</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>ESP32-S3 board used by this project</td><td>✅ Supported</td><td>Primary real-time controller</td></tr>
+      <tr><td>Other ESP32 variants</td><td>⚠️ Limited</td><td>May require firmware/protocol adjustments</td></tr>
+      <tr><td>USB serial bridge (Pi &lt;-&gt; ESP32)</td><td>✅ Supported</td><td>Required for normal operation</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="io-expansion-and-devices">I/O Expansion and Devices</h2>
+<div class="manual-table-wrap">
+  <table class="manual-table">
+    <thead>
+      <tr>
+        <th>Component</th>
+        <th>Status</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>MCP23017 I2C expanders</td><td>✅ Supported</td><td>Used in current hardware stack</td></tr>
+      <tr><td>Basic switches/buttons</td><td>✅ Supported</td><td>Via mapped input flow</td></tr>
+      <tr><td>Solenoids/coils</td><td>✅ Supported</td><td>Safety controls expected on ESP side</td></tr>
+      <tr><td>RGB strips (configured in mapping)</td><td>✅ Supported</td><td>Supported in current lighting flow</td></tr>
+      <tr><td>Other lighting drivers/chipsets</td><td>⚠️ Limited</td><td>Depends on firmware support</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="notes">Notes</h2>
+<ul>
+<li>This list will grow as more boards and devices are tested.</li>
+<li>If your setup differs from the list above, Pinball CTL may still work, but behaviour can vary.</li>
+</ul></div>
         </article>
       </div>
     </section>

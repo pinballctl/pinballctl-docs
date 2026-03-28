@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="Rules | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Rules Rules is the heart of Pinball CTL. This is where gameplay behaviour is authored and orchestrated end-to-end: events are captured, then dispatched into...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-rules.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-rules.html","name":"Rules | Pinball CTL Docs","description":"Rules Rules is the heart of Pinball CTL. This is where gameplay behaviour is authored and orchestrated end-to-end: events are captured, then dispatched into...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Rules Rules is the heart of Pinball CTL. This is where gameplay behaviour is authored and orchestrated end-to-end: events are captured, then dispatched into...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-rules.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-rules.html","name":"Rules | Pinball CTL Docs","description":"Rules Rules is the heart of Pinball CTL. This is where gameplay behaviour is authored and orchestrated end-to-end: events are captured, then dispatched into...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,361 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>Rules</h1><p>Rules is the heart of Pinball CTL.</p><p>This is where gameplay behaviour is authored and orchestrated end-to-end: events are captured, then dispatched into actions across the machine.</p><p>In practice, Rules is one of the most important modules in the platform. It is the layer that turns raw machine inputs into intentional game flow, feedback, scoring, and control.</p><img src="./media/screenshot-feature-rules.webp" alt="Rules feature overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><h2>What This Feature Does</h2><p>Rules define what should happen when specific events occur.</p><p>At a high level:</p><ul><li>Triggers decide when a rule is considered.</li><li>Conditions decide whether a matching trigger is allowed to continue.</li><li>Actions define what happens when triggers and conditions pass.</li></ul><h2>Top Bar Controls</h2><p>At the top-right of the Rules page:</p><ul><li><code>Add Rule</code>: creates a new rule and opens it in the editor.</li><li><code>Sync Rules</code>: pushes current rules state to the ESP when required.</li><li><code>Save</code>: writes your current rule configuration to disk.</li></ul><p>Behaviour notes:</p><ul><li><code>Save</code> is enabled only when there are unsaved changes.</li><li>If you click <code>Sync Rules</code> with unsaved changes, you are prompted to save first.</li><li>If you leave the page with unsaved changes, the browser warns before unload.</li></ul><h2>Filters</h2><p>Under the header:</p><ul><li><code>All Tags</code> dropdown: filter rules by a specific tag.</li><li><code>Search name or notes…</code>: keyword filter over rule name/notes.</li><li><code>Clear filters</code>: shown only when a filter is active.</li></ul><h2>Sync Status</h2><p>The Sync button indicates whether the configuration is in sync with the ESP.</p><ul><li>If rules are not synced, the button shows the orange WARNING state (<code>Sync Rules</code> warning).</li><li>If rules are synced, the button shows the blue disabled OK state.</li></ul><p>If sync fails, check bridge connectivity and ESP link status first.</p><h2>Rules Table</h2><p>Each row in the table is one rule.</p><p>Columns:</p><ul><li>Expand/Collapse control</li><li>Enabled state dot</li><li>Name</li><li>Tags</li><li>Trigger count</li><li>Condition count</li><li>Action count</li><li>Delete button</li></ul><p>Row actions:</p><ul><li>Expand opens the full editor for that rule.</li><li>Enabled dot toggles active/inactive.</li><li>Delete removes the rule.</li></ul><h3>Expanded First Rule</h3><p>The screenshot below shows the first rule expanded, which is the baseline used in the tab walkthrough sections that follow.</p><img src="./media/screenshot-feature-rules-expanded.webp" alt="First rule expanded in Rules editor" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><h2>Rule Editor Tabs</h2><p>When a row is expanded, the rule editor appears with tabs:</p><ul><li>Metadata</li><li>Triggers</li><li>Conditions</li><li>Actions</li><li>Preview</li></ul><p>Validation badges:</p><ul><li>Red <code>!</code> badge can appear on <code>Triggers</code> and <code>Actions</code> tabs if required fields are missing.</li></ul><h2>Metadata Tab</h2><img src="./media/screenshot-feature-rules-tab-metadata.webp" alt="Rules metadata tab on first rule" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><p>Metadata controls:</p><ul><li><code>Name</code> (required for a useful rule)</li><li><code>Enabled</code> checkbox (<code>Rule is active</code>)</li><li><code>Tags</code> list and <code>Add tag…</code> input</li><li><code>Notes</code> free text</li></ul><p>Tag behaviour:</p><ul><li>Tags appear as coloured chips.</li><li>Each tag chip has remove control.</li><li>New tags can be created inline.</li></ul><p>The metadata tab also shows a <code>Summary</code> block that previews the rule logic in plain text.</p><h2>Triggers Tab</h2><img src="./media/screenshot-feature-rules-tab-triggers.webp" alt="Rules triggers tab on first rule" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><p>Triggers are organised as groups.</p><p>At trigger level:</p><ul><li><code>Add Trigger Group</code></li><li><code>Between trigger groups</code>: <code>ALL</code> or <code>ANY</code></li></ul><p>For each trigger group:</p><ul><li><code>Match within group</code>: <code>ALL</code> or <code>ANY</code></li><li><code>Window ms</code>: time window used to evaluate grouped trigger matches</li><li><code>Remove group</code></li><li><code>Add Trigger</code></li></ul><p>Each trigger has:</p><ul><li><code>Type</code>: <code>Hardware</code>, <code>System</code>, or <code>Custom</code></li></ul><h3>Hardware trigger options</h3><p>Fields:</p><ul><li><code>Hardware device</code></li><li><code>Hardware event</code></li></ul><p>The event list is based on selected hardware class and supports events such as:</p><ul><li>Button: <code>CLICKED</code>, <code>DOUBLE_CLICKED</code>, <code>HELD</code>, <code>PRESSED</code>, <code>RELEASED</code>, <code>REPEAT_WHILE_HELD</code></li><li>Switch/Opto: <code>CLOSED</code>, <code>OPENED</code>, <code>CHANGED</code>, <code>ACTIVE_FOR_MS</code>, <code>INACTIVE_FOR_MS</code></li><li>Tilt/Motion: <code>TILT_NUDGE</code>, <code>TILT_WARNING</code>, <code>TILT_TRIGGERED</code>, <code>LIFTED</code>, <code>DROPPED</code></li><li>NFC/RFID: <code>NFC_SCANNED</code>, <code>NFC_MATCHED</code></li></ul><p>Some hardware events expose extra numeric parameters, for example:</p><ul><li><code>windowMs</code></li><li><code>minMs</code></li><li><code>repeatMs</code></li></ul><p>A help button opens the <code>Hardware Event Key</code> modal with event purpose guidance.</p><h3>System trigger options</h3><p>Fields:</p><ul><li><code>Category</code></li><li><code>Event</code></li></ul><p>Categories include:</p><ul><li>Game</li><li>Credits</li><li>Modes</li><li>System</li><li>Bridge / Connectivity</li><li>Faults / Safety</li></ul><h3>Custom trigger options</h3><p>Fields:</p><ul><li><code>Event name</code></li></ul><p>Custom event names are normalised to uppercase underscore format (for example <code>START_GAME_REQUESTED</code>).</p><h2>Conditions Tab</h2><img src="./media/screenshot-feature-rules-tab-conditions.webp" alt="Rules conditions tab on first rule" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><p>Conditions are optional checks that must pass before actions run.</p><p>At condition level:</p><ul><li><code>Add Condition Group</code></li><li><code>Between condition groups</code>: <code>ALL</code> or <code>ANY</code></li></ul><p>For each condition group:</p><ul><li><code>Match within group</code>: <code>ALL</code> or <code>ANY</code></li><li><code>Remove group</code></li><li><code>Add Condition</code></li></ul><p>Each condition starts with:</p><ul><li><code>Condition Type</code></li></ul><p>Supported condition types:</p><ul><li><code>Flag</code></li><li><code>Counter</code></li><li><code>Time Since Event</code></li><li><code>Device State</code></li></ul><h3>Flag condition options</h3><ul><li><code>Flag</code> (preset list or <code>Custom…</code>)</li><li><code>Operator</code> (currently equality)</li><li><code>Value</code> (<code>True</code>/<code>False</code>)</li></ul><p>If <code>Custom…</code> is selected, custom key input is shown.</p><h3>Counter condition options</h3><ul><li><code>Counter</code> (preset list, discovered counters, or <code>Custom…</code>)</li><li><code>Operator</code> (<code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>)</li><li><code>Value</code> (number)</li></ul><p>Custom counter validation:</p><ul><li>must be uppercase letters, numbers, underscore</li><li>max length 32</li></ul><p>Known counters are shown as a hint below the selector.</p><h3>Time Since Event condition options</h3><ul><li><code>Event Type</code>: <code>System</code>, <code>Hardware</code>, or <code>Custom</code></li><li>event selector/input based on event type</li><li>comparison operator (<code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>)</li><li>time value in <code>ms</code></li></ul><h3>Device State condition options</h3><ul><li><code>Device</code></li><li><code>State</code></li></ul><p>Available state options depend on hardware type (for example coil active/inactive, switch open/closed, output high/low).</p><h2>Actions Tab</h2><img src="./media/screenshot-feature-rules-tab-actions.webp" alt="Rules actions tab on first rule" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><p>Actions define what the rule does when triggers and conditions pass.</p><p>Controls:</p><ul><li><code>Add Action</code></li><li>per-action <code>Action</code> type selector</li><li>per-action <code>Remove</code></li></ul><p>Supported actions and options:</p><h3>Emit Event</h3><ul><li><code>Event Type</code>: <code>System</code> or <code>Custom</code></li><li>If <code>System</code>: <code>Category</code> and <code>Event</code></li><li>If <code>Custom</code>: free-text event input</li></ul><h3>Set Flag</h3><ul><li><code>Flag</code> (preset or custom)</li><li><code>Value</code> (<code>True</code> or <code>False</code>)</li></ul><h3>Set Counter</h3><ul><li><code>Counter</code> (preset, discovered, or custom)</li><li><code>Value</code></li></ul><h3>Increment Counter</h3><ul><li><code>Counter</code> (preset, discovered, or custom)</li><li><code>Delta</code></li></ul><h3>Pulse</h3><ul><li><code>Output / Coil</code></li><li><code>Duration (ms)</code></li></ul><h3>Set Output</h3><ul><li><code>Output / Coil</code></li><li><code>Value</code>: <code>HIGH</code>, <code>LOW</code>, or <code>PULSE</code></li><li>If <code>PULSE</code>: <code>Duration (ms)</code></li></ul><h3>Apply Lighting Scene</h3><ul><li><code>Scene</code></li><li><code>Start mode</code>: <code>Play immediately</code> or <code>Load paused</code></li><li><code>Start at</code>: <code>Scene start</code>, <code>Frame</code>, or <code>Tag</code></li><li>If <code>Frame</code>: <code>Frame</code> number (bounded by scene frame count)</li><li>If <code>Tag</code>: <code>Tag</code> selector based on scene tags</li></ul><h3>Stop Lighting Scene</h3><ul><li><code>Scene</code></li></ul><p>Planned actions (not general day-to-day options):</p><ul><li><code>LED Pattern</code></li><li><code>Delay</code></li></ul><p>These are treated as planned and are normally hidden unless already present in loaded data.</p><h2>Summary Tab</h2><img src="./media/screenshot-feature-rules-tab-summary.webp" alt="Rules summary tab on first rule" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><p>The summary tab shows the full selected rule as formatted JSON.</p><p>Use this for:</p><ul><li>checking exact stored structure</li><li>confirming grouped trigger/condition layout</li><li>verifying action payload fields before save/sync</li></ul><h2>Validation Rules You Should Know</h2><p>The editor flags missing essentials before save/sync.</p><p>Common trigger validation errors:</p><ul><li>no trigger groups</li><li>empty group items</li><li>missing hardware device/event</li><li>missing system event</li><li>missing custom event name</li></ul><p>Common action validation errors:</p><ul><li>missing action type</li><li>missing action target (event/flag/counter/device/scene)</li><li>invalid counter name format</li><li>missing counter value/delta where required</li><li>invalid lighting start frame/tag values</li></ul><h2>Practical Setup Examples</h2><h3>Example 1: Start game on button click</h3><p>Goal: clicking Start should emit a custom start request event.</p><p>Suggested setup:</p><ul><li>Trigger: Hardware -&gt; Start button -&gt; <code>CLICKED</code></li><li>Conditions: none</li><li>Action: <code>Emit Event</code> -&gt; <code>Custom</code> -&gt; <code>START_GAME_REQUESTED</code></li></ul><h3>Example 2: Award bonus only if game is active</h3><p>Goal: a lane switch hit increases bonus only during active ball play.</p><p>Suggested setup:</p><ul><li>Trigger: Hardware -&gt; Lane switch -&gt; <code>CLOSED</code></li><li>Conditions:</li><li>Flag <code>GAME_ACTIVE == True</code></li><li>Flag <code>BALL_IN_PLAY == True</code></li><li>Action: <code>Increment Counter</code> -&gt; <code>BONUS</code> delta <code>1</code></li></ul><h3>Example 3: Hold-to-repeat action with safety gate</h3><p>Goal: repeatedly fire an action while button is held, but only if enabled.</p><p>Suggested setup:</p><ul><li>Trigger: Hardware -&gt; Action button -&gt; <code>REPEAT_WHILE_HELD</code> with <code>repeatMs</code></li><li>Condition: Flag <code>ENABLED == True</code></li><li>Action: <code>Pulse</code> selected output with controlled duration</li></ul><h3>Example 4: Lighting scene at a tagged moment</h3><p>Goal: start a scene from a named point and keep it paused until another rule continues it.</p><p>Suggested setup:</p><ul><li>Trigger: System -&gt; Modes -&gt; <code>MODE_STARTED</code></li><li>Action: <code>Apply Lighting Scene</code></li><li>Scene: <code>mode_intro</code></li><li>Start mode: <code>Load paused</code></li><li>Start at: <code>Tag</code></li><li>Tag: <code>intro_start</code></li></ul><h3>Example 5: Fault response rule</h3><p>Goal: when fault is raised, immediately force warning output state.</p><p>Suggested setup:</p><ul><li>Trigger: System -&gt; Faults / Safety -&gt; <code>FAULT_RAISED</code></li><li>Conditions: none</li><li>Action: <code>Set Output</code> -&gt; warning output -&gt; <code>HIGH</code></li></ul><h2>Authoring Tips</h2><ul><li>Keep rule names explicit and short.</li><li>Use tags for mode grouping and quick filtering.</li><li>Prefer system events for lifecycle transitions and hardware events for player input.</li><li>Use condition groups to keep complex logic readable.</li><li>Validate in Preview before syncing to hardware.</li></ul><h2>Related Features</h2><ul><li><a href="/pages/user-guide-lighting.html" data-doc-slug="1-user-guide/8-lighting">Lighting</a></li><li><a href="/pages/user-guide-layout.html" data-doc-slug="1-user-guide/9-layout">Playfield</a></li><li><a href="10-hardware.md">Hardware</a></li></ul></div>
+          <div class="doc-panel" id="docs-article"><h1 id="rules">Rules</h1>
+<p>Rules is the heart of Pinball CTL.</p>
+<p>This is where gameplay behaviour is authored and orchestrated end-to-end: events are captured, then dispatched into actions across the machine.</p>
+<p>In practice, Rules is one of the most important modules in the platform. It is the layer that turns raw machine inputs into intentional game flow, feedback, scoring, and control.</p>
+<p><img src="./media/screenshot-feature-rules.webp" alt="Rules feature overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<h2 id="what-this-feature-does">What This Feature Does</h2>
+<p>Rules define what should happen when specific events occur.</p>
+<p>At a high level:</p>
+<ul>
+<li>Triggers decide when a rule is considered.</li>
+<li>Conditions decide whether a matching trigger is allowed to continue.</li>
+<li>Actions define what happens when triggers and conditions pass.</li>
+</ul>
+<h2 id="top-bar-controls">Top Bar Controls</h2>
+<p>At the top-right of the Rules page:</p>
+<ul>
+<li><code>Add Rule</code>: creates a new rule and opens it in the editor.</li>
+<li><code>Sync Rules</code>: pushes current rules state to the ESP when required.</li>
+<li><code>Save</code>: writes your current rule configuration to disk.</li>
+</ul>
+<p>Behaviour notes:</p>
+<ul>
+<li><code>Save</code> is enabled only when there are unsaved changes.</li>
+<li>If you click <code>Sync Rules</code> with unsaved changes, you are prompted to save first.</li>
+<li>If you leave the page with unsaved changes, the browser warns before unload.</li>
+</ul>
+<h2 id="filters">Filters</h2>
+<p>Under the header:</p>
+<ul>
+<li><code>All Tags</code> dropdown: filter rules by a specific tag.</li>
+<li><code>Search name or notes…</code>: keyword filter over rule name/notes.</li>
+<li><code>Clear filters</code>: shown only when a filter is active.</li>
+</ul>
+<h2 id="sync-status">Sync Status</h2>
+<p>The Sync button indicates whether the configuration is in sync with the ESP.</p>
+<ul>
+<li>If rules are not synced, the button shows the orange WARNING state (<code>Sync Rules</code> warning).</li>
+<li>If rules are synced, the button shows the blue disabled OK state.</li>
+</ul>
+<p>If sync fails, check bridge connectivity and ESP link status first.</p>
+<h2 id="rules-table">Rules Table</h2>
+<p>Each row in the table is one rule.</p>
+<p>Columns:</p>
+<ul>
+<li>Expand/Collapse control</li>
+<li>Enabled state dot</li>
+<li>Name</li>
+<li>Tags</li>
+<li>Trigger count</li>
+<li>Condition count</li>
+<li>Action count</li>
+<li>Delete button</li>
+</ul>
+<p>Row actions:</p>
+<ul>
+<li>Expand opens the full editor for that rule.</li>
+<li>Enabled dot toggles active/inactive.</li>
+<li>Delete removes the rule.</li>
+</ul>
+<h3 id="expanded-first-rule">Expanded First Rule</h3>
+<p>The screenshot below shows the first rule expanded, which is the baseline used in the tab walkthrough sections that follow.</p>
+<p><img src="./media/screenshot-feature-rules-expanded.webp" alt="First rule expanded in Rules editor" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<h2 id="rule-editor-tabs">Rule Editor Tabs</h2>
+<p>When a row is expanded, the rule editor appears with tabs:</p>
+<ul>
+<li>Metadata</li>
+<li>Triggers</li>
+<li>Conditions</li>
+<li>Actions</li>
+<li>Preview</li>
+</ul>
+<p>Validation badges:</p>
+<ul>
+<li>Red <code>!</code> badge can appear on <code>Triggers</code> and <code>Actions</code> tabs if required fields are missing.</li>
+</ul>
+<h2 id="metadata-tab">Metadata Tab</h2>
+<p><img src="./media/screenshot-feature-rules-tab-metadata.webp" alt="Rules metadata tab on first rule" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<p>Metadata controls:</p>
+<ul>
+<li><code>Name</code> (required for a useful rule)</li>
+<li><code>Enabled</code> checkbox (<code>Rule is active</code>)</li>
+<li><code>Tags</code> list and <code>Add tag…</code> input</li>
+<li><code>Notes</code> free text</li>
+</ul>
+<p>Tag behaviour:</p>
+<ul>
+<li>Tags appear as coloured chips.</li>
+<li>Each tag chip has remove control.</li>
+<li>New tags can be created inline.</li>
+</ul>
+<p>The metadata tab also shows a <code>Summary</code> block that previews the rule logic in plain text.</p>
+<h2 id="triggers-tab">Triggers Tab</h2>
+<p><img src="./media/screenshot-feature-rules-tab-triggers.webp" alt="Rules triggers tab on first rule" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<p>Triggers are organised as groups.</p>
+<p>At trigger level:</p>
+<ul>
+<li><code>Add Trigger Group</code></li>
+<li><code>Between trigger groups</code>: <code>ALL</code> or <code>ANY</code></li>
+</ul>
+<p>For each trigger group:</p>
+<ul>
+<li><code>Match within group</code>: <code>ALL</code> or <code>ANY</code></li>
+<li><code>Window ms</code>: time window used to evaluate grouped trigger matches</li>
+<li><code>Remove group</code></li>
+<li><code>Add Trigger</code></li>
+</ul>
+<p>Each trigger has:</p>
+<ul>
+<li><code>Type</code>: <code>Hardware</code>, <code>System</code>, or <code>Custom</code></li>
+</ul>
+<h3 id="hardware-trigger-options">Hardware trigger options</h3>
+<p>Fields:</p>
+<ul>
+<li><code>Hardware device</code></li>
+<li><code>Hardware event</code></li>
+</ul>
+<p>The event list is based on selected hardware class and supports events such as:</p>
+<ul>
+<li>Button: <code>CLICKED</code>, <code>DOUBLE_CLICKED</code>, <code>HELD</code>, <code>PRESSED</code>, <code>RELEASED</code>, <code>REPEAT_WHILE_HELD</code></li>
+<li>Switch/Opto: <code>CLOSED</code>, <code>OPENED</code>, <code>CHANGED</code>, <code>ACTIVE_FOR_MS</code>, <code>INACTIVE_FOR_MS</code></li>
+<li>Tilt/Motion: <code>TILT_NUDGE</code>, <code>TILT_WARNING</code>, <code>TILT_TRIGGERED</code>, <code>LIFTED</code>, <code>DROPPED</code></li>
+<li>NFC/RFID: <code>NFC_SCANNED</code>, <code>NFC_MATCHED</code></li>
+</ul>
+<p>Some hardware events expose extra numeric parameters, for example:</p>
+<ul>
+<li><code>windowMs</code></li>
+<li><code>minMs</code></li>
+<li><code>repeatMs</code></li>
+</ul>
+<p>A help button opens the <code>Hardware Event Key</code> modal with event purpose guidance.</p>
+<h3 id="system-trigger-options">System trigger options</h3>
+<p>Fields:</p>
+<ul>
+<li><code>Category</code></li>
+<li><code>Event</code></li>
+</ul>
+<p>Categories include:</p>
+<ul>
+<li>Game</li>
+<li>Credits</li>
+<li>Modes</li>
+<li>System</li>
+<li>Bridge / Connectivity</li>
+<li>Faults / Safety</li>
+</ul>
+<h3 id="custom-trigger-options">Custom trigger options</h3>
+<p>Fields:</p>
+<ul>
+<li><code>Event name</code></li>
+</ul>
+<p>Custom event names are normalised to uppercase underscore format (for example <code>START_GAME_REQUESTED</code>).</p>
+<h2 id="conditions-tab">Conditions Tab</h2>
+<p><img src="./media/screenshot-feature-rules-tab-conditions.webp" alt="Rules conditions tab on first rule" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<p>Conditions are optional checks that must pass before actions run.</p>
+<p>At condition level:</p>
+<ul>
+<li><code>Add Condition Group</code></li>
+<li><code>Between condition groups</code>: <code>ALL</code> or <code>ANY</code></li>
+</ul>
+<p>For each condition group:</p>
+<ul>
+<li><code>Match within group</code>: <code>ALL</code> or <code>ANY</code></li>
+<li><code>Remove group</code></li>
+<li><code>Add Condition</code></li>
+</ul>
+<p>Each condition starts with:</p>
+<ul>
+<li><code>Condition Type</code></li>
+</ul>
+<p>Supported condition types:</p>
+<ul>
+<li><code>Flag</code></li>
+<li><code>Counter</code></li>
+<li><code>Time Since Event</code></li>
+<li><code>Device State</code></li>
+</ul>
+<h3 id="flag-condition-options">Flag condition options</h3>
+<ul>
+<li><code>Flag</code> (preset list or <code>Custom…</code>)</li>
+<li><code>Operator</code> (currently equality)</li>
+<li><code>Value</code> (<code>True</code>/<code>False</code>)</li>
+</ul>
+<p>If <code>Custom…</code> is selected, custom key input is shown.</p>
+<h3 id="counter-condition-options">Counter condition options</h3>
+<ul>
+<li><code>Counter</code> (preset list, discovered counters, or <code>Custom…</code>)</li>
+<li><code>Operator</code> (<code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>)</li>
+<li><code>Value</code> (number)</li>
+</ul>
+<p>Custom counter validation:</p>
+<ul>
+<li>must be uppercase letters, numbers, underscore</li>
+<li>max length 32</li>
+</ul>
+<p>Known counters are shown as a hint below the selector.</p>
+<h3 id="time-since-event-condition-options">Time Since Event condition options</h3>
+<ul>
+<li><code>Event Type</code>: <code>System</code>, <code>Hardware</code>, or <code>Custom</code></li>
+<li>event selector/input based on event type</li>
+<li>comparison operator (<code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>)</li>
+<li>time value in <code>ms</code></li>
+</ul>
+<h3 id="device-state-condition-options">Device State condition options</h3>
+<ul>
+<li><code>Device</code></li>
+<li><code>State</code></li>
+</ul>
+<p>Available state options depend on hardware type (for example coil active/inactive, switch open/closed, output high/low).</p>
+<h2 id="actions-tab">Actions Tab</h2>
+<p><img src="./media/screenshot-feature-rules-tab-actions.webp" alt="Rules actions tab on first rule" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<p>Actions define what the rule does when triggers and conditions pass.</p>
+<p>Controls:</p>
+<ul>
+<li><code>Add Action</code></li>
+<li>per-action <code>Action</code> type selector</li>
+<li>per-action <code>Remove</code></li>
+</ul>
+<p>Supported actions and options:</p>
+<h3 id="emit-event">Emit Event</h3>
+<ul>
+<li><code>Event Type</code>: <code>System</code> or <code>Custom</code></li>
+<li>If <code>System</code>: <code>Category</code> and <code>Event</code></li>
+<li>If <code>Custom</code>: free-text event input</li>
+</ul>
+<h3 id="set-flag">Set Flag</h3>
+<ul>
+<li><code>Flag</code> (preset or custom)</li>
+<li><code>Value</code> (<code>True</code> or <code>False</code>)</li>
+</ul>
+<h3 id="set-counter">Set Counter</h3>
+<ul>
+<li><code>Counter</code> (preset, discovered, or custom)</li>
+<li><code>Value</code></li>
+</ul>
+<h3 id="increment-counter">Increment Counter</h3>
+<ul>
+<li><code>Counter</code> (preset, discovered, or custom)</li>
+<li><code>Delta</code></li>
+</ul>
+<h3 id="pulse">Pulse</h3>
+<ul>
+<li><code>Output / Coil</code></li>
+<li><code>Duration (ms)</code></li>
+</ul>
+<h3 id="set-output">Set Output</h3>
+<ul>
+<li><code>Output / Coil</code></li>
+<li><code>Value</code>: <code>HIGH</code>, <code>LOW</code>, or <code>PULSE</code></li>
+<li>If <code>PULSE</code>: <code>Duration (ms)</code></li>
+</ul>
+<h3 id="apply-lighting-scene">Apply Lighting Scene</h3>
+<ul>
+<li><code>Scene</code></li>
+<li><code>Start mode</code>: <code>Play immediately</code> or <code>Load paused</code></li>
+<li><code>Start at</code>: <code>Scene start</code>, <code>Frame</code>, or <code>Tag</code></li>
+<li>If <code>Frame</code>: <code>Frame</code> number (bounded by scene frame count)</li>
+<li>If <code>Tag</code>: <code>Tag</code> selector based on scene tags</li>
+</ul>
+<h3 id="stop-lighting-scene">Stop Lighting Scene</h3>
+<ul>
+<li><code>Scene</code></li>
+</ul>
+<p>Planned actions (not general day-to-day options):</p>
+<ul>
+<li><code>LED Pattern</code></li>
+<li><code>Delay</code></li>
+</ul>
+<p>These are treated as planned and are normally hidden unless already present in loaded data.</p>
+<h2 id="summary-tab">Summary Tab</h2>
+<p><img src="./media/screenshot-feature-rules-tab-summary.webp" alt="Rules summary tab on first rule" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<p>The summary tab shows the full selected rule as formatted JSON.</p>
+<p>Use this for:</p>
+<ul>
+<li>checking exact stored structure</li>
+<li>confirming grouped trigger/condition layout</li>
+<li>verifying action payload fields before save/sync</li>
+</ul>
+<h2 id="validation-rules-you-should-know">Validation Rules You Should Know</h2>
+<p>The editor flags missing essentials before save/sync.</p>
+<p>Common trigger validation errors:</p>
+<ul>
+<li>no trigger groups</li>
+<li>empty group items</li>
+<li>missing hardware device/event</li>
+<li>missing system event</li>
+<li>missing custom event name</li>
+</ul>
+<p>Common action validation errors:</p>
+<ul>
+<li>missing action type</li>
+<li>missing action target (event/flag/counter/device/scene)</li>
+<li>invalid counter name format</li>
+<li>missing counter value/delta where required</li>
+<li>invalid lighting start frame/tag values</li>
+</ul>
+<h2 id="practical-setup-examples">Practical Setup Examples</h2>
+<h3 id="example-1-start-game-on-button-click">Example 1: Start game on button click</h3>
+<p>Goal: clicking Start should emit a custom start request event.</p>
+<p>Suggested setup:</p>
+<ul>
+<li>Trigger: Hardware -&gt; Start button -&gt; <code>CLICKED</code></li>
+<li>Conditions: none</li>
+<li>Action: <code>Emit Event</code> -&gt; <code>Custom</code> -&gt; <code>START_GAME_REQUESTED</code></li>
+</ul>
+<h3 id="example-2-award-bonus-only-if-game-is-active">Example 2: Award bonus only if game is active</h3>
+<p>Goal: a lane switch hit increases bonus only during active ball play.</p>
+<p>Suggested setup:</p>
+<ul>
+<li>Trigger: Hardware -&gt; Lane switch -&gt; <code>CLOSED</code></li>
+<li>Conditions:</li>
+<li>Flag <code>GAME_ACTIVE == True</code></li>
+<li>Flag <code>BALL_IN_PLAY == True</code></li>
+<li>Action: <code>Increment Counter</code> -&gt; <code>BONUS</code> delta <code>1</code></li>
+</ul>
+<h3 id="example-3-hold-to-repeat-action-with-safety-gate">Example 3: Hold-to-repeat action with safety gate</h3>
+<p>Goal: repeatedly fire an action while button is held, but only if enabled.</p>
+<p>Suggested setup:</p>
+<ul>
+<li>Trigger: Hardware -&gt; Action button -&gt; <code>REPEAT_WHILE_HELD</code> with <code>repeatMs</code></li>
+<li>Condition: Flag <code>ENABLED == True</code></li>
+<li>Action: <code>Pulse</code> selected output with controlled duration</li>
+</ul>
+<h3 id="example-4-lighting-scene-at-a-tagged-moment">Example 4: Lighting scene at a tagged moment</h3>
+<p>Goal: start a scene from a named point and keep it paused until another rule continues it.</p>
+<p>Suggested setup:</p>
+<ul>
+<li>Trigger: System -&gt; Modes -&gt; <code>MODE_STARTED</code></li>
+<li>Action: <code>Apply Lighting Scene</code></li>
+<li>Scene: <code>mode_intro</code></li>
+<li>Start mode: <code>Load paused</code></li>
+<li>Start at: <code>Tag</code></li>
+<li>Tag: <code>intro_start</code></li>
+</ul>
+<h3 id="example-5-fault-response-rule">Example 5: Fault response rule</h3>
+<p>Goal: when fault is raised, immediately force warning output state.</p>
+<p>Suggested setup:</p>
+<ul>
+<li>Trigger: System -&gt; Faults / Safety -&gt; <code>FAULT_RAISED</code></li>
+<li>Conditions: none</li>
+<li>Action: <code>Set Output</code> -&gt; warning output -&gt; <code>HIGH</code></li>
+</ul>
+<h2 id="authoring-tips">Authoring Tips</h2>
+<ul>
+<li>Keep rule names explicit and short.</li>
+<li>Use tags for mode grouping and quick filtering.</li>
+<li>Prefer system events for lifecycle transitions and hardware events for player input.</li>
+<li>Use condition groups to keep complex logic readable.</li>
+<li>Validate in Preview before syncing to hardware.</li>
+</ul>
+<h2 id="related-features">Related Features</h2>
+<ul>
+<li><a href="/pages/user-guide-lighting.html" data-doc-slug="1-user-guide/8-lighting">Lighting</a></li>
+<li><a href="/pages/user-guide-layout.html" data-doc-slug="1-user-guide/9-layout">Playfield</a></li>
+<li><a href="10-hardware.md">Hardware</a></li>
+</ul></div>
         </article>
       </div>
     </section>

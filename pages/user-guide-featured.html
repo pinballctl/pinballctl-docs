@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="Features | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Features Full overview of the main Pinball CTL features. Use the table for a quick summary, and find the detailed sections to understand what each area does...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-featured.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-featured.html","name":"Features | Pinball CTL Docs","description":"Features Full overview of the main Pinball CTL features. Use the table for a quick summary, and find the detailed sections to understand what each area does...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Features Full overview of the main Pinball CTL features. Use the table for a quick summary, and find the detailed sections to understand what each area does...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-featured.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-featured.html","name":"Features | Pinball CTL Docs","description":"Features Full overview of the main Pinball CTL features. Use the table for a quick summary, and find the detailed sections to understand what each area does...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,187 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>Features</h1><p>Full overview of the main Pinball CTL features.</p><p>Use the table for a quick summary, and find the detailed sections to understand what each area does.</p><h2>At-a-Glance Feature Table</h2><div class="manual-table-wrap">  <table class="manual-table">    <thead>      <tr>        <th>Name</th>        <th>Purpose</th>      </tr>    </thead>    <tbody>      <tr><td>Dashboard</td><td>Live overview of machine state, connectivity, and runtime health.</td></tr>      <tr><td>Rules</td><td>Create and manage gameplay rules, triggers, and actions.</td></tr>      <tr><td>Scoring</td><td>Author points, progressive scoring rules, and combo scoring logic.</td></tr>      <tr><td>Audio</td><td>Manage sound assets, cue playback behavior, output routing, and usage mapping.</td></tr>      <tr><td>Media</td><td>Build visual scenes with assets and overlays, then launch kiosk displays for runtime.</td></tr>      <tr><td>Lighting</td><td>Author scene-based lighting with rich live preview before rollout.</td></tr>      <tr><td>Playfield</td><td>Visual playfield editor with live simulation preview for faster iteration.</td></tr>      <tr><td>Hardware</td><td>Discover hardware, map inputs/outputs, and manage hardware configuration.</td></tr>      <tr><td>ESPLink</td><td>Manage ESP32 link status, versions, and manifest sync workflow.</td></tr>      <tr><td>Firmware</td><td>Firmware package and deployment support for ESP32 targets.</td></tr>      <tr><td>Service Log</td><td>Service and maintenance logging for users and engineers.</td></tr>      <tr><td>Logs</td><td>View and inspect application and bridge logs from the web UI.</td></tr>      <tr><td>Wi-Fi</td><td>Network connection status and Wi-Fi setup controls.</td></tr>      <tr><td>Settings</td><td>System-wide configuration, identity, and environment options.</td></tr>    </tbody>  </table></div><h2>Dashboard</h2><p>The Dashboard is the first operational view after login. It is designed for quick checks before you start rule or lighting work.</p><p>Key features:</p><ul><li>Live status cards for network, bridge, ESP32 link, and uptime.</li><li>Dependency visibility for required tooling.</li><li>High-level machine and gameplay metrics in one place.</li><li>Fast way to spot faults before troubleshooting deeper features.</li></ul><h2>Rules</h2><p>Rules is the gameplay authoring area. It defines how machine events trigger actions and behaviour.</p><p>Key features:</p><ul><li>Rule creation and editing workflows.</li><li>Trigger and condition-based action execution.</li><li>Integration with lighting actions (including scene selection and control options).</li><li>Integration with media actions (control videos, switch overlays and update content live).</li></ul><h2>Playfield</h2><p>Playfield is the visual model of your playfield and hardware placement.</p><p>Key features:</p><ul><li>Placement and sizing of playfield elements.</li><li>Simulation preview for quick visual validation as you build.</li><li>Hardware binding support for visual validation.</li><li>Editing tools to maintain a clean machine map.</li><li>Preview the playfield changes before applying them to your live machine workflow.</li><li>Playfield event handling mirrors hardware flow, so triggers and responses behave consistently.</li><li>Test trigger logic with immediate on-screen feedback that reflects hardware events.</li><li>Assign keyboard shortcuts to trigger events like flipper activations and bumper hits</li><li>Useful reference context when authoring rules and lighting.</li></ul><h2>Scoring</h2><p>Scoring is the point-system authoring area. It lets you build base points, progressive hit rules, and combo awards without writing code.</p><p>Key features:</p><ul><li>Base points table for fixed score awards from hardware and fired events.</li><li>Progressive scoring rules with minimum hit thresholds and optional time windows.</li><li>Cooloff controls to reduce hit streak value over time.</li><li>Combo authoring with ordered or any-order step matching.</li><li>Optional combo multipliers and emitted events for integration with Rules and Lighting.</li></ul><h2>Audio</h2><p>Audio manages sound assets and runtime playback rules from one place on the Pi side.</p><p>Key features:</p><ul><li>Asset library with multi-upload and inline preview.</li><li>Cue editor for output, bus, volume, loop, repeats, and cooldown.</li><li>Output/device visibility and runtime playback monitoring.</li><li>Usage mapping for quick cue/asset lookup and diagnostics.</li></ul><h2>Media</h2><p>Media is the scene authoring and playback module for videos and overlays across your configured displays.</p><p>Key features:</p><ul><li>Stage editor with scene selector, options, overlays, and live preview.</li><li>Launch controls for fullscreen kiosk and small-window testing.</li><li>Library tab for asset upload, browsing, and preview.</li><li>Displays tab for detection and runtime environment checks.</li><li>Runtime tab for active scene visibility and stop controls.</li></ul><h2>Lighting</h2><p>Lighting is a full scene authoring workflow for table effects and player feedback.</p><p>Key features:</p><ul><li>Scene and timeline editing.</li><li>Pattern-based animation generation.</li><li>Custom keyframes and tag-based frame markers.</li><li>Cast targeting, layering options, and playback controls.</li><li>Build your lighting plan by scene, timeline, and target selection.</li><li>Apply pattern/show behaviour and test playback in preview before rollout.</li><li>Tune behaviour safely without requiring immediate live hardware control.</li></ul><h2>Hardware</h2><p>Hardware manages the machine&#x27;s physical I/O mapping and integration data used by runtime services.</p><p>Key features:</p><ul><li>Mapping of switches, coils, lights, and related channels.</li><li>Hardware profile and mapping management.</li><li>Data used by bridge/runtime deployment steps.</li><li>Foundation for safe, deterministic control at runtime.</li></ul><h2>ESPLink</h2><p>ESPLink manages the Pi-to-ESP workflow and device-side compatibility checks.</p><p>Key features:</p><ul><li>Connection and sync status visibility.</li><li>Clear checks that Pi and ESP are on matching versions and manifest data before deployment.</li><li>Workflow support for updating or synchronising device state.</li><li>Integration point between authoring on Pi and execution on ESP32.</li><li>Built in flashing for firmware updates</li></ul><h2>Firmware</h2><p>Firmware supports firmware package handling and update flow for ESP targets.</p><p>Key features:</p><ul><li>Firmware metadata and package handling.</li><li>Updates from official Pinball CTL releases are available and listed here.</li><li>Assisted update/deploy workflow hooks.</li><li>Clear separation between host-side authoring and device runtime code.</li><li>Useful for controlled release and maintenance tasks.</li></ul><h2>Service Log</h2><p>Service Log focuses on service and maintenance history for managed services.</p><p>Key features:</p><ul><li>Service and maintenance logging for users and engineers.</li><li>Maintenance history for physical machine work such as cleaning and inspections.</li><li>Records of hardware replacement and service actions over time.</li><li>Helps teams track what was serviced, when it was done, and what changed.</li><li>Helps confirm long-running service stability.</li></ul><h2>Logs</h2><p>Logs provides direct access to application and bridge output for troubleshooting.</p><p>Key features:</p><ul><li>Read runtime logs from the web UI.</li><li>Inspect bridge and web logging without leaving the browser.</li><li>Useful for identifying serial, protocol, or configuration issues.</li><li>Supports day-to-day diagnostics during development and testing.</li></ul><h2>Wi-Fi</h2><p>Wi-Fi shows and manages network connection details relevant to remote use.</p><p>Key features:</p><ul><li>Current connection status and interface details.</li><li>Wi-Fi setup/update controls.</li><li>Helps confirm browser access and API reachability.</li><li>Core tool for headless Pi deployments.</li><li>Planned: Wi-Fi connected services will provide support for global leaderboards.</li></ul><h2>Settings</h2><p>Settings contains installation-wide configuration options.</p><p>Key features:</p><ul><li>Identity and general system settings.</li><li>Security-related settings such as login credentials.</li><li>Import/export style configuration workflows where supported.</li><li>Central place for persistent environment-level options.</li></ul></div>
+          <div class="doc-panel" id="docs-article"><h1 id="features">Features</h1>
+<p>Full overview of the main Pinball CTL features.</p>
+<p>Use the table for a quick summary, and find the detailed sections to understand what each area does.</p>
+<h2 id="at-a-glance-feature-table">At-a-Glance Feature Table</h2>
+<div class="manual-table-wrap">
+  <table class="manual-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Purpose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Dashboard</td><td>Live overview of machine state, connectivity, and runtime health.</td></tr>
+      <tr><td>Rules</td><td>Create and manage gameplay rules, triggers, and actions.</td></tr>
+      <tr><td>Scoring</td><td>Author points, progressive scoring rules, and combo scoring logic.</td></tr>
+      <tr><td>Audio</td><td>Manage sound assets, cue playback behavior, output routing, and usage mapping.</td></tr>
+      <tr><td>Media</td><td>Build visual scenes with assets and overlays, then launch kiosk displays for runtime.</td></tr>
+      <tr><td>Lighting</td><td>Author scene-based lighting with rich live preview before rollout.</td></tr>
+      <tr><td>Accelerometer</td><td>Calibrate table level, monitor live motion data, and track nudge/lift activity.</td></tr>
+      <tr><td>Playfield</td><td>Visual playfield editor with live simulation preview for faster iteration.</td></tr>
+      <tr><td>Hardware</td><td>Discover hardware, map inputs/outputs, and manage hardware configuration.</td></tr>
+      <tr><td>ESPLink</td><td>Manage ESP32 link status, versions, and manifest sync workflow.</td></tr>
+      <tr><td>Firmware</td><td>Firmware package and deployment support for ESP32 targets.</td></tr>
+      <tr><td>Service Log</td><td>Service and maintenance logging for users and engineers.</td></tr>
+      <tr><td>Logs</td><td>View and inspect application and bridge logs from the web UI.</td></tr>
+      <tr><td>Wi-Fi</td><td>Network connection status and Wi-Fi setup controls.</td></tr>
+      <tr><td>Settings</td><td>System-wide configuration, identity, and environment options.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="dashboard">Dashboard</h2>
+<p>The Dashboard is the first operational view after login. It is designed for quick checks before you start rule or lighting work.</p>
+<p>Key features:</p>
+<ul>
+<li>Live status cards for network, bridge, ESP32 link, and uptime.</li>
+<li>Dependency visibility for required tooling.</li>
+<li>High-level machine and gameplay metrics in one place.</li>
+<li>Fast way to spot faults before troubleshooting deeper features.</li>
+</ul>
+<h2 id="rules">Rules</h2>
+<p>Rules is the gameplay authoring area. It defines how machine events trigger actions and behaviour.</p>
+<p>Key features:</p>
+<ul>
+<li>Rule creation and editing workflows.</li>
+<li>Trigger and condition-based action execution.</li>
+<li>Integration with lighting actions (including scene selection and control options).</li>
+<li>Integration with media actions (control videos, switch overlays and update content live).</li>
+</ul>
+<h2 id="playfield">Playfield</h2>
+<p>Playfield is the visual model of your playfield and hardware placement.</p>
+<p>Key features:</p>
+<ul>
+<li>Placement and sizing of playfield elements.</li>
+<li>Simulation preview for quick visual validation as you build.</li>
+<li>Hardware binding support for visual validation.</li>
+<li>Editing tools to maintain a clean machine map.</li>
+<li>Preview the playfield changes before applying them to your live machine workflow.</li>
+<li>Playfield event handling mirrors hardware flow, so triggers and responses behave consistently.</li>
+<li>Test trigger logic with immediate on-screen feedback that reflects hardware events.</li>
+<li>Assign keyboard shortcuts to trigger events like flipper activations and bumper hits</li>
+<li>Useful reference context when authoring rules and lighting.</li>
+</ul>
+<h2 id="scoring">Scoring</h2>
+<p>Scoring is the point-system authoring area. It lets you build base points, progressive hit rules, and combo awards without writing code.</p>
+<p>Key features:</p>
+<ul>
+<li>Base points table for fixed score awards from hardware and fired events.</li>
+<li>Progressive scoring rules with minimum hit thresholds and optional time windows.</li>
+<li>Cooloff controls to reduce hit streak value over time.</li>
+<li>Combo authoring with ordered or any-order step matching.</li>
+<li>Optional combo multipliers and emitted events for integration with Rules and Lighting.</li>
+</ul>
+<h2 id="audio">Audio</h2>
+<p>Audio manages sound assets and runtime playback rules from one place on the Pi side.</p>
+<p>Key features:</p>
+<ul>
+<li>Asset library with multi-upload and inline preview.</li>
+<li>Cue editor for output, bus, volume, loop, repeats, and cooldown.</li>
+<li>Output/device visibility and runtime playback monitoring.</li>
+<li>Usage mapping for quick cue/asset lookup and diagnostics.</li>
+</ul>
+<h2 id="media">Media</h2>
+<p>Media is the scene authoring and playback module for videos and overlays across your configured displays.</p>
+<p>Key features:</p>
+<ul>
+<li>Stage editor with scene selector, options, overlays, and live preview.</li>
+<li>Launch controls for fullscreen kiosk and small-window testing.</li>
+<li>Library tab for asset upload, browsing, and preview.</li>
+<li>Displays tab for detection and runtime environment checks.</li>
+<li>Runtime tab for active scene visibility and stop controls.</li>
+</ul>
+<h2 id="lighting">Lighting</h2>
+<p>Lighting is a full scene authoring workflow for table effects and player feedback.</p>
+<p>Key features:</p>
+<ul>
+<li>Scene and timeline editing.</li>
+<li>Pattern-based animation generation.</li>
+<li>Custom keyframes and tag-based frame markers.</li>
+<li>Cast targeting, layering options, and playback controls.</li>
+<li>Build your lighting plan by scene, timeline, and target selection.</li>
+<li>Apply pattern/show behaviour and test playback in preview before rollout.</li>
+<li>Tune behaviour safely without requiring immediate live hardware control.</li>
+</ul>
+<h2 id="accelerometer">Accelerometer</h2>
+<p>Accelerometer provides live motion and level visibility for the table, with baseline calibration and runtime diagnostics.</p>
+<p>Key features:</p>
+<ul>
+<li>Save Baseline workflow to capture the current table position as your reference point.</li>
+<li>Live pitch and roll spirit-level indicators for quick levelling checks.</li>
+<li>Nudge and lift activity counters with immediate runtime feedback.</li>
+<li>Raw sensor values and status details for diagnostics and setup validation.</li>
+</ul>
+<h2 id="hardware">Hardware</h2>
+<p>Hardware manages the machine's physical I/O mapping and integration data used by runtime services.</p>
+<p>Key features:</p>
+<ul>
+<li>Mapping of switches, coils, lights, and related channels.</li>
+<li>Hardware profile and mapping management.</li>
+<li>Data used by bridge/runtime deployment steps.</li>
+<li>Foundation for safe, deterministic control at runtime.</li>
+</ul>
+<h2 id="esplink">ESPLink</h2>
+<p>ESPLink manages the Pi-to-ESP workflow and device-side compatibility checks.</p>
+<p>Key features:</p>
+<ul>
+<li>Connection and sync status visibility.</li>
+<li>Clear checks that Pi and ESP are on matching versions and manifest data before deployment.</li>
+<li>Workflow support for updating or synchronising device state.</li>
+<li>Integration point between authoring on Pi and execution on ESP32.</li>
+<li>Built in flashing for firmware updates</li>
+</ul>
+<h2 id="firmware">Firmware</h2>
+<p>Firmware supports firmware package handling and update flow for ESP targets.</p>
+<p>Key features:</p>
+<ul>
+<li>Firmware metadata and package handling.</li>
+<li>Updates from official Pinball CTL releases are available and listed here.</li>
+<li>Assisted update/deploy workflow hooks.</li>
+<li>Clear separation between host-side authoring and device runtime code.</li>
+<li>Useful for controlled release and maintenance tasks.</li>
+</ul>
+<h2 id="service-log">Service Log</h2>
+<p>Service Log focuses on service and maintenance history for managed services.</p>
+<p>Key features:</p>
+<ul>
+<li>Service and maintenance logging for users and engineers.</li>
+<li>Maintenance history for physical machine work such as cleaning and inspections.</li>
+<li>Records of hardware replacement and service actions over time.</li>
+<li>Helps teams track what was serviced, when it was done, and what changed.</li>
+<li>Helps confirm long-running service stability.</li>
+</ul>
+<h2 id="logs">Logs</h2>
+<p>Logs provides direct access to application and bridge output for troubleshooting.</p>
+<p>Key features:</p>
+<ul>
+<li>Read runtime logs from the web UI.</li>
+<li>Inspect bridge and web logging without leaving the browser.</li>
+<li>Useful for identifying serial, protocol, or configuration issues.</li>
+<li>Supports day-to-day diagnostics during development and testing.</li>
+</ul>
+<h2 id="wi-fi">Wi-Fi</h2>
+<p>Wi-Fi shows and manages network connection details relevant to remote use.</p>
+<p>Key features:</p>
+<ul>
+<li>Current connection status and interface details.</li>
+<li>Wi-Fi setup/update controls.</li>
+<li>Helps confirm browser access and API reachability.</li>
+<li>Core tool for headless Pi deployments.</li>
+<li>Planned: Wi-Fi connected services will provide support for global leaderboards.</li>
+</ul>
+<h2 id="settings">Settings</h2>
+<p>Settings contains installation-wide configuration options.</p>
+<p>Key features:</p>
+<ul>
+<li>Identity and general system settings.</li>
+<li>Security-related settings such as login credentials.</li>
+<li>Import/export style configuration workflows where supported.</li>
+<li>Central place for persistent environment-level options.</li>
+</ul></div>
         </article>
       </div>
     </section>

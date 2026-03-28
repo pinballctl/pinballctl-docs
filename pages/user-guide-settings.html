@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="Settings | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Settings Settings is the feature for installation-wide configuration and project data transfer. Page Structure Settings has two tabs: Settings Import/Export...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-settings.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-settings.html","name":"Settings | Pinball CTL Docs","description":"Settings Settings is the feature for installation-wide configuration and project data transfer. Page Structure Settings has two tabs: Settings Import/Export...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Settings Settings is the feature for installation-wide configuration and project data transfer. Page Structure Settings has two tabs: Settings Import/Export...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-settings.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-settings.html","name":"Settings | Pinball CTL Docs","description":"Settings Settings is the feature for installation-wide configuration and project data transfer. Page Structure Settings has two tabs: Settings Import/Export...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,67 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>Settings</h1><p>Settings is the feature for installation-wide configuration and project data transfer.</p><img src="./media/screenshot-feature-settings.webp" alt="Settings feature overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><h2>Page Structure</h2><p>Settings has two tabs:</p><ol><li><code>Settings</code></li><li><code>Import/Export</code></li></ol><h2>Settings Tab</h2><img src="./media/screenshot-feature-settings-settings.webp" alt="Settings tab overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><p>Use this tab to manage persistent system values.</p><p>Main fields:</p><ul><li>project name</li><li>admin username</li><li>admin password</li><li>remote firmware URL</li><li>log level (<code>INFO</code>, <code>DEBUG</code>, <code>VERBOSE</code>)</li><li>currency (<code>GBP</code>, <code>USD</code>, <code>EUR</code>, <code>JPY</code>)</li><li><code>Start displays on service startup</code></li></ul><p>Top action:</p><ul><li><code>Save Changes</code></li></ul><p>Password behavior:</p><ul><li>blank password does not overwrite existing password</li><li>non-empty password replaces admin password</li></ul><h2>Import/Export Tab</h2><img src="./media/screenshot-feature-settings-import-export.webp" alt="Import and export tab overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><p>Use this tab to move project data between installations.</p><h3>Export project</h3><ul><li>downloads a bundle of <code>src/instance</code></li><li>filename includes project name and timestamp</li><li>status text shows progress/completion</li><li>action: <code>Export</code></li></ul><h3>Import project</h3><ul><li>uploads a bundled project export (<code>.zip</code>)</li><li>existing files in <code>src/instance</code> are overwritten when present</li><li>confirmation is required before import</li><li>status text shows upload result</li><li>controls: file chooser + <code>Import</code></li></ul><h2>Typical Workflow</h2><ol><li>Update values in <code>Settings</code>.</li><li>Click <code>Save Changes</code>.</li><li>Use <code>Import/Export</code> for backup, restore, or migration.</li></ol><h2>Related Features</h2><ul><li><a href="/pages/user-guide-media.html" data-doc-slug="1-user-guide/18-media">Media</a></li><li><a href="/pages/user-guide-wifi.html" data-doc-slug="1-user-guide/15-wifi">Wi-Fi</a></li><li><a href="/pages/user-guide-firmware.html" data-doc-slug="1-user-guide/12-firmware">Firmware</a></li></ul></div>
+          <div class="doc-panel" id="docs-article"><h1 id="settings">Settings</h1>
+<p>Settings is the feature for installation-wide configuration and project data transfer.</p>
+<p><img src="./media/screenshot-feature-settings.webp" alt="Settings feature overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<h2 id="page-structure">Page Structure</h2>
+<p>Settings has two tabs:</p>
+<ol>
+<li><code>Settings</code></li>
+<li><code>Import/Export</code></li>
+</ol>
+<h2 id="settings-tab">Settings Tab</h2>
+<p><img src="./media/screenshot-feature-settings-settings.webp" alt="Settings tab overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<p>Use this tab to manage persistent system values.</p>
+<p>Main fields:</p>
+<ul>
+<li>project name</li>
+<li>admin username</li>
+<li>admin password</li>
+<li>remote firmware URL</li>
+<li>log level (<code>INFO</code>, <code>DEBUG</code>, <code>VERBOSE</code>)</li>
+<li>currency (<code>GBP</code>, <code>USD</code>, <code>EUR</code>, <code>JPY</code>)</li>
+<li><code>Start displays on service startup</code></li>
+</ul>
+<p>Top action:</p>
+<ul>
+<li><code>Save Changes</code></li>
+</ul>
+<p>Password behavior:</p>
+<ul>
+<li>blank password does not overwrite existing password</li>
+<li>non-empty password replaces admin password</li>
+</ul>
+<h2 id="importexport-tab">Import/Export Tab</h2>
+<p><img src="./media/screenshot-feature-settings-import-export.webp" alt="Import and export tab overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<p>Use this tab to move project data between installations.</p>
+<h3 id="export-project">Export project</h3>
+<ul>
+<li>downloads a bundle of <code>src/instance</code></li>
+<li>filename includes project name and timestamp</li>
+<li>status text shows progress/completion</li>
+<li>action: <code>Export</code></li>
+</ul>
+<h3 id="import-project">Import project</h3>
+<ul>
+<li>uploads a bundled project export (<code>.zip</code>)</li>
+<li>existing files in <code>src/instance</code> are overwritten when present</li>
+<li>confirmation is required before import</li>
+<li>status text shows upload result</li>
+<li>controls: file chooser + <code>Import</code></li>
+</ul>
+<h2 id="typical-workflow">Typical Workflow</h2>
+<ol>
+<li>Update values in <code>Settings</code>.</li>
+<li>Click <code>Save Changes</code>.</li>
+<li>Use <code>Import/Export</code> for backup, restore, or migration.</li>
+</ol>
+<h2 id="related-features">Related Features</h2>
+<ul>
+<li><a href="/pages/user-guide-media.html" data-doc-slug="1-user-guide/18-media">Media</a></li>
+<li><a href="/pages/user-guide-wifi.html" data-doc-slug="1-user-guide/15-wifi">Wi-Fi</a></li>
+<li><a href="/pages/user-guide-firmware.html" data-doc-slug="1-user-guide/12-firmware">Firmware</a></li>
+</ul></div>
         </article>
       </div>
     </section>

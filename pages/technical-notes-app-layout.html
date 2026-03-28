@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="App Layout | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"App Layout This document maps the pinballctl app from two angles: physical repository layout runtime code paths through app, bridge, events, managers, and...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/technical-notes-app-layout.html#webpage","url":"https://docs.pinballctl.com/pages/technical-notes-app-layout.html","name":"App Layout | Pinball CTL Docs","description":"App Layout This document maps the pinballctl app from two angles: physical repository layout runtime code paths through app, bridge, events, managers, and...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"App Layout This document maps the pinballctl app from two angles: physical repository layout runtime code paths through app, bridge, events, managers, and...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/technical-notes-app-layout.html#webpage","url":"https://docs.pinballctl.com/pages/technical-notes-app-layout.html","name":"App Layout | Pinball CTL Docs","description":"App Layout This document maps the pinballctl app from two angles: physical repository layout runtime code paths through app, bridge, events, managers, and...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,14 +110,99 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>App Layout</h1><p>This document maps the <code>pinballctl</code> app from two angles:</p><ul><li>physical repository layout</li><li>runtime code paths through app, bridge, events, managers, and firmware</li></ul><h2>Physical Layout</h2><p>In the <code>pinballctl</code> app repository:</p><ul><li><code>src/pinballctl/app/</code></li><li>Flask app factory (<code>create_app</code>) and web bootstrap.</li><li>Core templates/static and module registration.</li><li><code>src/pinballctl/app/modules/*/</code></li><li>Feature modules (dashboard, hardware, rules, lighting, media, audio, events, etc.).</li><li>Typically expose <code>bp</code> (UI blueprint) and <code>api_bp</code> (API blueprint).</li><li><code>src/pinballctl/bridge/</code></li><li>Serial daemon, framed transport, command queue/RPC sockets, bridge state.</li><li><code>src/pinballctl/events/</code></li><li>In-process event bus and event manager routing.</li><li><code>src/pinballctl/rules/</code>, <code>src/pinballctl/scoring/</code>, <code>src/pinballctl/audio/</code>, <code>src/pinballctl/lighting/</code>, <code>src/pinballctl/media/</code></li><li>Runtime engines/workers and feature logic.</li><li><code>src/firmware/</code></li><li>ESP32-S3 firmware source (real-time runtime/safety side).</li><li><code>src/instance/</code></li><li>Runtime/generated state and persisted authored data (bridge, hardware, rules, lighting, media, etc.).</li></ul><h2>App Bootstrap Path (Pi)</h2><p>Primary entry points:</p><ul><li><code>src/pinballctl/cli.py</code></li><li><code>src/pinballctl/app/__init__.py</code> (<code>create_app</code>)</li></ul><p><code>create_app</code> flow:</p><ol><li>Binds Flask <code>instance_path</code> to <code>src/instance</code>.</li><li>Loads/overlays settings (<code>src/instance/settings/settings.json</code>).</li><li>Registers core + assets blueprints.</li><li>Auto-discovers and registers module blueprints from <code>src/pinballctl/app/modules/*</code>.</li><li>Starts background workers (currently scoring/audio workers) and media autodisplay startup.</li></ol><h2>Module Path Model</h2><p>Most modules follow this pattern:</p><ul><li><code>views.py</code> for HTML pages under <code>/&lt;module&gt;</code>.</li><li><code>api.py</code> for JSON API under <code>/api/&lt;module&gt;</code>.</li><li>Optional <code>init_module(app)</code> hook for module-specific registration behavior.</li></ul><p>Module discovery/registration is centralized in <code>src/pinballctl/app/__init__.py</code>.</p><h2>Bridge Path Model (Pi &lt;-&gt; ESP)</h2><p>Main files:</p><ul><li><code>src/pinballctl/bridge/daemon.py</code></li><li><code>src/pinballctl/bridge/state.py</code></li></ul><p>Command flow:</p><ol><li>Pi code enqueues commands via <code>enqueue_command()</code>/<code>enqueue_commands()</code>.</li><li>Bridge consumes queued commands from socket/RPC queue.</li><li><code>_send_cmd()</code> serializes compact JSON and sends framed bytes over serial.</li></ol><p>Bridge state/artifacts (under <code>src/instance/bridge/</code>):</p><ul><li><code>bridge_state.json</code></li><li><code>bridge_commands.json</code> (fallback path)</li><li><code>bridge_responses.json</code></li><li><code>bridge_cmd.sock</code></li><li><code>bridge_rpc.sock</code></li></ul><h2>Event Path Model (Pi)</h2><p>Main files:</p><ul><li><code>src/pinballctl/events/bus.py</code></li><li><code>src/pinballctl/events/manager.py</code></li><li><code>src/pinballctl/app/modules/events/api.py</code></li><li><code>src/pinballctl/bridge/daemon.py</code></li></ul><p>Ingress sources:</p><ul><li>API event fire endpoint (<code>/api/events/fire</code>).</li><li>Bridge RX for ESP-origin event payloads.</li></ul><p>Processing shape:</p><ol><li>Event becomes a normalized envelope/context.</li><li>Published to in-process event bus.</li><li>Dispatched by event manager using route keys (<code>all</code>, <code>event:<em></code>, <code>system:</em></code>, <code>hardware:*</code>, <code>custom</code>).</li><li>Downstream runtimes (rules/scoring/audio/etc.) consume according to module logic.</li></ol><h2>Manager/Worker Roles</h2><p>Current manager/worker roles include:</p><ul><li>Event manager (<code>events/manager.py</code>): route registry + dispatch.</li><li>Scoring worker (<code>scoring/runtime.py</code>): background bus processing.</li><li>Audio worker (<code>audio/runtime.py</code>): background bus processing.</li><li>Bridge daemon (<code>bridge/daemon.py</code>): transport boundary and message routing.</li></ul><h2>Firmware Boundary (ESP)</h2><p>Main file:</p><ul><li><code>src/firmware/src/System.cpp</code></li></ul><p>Firmware runtime responsibilities:</p><ul><li>Reads framed serial input in a non-blocking loop.</li><li>Validates frame length and dispatches payloads to protocol handler.</li><li>Maintains runtime safety and hardware-side execution behavior.</li></ul><p>Transport rule:</p><ul><li>Frames-only JSON (length-prefixed), no newline command path.</li></ul><h2>End-to-End Path (High Level)</h2><pre><code>flowchart LR
+          <div class="doc-panel" id="docs-article"><h1 id="app-layout">App Layout</h1>
+<p>This document maps the <code>pinballctl</code> app from two angles:
+- physical repository layout
+- runtime code paths through app, bridge, events, managers, and firmware</p>
+<h2 id="physical-layout">Physical Layout</h2>
+<p>In the <code>pinballctl</code> app repository:</p>
+<ul>
+<li><code>src/pinballctl/app/</code></li>
+<li>Flask app factory (<code>create_app</code>) and web bootstrap.</li>
+<li>Core templates/static and module registration.</li>
+<li><code>src/pinballctl/app/modules/*/</code></li>
+<li>Feature modules (dashboard, hardware, rules, lighting, media, audio, events, etc.).</li>
+<li>Typically expose <code>bp</code> (UI blueprint) and <code>api_bp</code> (API blueprint).</li>
+<li><code>src/pinballctl/bridge/</code></li>
+<li>Serial daemon, framed transport, command queue/RPC sockets, bridge state.</li>
+<li><code>src/pinballctl/events/</code></li>
+<li>In-process event bus and event manager routing.</li>
+<li><code>src/pinballctl/rules/</code>, <code>src/pinballctl/scoring/</code>, <code>src/pinballctl/audio/</code>, <code>src/pinballctl/lighting/</code>, <code>src/pinballctl/media/</code></li>
+<li>Runtime engines/workers and feature logic.</li>
+<li><code>src/firmware/</code></li>
+<li>ESP32-S3 firmware source (real-time runtime/safety side).</li>
+<li><code>src/instance/</code></li>
+<li>Runtime/generated state and persisted authored data (bridge, hardware, rules, lighting, media, etc.).</li>
+</ul>
+<h2 id="app-bootstrap-path-pi">App Bootstrap Path (Pi)</h2>
+<p>Primary entry points:
+- <code>src/pinballctl/cli.py</code>
+- <code>src/pinballctl/app/__init__.py</code> (<code>create_app</code>)</p>
+<p><code>create_app</code> flow:
+1. Binds Flask <code>instance_path</code> to <code>src/instance</code>.
+2. Loads/overlays settings (<code>src/instance/settings/settings.json</code>).
+3. Registers core + assets blueprints.
+4. Auto-discovers and registers module blueprints from <code>src/pinballctl/app/modules/*</code>.
+5. Starts background workers (currently scoring/audio workers) and media autodisplay startup.</p>
+<h2 id="module-path-model">Module Path Model</h2>
+<p>Most modules follow this pattern:
+- <code>views.py</code> for HTML pages under <code>/&lt;module&gt;</code>.
+- <code>api.py</code> for JSON API under <code>/api/&lt;module&gt;</code>.
+- Optional <code>init_module(app)</code> hook for module-specific registration behavior.</p>
+<p>Module discovery/registration is centralized in <code>src/pinballctl/app/__init__.py</code>.</p>
+<h2 id="bridge-path-model-pi-esp">Bridge Path Model (Pi &lt;-&gt; ESP)</h2>
+<p>Main files:
+- <code>src/pinballctl/bridge/daemon.py</code>
+- <code>src/pinballctl/bridge/state.py</code></p>
+<p>Command flow:
+1. Pi code enqueues commands via <code>enqueue_command()</code>/<code>enqueue_commands()</code>.
+2. Bridge consumes queued commands from socket/RPC queue.
+3. <code>_send_cmd()</code> serializes compact JSON and sends framed bytes over serial.</p>
+<p>Bridge state/artifacts (under <code>src/instance/bridge/</code>):
+- <code>bridge_state.json</code>
+- <code>bridge_commands.json</code> (fallback path)
+- <code>bridge_responses.json</code>
+- <code>bridge_cmd.sock</code>
+- <code>bridge_rpc.sock</code></p>
+<h2 id="event-path-model-pi">Event Path Model (Pi)</h2>
+<p>Main files:
+- <code>src/pinballctl/events/bus.py</code>
+- <code>src/pinballctl/events/manager.py</code>
+- <code>src/pinballctl/app/modules/events/api.py</code>
+- <code>src/pinballctl/bridge/daemon.py</code></p>
+<p>Ingress sources:
+- API event fire endpoint (<code>/api/events/fire</code>).
+- Bridge RX for ESP-origin event payloads.</p>
+<p>Processing shape:
+1. Event becomes a normalized envelope/context.
+2. Published to in-process event bus.
+3. Dispatched by event manager using route keys (<code>all</code>, <code>event:*</code>, <code>system:*</code>, <code>hardware:*</code>, <code>custom</code>).
+4. Downstream runtimes (rules/scoring/audio/etc.) consume according to module logic.</p>
+<h2 id="managerworker-roles">Manager/Worker Roles</h2>
+<p>Current manager/worker roles include:
+- Event manager (<code>events/manager.py</code>): route registry + dispatch.
+- Scoring worker (<code>scoring/runtime.py</code>): background bus processing.
+- Audio worker (<code>audio/runtime.py</code>): background bus processing.
+- Bridge daemon (<code>bridge/daemon.py</code>): transport boundary and message routing.</p>
+<h2 id="firmware-boundary-esp">Firmware Boundary (ESP)</h2>
+<p>Main file:
+- <code>src/firmware/src/System.cpp</code></p>
+<p>Firmware runtime responsibilities:
+- Reads framed serial input in a non-blocking loop.
+- Validates frame length and dispatches payloads to protocol handler.
+- Maintains runtime safety and hardware-side execution behavior.</p>
+<p>Transport rule:
+- Frames-only JSON (length-prefixed), no newline command path.</p>
+<h2 id="end-to-end-path-high-level">End-to-End Path (High Level)</h2>
+<pre><code class="language-mermaid">flowchart LR
   UI[&quot;Web UI / API (Flask modules)&quot;] --&gt; BUS[&quot;Pi Event Bus + Event Manager&quot;]
   UI --&gt; BRQ[&quot;Bridge enqueue_command()&quot;]
   BRQ --&gt; BRD[&quot;Bridge Daemon (framed send/receive)&quot;]
   BRD --&gt; ESP[&quot;ESP Firmware Runtime&quot;]
   ESP --&gt; BRD
   BRD --&gt; BUS
-  BUS --&gt; RT[&quot;Rules / Scoring / Audio / Lighting / Media runtimes&quot;]</code></pre></div>
+  BUS --&gt; RT[&quot;Rules / Scoring / Audio / Lighting / Media runtimes&quot;]
+</code></pre></div>
         </article>
       </div>
     </section>

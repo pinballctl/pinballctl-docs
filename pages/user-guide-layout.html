@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="Playfield | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Playfield Playfield is the visual editor and runtime simulator for machine layout. It provides a visual machine model for authoring, key binding, and...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-layout.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-layout.html","name":"Playfield | Pinball CTL Docs","description":"Playfield Playfield is the visual editor and runtime simulator for machine layout. It provides a visual machine model for authoring, key binding, and...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Playfield Playfield is the visual editor and runtime simulator for machine layout. It provides a visual machine model for authoring, key binding, and...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-layout.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-layout.html","name":"Playfield | Pinball CTL Docs","description":"Playfield Playfield is the visual editor and runtime simulator for machine layout. It provides a visual machine model for authoring, key binding, and...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,107 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>Playfield</h1><p>Playfield is the visual editor and runtime simulator for machine layout.</p><p>It provides a visual machine model for authoring, key binding, and event-response testing.</p><h2>Page Structure</h2><p>Playfield is split into two tabs:</p><ol><li><code>Stage</code></li><li><code>Options</code></li></ol><h2>Stage Tab</h2><img src="./media/screenshot-feature-layout-stage.webp" alt="Playfield stage tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><p>Stage contains the visual canvas and component editing workflow.</p><p>Main areas:</p><ul><li>playfield canvas</li><li>components card</li><li>component inspector (when a component is selected)</li><li>save action in the page header</li></ul><p>Component inspector supports:</p><ul><li>appearance and size controls</li><li>bound key capture/removal</li><li>key-down/key-up gesture mapping</li><li>trigger/action test controls</li><li>remove component action</li></ul><p>Drag and placement behavior:</p><ul><li>components move by drag on canvas</li><li>selected component is highlighted</li><li>updates persist after <code>Save Changes</code></li></ul><h2>Components Card</h2><p>The <code>Components</code> card is the hardware component list and quick layout control area.</p><p>Use it to:</p><ul><li>view discovered component groups (<code>Buttons</code>, <code>LEDs</code>, <code>Solenoids</code>, <code>Other</code>)</li><li>run <code>Auto Layout</code></li><li>run <code>Clear Layout</code></li><li>verify the hardware list is loaded before editing on-canvas positions</li></ul><img src="./media/screenshot-playfield-components-card.webp" alt="Playfield Components card expanded" style="width: 100%; max-width: 400px; height: auto;" loading="lazy" decoding="async" width="497" height="370"><h2>Component Inspector</h2><p>Select a component from the <code>Components</code> list to open and focus the <code>Component Inspector</code>.</p><p>Inspector usage:</p><ul><li>validate which element is selected</li><li>tune appearance, color, size, and rotation</li><li>capture and manage keyboard bindings</li><li>configure trigger/action test controls</li><li>remove a component if required</li></ul><p>The example below selects <code>Right Flipper Button</code> from the Components list and shows the populated inspector.</p><img src="./media/screenshot-playfield-component-inspector.webp" alt="Playfield Component Inspector with Right Flipper Button selected" style="width: 100%; max-width: 400px; height: auto;" loading="lazy" decoding="async" width="497" height="518"><h2>Options Tab</h2><img src="./media/screenshot-feature-layout-options.webp" alt="Playfield options tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><p>Options contains layout-level controls.</p><p>Primary controls:</p><ul><li>width</li><li>height</li><li>ratio display</li></ul><p>Layout actions:</p><ul><li><code>Auto Layout</code></li><li><code>Clear Layout</code></li></ul><p>Use this tab to quickly regenerate/reset placement without editing each component manually.</p><h2>Keyboard Binding System</h2><p>Binding flow:</p><ol><li>Select a component in <code>Stage</code>.</li><li>Click <code>Capture</code> in inspector.</li><li>Press a key.</li><li>Configure key-down and key-up gestures.</li></ol><p>This allows interaction testing without physical hardware input.</p><h2>Event and Trigger Testing</h2><p>Playfield can fire bound events and show response state visually.</p><p>Common uses:</p><ul><li>validate rule-trigger mappings</li><li>test event-driven reactions</li><li>verify component linkage behavior</li></ul><h2>Save Workflow</h2><p>Recommended flow:</p><ol><li>Arrange components in <code>Stage</code>.</li><li>Tune layout-level values in <code>Options</code>.</li><li>Test key bindings and events.</li><li>Click <code>Save Changes</code>.</li></ol><h2>Related Features</h2><ul><li><a href="7-rules.md">Rules</a></li><li><a href="/pages/user-guide-lighting.html" data-doc-slug="1-user-guide/8-lighting">Lighting</a></li><li><a href="10-hardware.md">Hardware</a></li></ul></div>
+          <div class="doc-panel" id="docs-article"><h1 id="playfield">Playfield</h1>
+<p>Playfield is the visual editor and runtime simulator for machine layout.</p>
+<p>It provides a visual machine model for authoring, key binding, and event-response testing.</p>
+<h2 id="page-structure">Page Structure</h2>
+<p>Playfield is split into two tabs:</p>
+<ol>
+<li><code>Stage</code></li>
+<li><code>Options</code></li>
+</ol>
+<h2 id="stage-tab">Stage Tab</h2>
+<p><img src="./media/screenshot-feature-layout-stage.webp" alt="Playfield stage tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<p>Stage contains the visual canvas and component editing workflow.</p>
+<p>Main areas:</p>
+<ul>
+<li>playfield canvas</li>
+<li>components card</li>
+<li>component inspector (when a component is selected)</li>
+<li>save action in the page header</li>
+</ul>
+<p>Component inspector supports:</p>
+<ul>
+<li>appearance and size controls</li>
+<li>bound key capture/removal</li>
+<li>key-down/key-up gesture mapping</li>
+<li>trigger/action test controls</li>
+<li>remove component action</li>
+</ul>
+<p>Drag and placement behavior:</p>
+<ul>
+<li>components move by drag on canvas</li>
+<li>selected component is highlighted</li>
+<li>updates persist after <code>Save Changes</code></li>
+</ul>
+<h2 id="components-card">Components Card</h2>
+<p>The <code>Components</code> card is the hardware component list and quick layout control area.</p>
+<p>Use it to:</p>
+<ul>
+<li>view discovered component groups (<code>Buttons</code>, <code>LEDs</code>, <code>Solenoids</code>, <code>Other</code>)</li>
+<li>run <code>Auto Layout</code></li>
+<li>run <code>Clear Layout</code></li>
+<li>verify the hardware list is loaded before editing on-canvas positions</li>
+</ul>
+<p><img src="./media/screenshot-playfield-components-card.webp" alt="Playfield Components card expanded" style="width: 100%; max-width: 400px; height: auto;" loading="lazy" decoding="async" width="497" height="370"></p>
+<h2 id="component-inspector">Component Inspector</h2>
+<p>Select a component from the <code>Components</code> list to open and focus the <code>Component Inspector</code>.</p>
+<p>Inspector usage:</p>
+<ul>
+<li>validate which element is selected</li>
+<li>tune appearance, color, size, and rotation</li>
+<li>capture and manage keyboard bindings</li>
+<li>configure trigger/action test controls</li>
+<li>remove a component if required</li>
+</ul>
+<p>The example below selects <code>Right Flipper Button</code> from the Components list and shows the populated inspector.</p>
+<p><img src="./media/screenshot-playfield-component-inspector.webp" alt="Playfield Component Inspector with Right Flipper Button selected" style="width: 100%; max-width: 400px; height: auto;" loading="lazy" decoding="async" width="497" height="518"></p>
+<h2 id="options-tab">Options Tab</h2>
+<p><img src="./media/screenshot-feature-layout-options.webp" alt="Playfield options tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<p>Options contains layout-level controls.</p>
+<p>Primary controls:</p>
+<ul>
+<li>width</li>
+<li>height</li>
+<li>ratio display</li>
+</ul>
+<p>Layout actions:</p>
+<ul>
+<li><code>Auto Layout</code></li>
+<li><code>Clear Layout</code></li>
+</ul>
+<p>Use this tab to quickly regenerate/reset placement without editing each component manually.</p>
+<h2 id="keyboard-binding-system">Keyboard Binding System</h2>
+<p>Binding flow:</p>
+<ol>
+<li>Select a component in <code>Stage</code>.</li>
+<li>Click <code>Capture</code> in inspector.</li>
+<li>Press a key.</li>
+<li>Configure key-down and key-up gestures.</li>
+</ol>
+<p>This allows interaction testing without physical hardware input.</p>
+<h2 id="event-and-trigger-testing">Event and Trigger Testing</h2>
+<p>Playfield can fire bound events and show response state visually.</p>
+<p>Common uses:</p>
+<ul>
+<li>validate rule-trigger mappings</li>
+<li>test event-driven reactions</li>
+<li>verify component linkage behavior</li>
+</ul>
+<h2 id="save-workflow">Save Workflow</h2>
+<p>Recommended flow:</p>
+<ol>
+<li>Arrange components in <code>Stage</code>.</li>
+<li>Tune layout-level values in <code>Options</code>.</li>
+<li>Test key bindings and events.</li>
+<li>Click <code>Save Changes</code>.</li>
+</ol>
+<h2 id="related-features">Related Features</h2>
+<ul>
+<li><a href="7-rules.md">Rules</a></li>
+<li><a href="/pages/user-guide-lighting.html" data-doc-slug="1-user-guide/8-lighting">Lighting</a></li>
+<li><a href="10-hardware.md">Hardware</a></li>
+</ul></div>
         </article>
       </div>
     </section>

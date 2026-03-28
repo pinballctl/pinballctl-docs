@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="ESP Development Plan | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"ESP Development Plan Purpose This document captures: A focused review of current Pi-side functionality. The ESP-side functionality required to reach runtime...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/technical-notes-esp-plan.html#webpage","url":"https://docs.pinballctl.com/pages/technical-notes-esp-plan.html","name":"ESP Development Plan | Pinball CTL Docs","description":"ESP Development Plan Purpose This document captures: A focused review of current Pi-side functionality. The ESP-side functionality required to reach runtime...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"ESP Development Plan Purpose This document captures: A focused review of current Pi-side functionality. The ESP-side functionality required to reach runtime...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/technical-notes-esp-plan.html#webpage","url":"https://docs.pinballctl.com/pages/technical-notes-esp-plan.html","name":"ESP Development Plan | Pinball CTL Docs","description":"ESP Development Plan Purpose This document captures: A focused review of current Pi-side functionality. The ESP-side functionality required to reach runtime...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,309 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>ESP Development Plan</h1><h2>Purpose</h2><p>This document captures:</p><ul><li>A focused review of current Pi-side functionality.</li><li>The ESP-side functionality required to reach runtime parity for rules/event execution and lighting control.</li><li>A phased implementation plan with acceptance criteria.</li></ul><h2>Non-Negotiable Constraints</h2><ul><li>Preserve existing event message behavior/performance:</li><li>Current framed event handling (<code>EVENT</code> / <code>EVENT_FIRE</code> + stats/ack flow) has already tested fast and reliable.</li><li>Do not break or redesign this path unless a concrete missing requirement is identified.</li><li>Keep firmware config-driven from uploaded module artifacts:</li><li>Runtime behavior must be driven by deployed data (rules, lighting, hardware mapping, and related module outputs), not hardcoded gameplay logic.</li><li>Pi remains the authoring layer; ESP remains deterministic runtime executor of uploaded config.</li></ul><p>The transport baseline is <strong>frames-only JSON</strong> over serial:</p><ul><li>4-byte big-endian length header.</li><li>UTF-8 JSON payload.</li><li>No newline-delimited command transport.</li></ul><h2>Current App Review (Pi Side)</h2><h3>Existing Runtime Layers</h3><ul><li><code>events</code> runtime:</li><li>In-process <code>EventBus</code> with envelopes (<code>id</code>, <code>ts</code>, <code>name</code>, <code>source</code>, <code>params</code>).</li><li><code>EventManager</code> route model (<code>system:*</code>, <code>hardware:&lt;deviceClass&gt;:&lt;event&gt;</code>, <code>custom</code>, plus <code>all</code>/<code>event:&lt;name&gt;</code>).</li><li>Registry-driven event catalog from <code>src/pinballctl/app/modules/rules/registry.json</code>.</li><li><code>rules</code> runtime:</li><li>Evaluates persisted rules from <code>src/instance/rules/rules.json</code>.</li><li>Supports trigger groups, condition groups, action execution.</li><li>Emits derived events and forwards to bridge (<code>EVENT_FIRE</code>).</li><li><code>lighting</code> runtime:</li><li>Scene model in <code>src/instance/lighting/lighting.json</code>.</li><li>Bridge commands for scene start/stop (<code>LIGHT_SCENE_PLAY</code>, <code>LIGHT_SCENE_STOP</code>).</li><li>Compiled blob support (<code>lighting.pd</code>) on Pi side.</li><li><code>scoring</code> runtime:</li><li>Event-driven scoring config/state/high-score persistence.</li><li>Bus worker processing in-order event updates.</li><li><code>audio</code> + <code>media</code> runtime:</li><li>Rule actions can trigger Pi-local cues/scenes.</li><li>These are Pi-hosted capabilities and not hard real-time firmware responsibilities.</li></ul><h3>Existing ESP Bridge/Protocol Surface</h3><ul><li>Bridge command path uses framed JSON writes (<code>_send_cmd</code> in <code>src/pinballctl/bridge/daemon.py</code>).</li><li>Firmware frame receiver in <code>src/firmware/src/System.cpp</code> is length-prefixed, stateful, non-blocking.</li><li><code>ProtocolHandler</code> currently handles:</li><li>Boot/info/fs: <code>GET_INFO</code>, <code>GET_FS_STATUS</code>, <code>MOUNT_FS</code>, <code>FS_LIST</code>, <code>FS_MANIFEST_GET</code>, <code>FS_MANIFEST_UPDATE</code>, <code>GET_FLASH_INFO</code>.</li><li>Rules/event stubs: <code>SET_RULES</code>, <code>EVENT</code>, <code>EVENT_FIRE</code>, <code>EVENT_STATS</code>, <code>EVENT_STATS_RESET</code>.</li><li>Lighting stubs: <code>LIGHT_SCENE_PLAY</code>, <code>LIGHT_SCENE_STOP</code>.</li><li>Blob transport: <code>BLOB_BEGIN</code>/typed payload frame/<code>BLOB_END</code>.</li><li>Diagnostics/time: <code>ECHO</code>, <code>EVT_STREAM_START/STOP</code>, <code>SYNC_TIME</code>, <code>GET_HW</code>.</li></ul><h3>Current Firmware Capabilities (Already Working)</h3><ul><li>Boot lifecycle/status reporting:</li><li>FS mount/status broadcast on boot.</li><li>Controller info and heartbeat/ping output.</li><li>Event message handling:</li><li>Accepts <code>EVENT</code> and <code>EVENT_FIRE</code> frames.</li><li>Tracks and reports event ingress counters via <code>EVENT_STATS</code>.</li><li>Blob/file handling:</li><li>Accepts blob uploads and validates mapping/rules blob headers.</li><li>Applies mapping blob at boot when present.</li><li>Discovery/diagnostics:</li><li>Hardware scan streaming (<code>GET_HW</code> / <code>HW_*</code> frames).</li><li>Event stream test tooling (<code>EVT_STREAM_START/STOP</code>).</li><li>Lighting/rules command endpoints exist as protocol hooks today:</li><li><code>SET_RULES</code>, <code>LIGHT_SCENE_PLAY</code>, <code>LIGHT_SCENE_STOP</code>.</li><li>Runtime execution behind those hooks is the main planned expansion.</li></ul><h3>Gap Summary</h3><p>Pi-side authoring/execution is broad. Firmware currently handles framed transport, event ingress, blob lifecycle, and status telemetry, but runtime execution is still scaffolded for:</p><ul><li>Rule evaluation and action execution.</li><li>Real lighting scene engine.</li><li>Event/controller state machines (credits/game/ball/mode style controllers).</li><li>Deterministic real-time scheduling and safety-gated output control.</li></ul><h2>ESP End-State Responsibilities</h2><h3>Core Runtime Contract</h3><p>ESP should become the real-time executor for:</p><ul><li>Switch/button/sensor input ingestion and debouncing.</li><li>Event generation and routing.</li><li>Rule evaluation and action execution.</li><li>Coil/output/lighting actuation with hard safety enforcement.</li></ul><p>Pi should remain:</p><ul><li>Authoring/orchestration layer.</li><li>Deployment, sync, diagnostics, and UI.</li><li>Non-real-time services (media/audio/scoring if intentionally left Pi-side).</li></ul><h3>Safety Invariants (Must Hold)</h3><ul><li>Output actuation requires explicit enable/arm state.</li><li>Coil pulse/hold limits enforced entirely on firmware side.</li><li>Watchdog/fault paths force safe output state and require explicit recovery.</li><li>Flood/duplicate command protection for high-current outputs.</li><li>Safe defaults applied at boot and after communication loss.</li></ul><h2>Main Event Controllers Needed on ESP</h2><p>These controllers should exist as explicit firmware modules with independent state and tests.</p><h3>1) Input Controller</h3><ul><li>Normalizes physical input signals into canonical events.</li><li>Supports registry-style hardware semantics:</li><li>Button: <code>PRESSED</code>, <code>RELEASED</code>, <code>CLICKED</code>, <code>DOUBLE_CLICKED</code>, <code>HELD</code>, <code>REPEAT_WHILE_HELD</code>.</li><li>Switch: <code>OPENED</code>, <code>CLOSED</code>, <code>CHANGED</code>, <code>ACTIVE_FOR_MS</code>, <code>INACTIVE_FOR_MS</code>.</li><li>Handles per-source timing windows and debounce.</li></ul><h3>2) Event Router Controller</h3><ul><li>Maintains event envelope schema parity (name/source/params/seq/time).</li><li>Routes to rule engine and telemetry publisher.</li><li>Maintains event stats counters (<code>EVENT_STATS</code> compatibility).</li></ul><h3>3) Rule Engine Controller</h3><ul><li>Loads compiled ruleset (<code>rules.pd</code> schema-backed format).</li><li>Evaluates trigger groups/condition groups with <code>ALL</code>/<code>ANY</code> semantics.</li><li>Supports indexed lookup by event key for bounded per-event runtime.</li><li>Enforces deterministic execution order and bounded action budget per tick.</li></ul><h3>4) Game State Controller</h3><ul><li>Maintains firmware-owned flags/counters needed by conditions:</li><li>Flags: <code>TILT</code>, <code>ENABLED</code>, <code>HAS_CREDIT</code>, <code>GAME_ACTIVE</code>, <code>BALL_IN_PLAY</code>, <code>IDLE</code>.</li><li>Counters: <code>CREDITS</code>, <code>BALL_NUMBER</code>, <code>PLAYER_COUNT</code>.</li><li>Emits system events (<code>GAME_STARTED</code>, <code>BALL_STARTED</code>, <code>ENABLE_GRANTED</code>, etc.)</li><p>when state transitions occur.</p></ul><h3>5) Safety Controller</h3><ul><li>Owns watchdog, fault latching, auto-shutdown behavior.</li><li>Applies fallback outputs immediately on fault.</li><li>Publishes structured fault events/status.</li></ul><h3>6) Coil/Output Controller</h3><ul><li>Executes <code>pulse_coil</code> and <code>set_output</code> actions with strict policy checks.</li><li>Tracks active outputs and auto-timeouts.</li><li>Separates command intent from physical actuation path.</li></ul><h3>7) Lighting Controller</h3><ul><li>Loads <code>lighting.pd</code> scenes.</li><li>Supports <code>LIGHT_SCENE_PLAY</code> and <code>LIGHT_SCENE_STOP</code> as real runtime operations.</li><li>Supports <code>startFrame</code> / <code>startTag</code> / <code>paused</code> semantics where present.</li><li>Handles scene priority and blend policy deterministically.</li></ul><h3>8) Persistence/Version Controller</h3><ul><li>Maintains local blob metadata (size/hash/revision) for mapping/rules/lighting.</li><li>Reports current runtime revisions to Pi.</li><li>Supports safe boot restore and compatibility checks.</li></ul><h2>Pi Feature Parity Targets for ESP Rules Engine</h2><h3>Trigger Support</h3><ul><li>System events from registry categories.</li><li>Hardware events by device class and event key.</li><li>Custom event names with same validation strategy as registry (<code>^[A-Z0-9_]+$</code>).</li></ul><h3>Condition Support</h3><ul><li><code>flag</code> comparisons.</li><li><code>counter</code> comparisons.</li><li><code>time_since_event</code> comparisons.</li><li><code>device_state</code> comparisons (coil/switch/output).</li></ul><h3>Action Support (Priority Order)</h3><ul><li>P0 (firmware real-time core):</li><li><code>emit_event</code></li><li><code>set_flag</code></li><li><code>set_counter</code></li><li><code>inc_counter</code></li><li><code>pulse_coil</code></li><li><code>set_output</code></li><li><code>apply_lighting_scene</code></li><li><code>stop_lighting_scene</code></li><li>P1 (optional split with Pi):</li><li><code>play_audio_cue</code>, <code>stop_audio_cue</code>, <code>toggle_audio_cue</code> (remain Pi-owned unless needed on ESP).</li><li><code>media_play_scene</code>, <code>media_stop_scene</code>, <code>media_stop_all</code> (remain Pi-owned).</li><li>Planned/non-runtime placeholders:</li><li><code>led_pattern</code>, <code>delay</code> can be represented in compiled format but initially no-op unless implemented.</li></ul><h2>Data Flow and Artifacts</h2><h3>Existing Artifacts</h3><ul><li>Authoring rules: <code>src/instance/rules/rules.json</code></li><li>Compiled rules blob: <code>src/instance/rules/rules.pd</code></li><li>Mapping blob: <code>src/instance/hardware/mapping.pb</code></li><li>Lighting blob: <code>src/instance/lighting/lighting.pd</code></li></ul><h3>Target Runtime Flow</h3><ol><li>Pi saves authoring JSON.</li><li>Pi compiles deterministic blob(s) with schema + hash.</li><li>Pi deploys via framed blob transport (<code>BLOB_BEGIN</code> + typed data frame + <code>BLOB_END</code>).</li><li>ESP validates blob(s), stores to <code>/cfg/*</code>, activates if valid.</li><li>ESP reports active revision/status.</li></ol><h2>Protocol Additions Recommended</h2><p>All commands remain framed JSON.</p><h3>Recommended new commands/events</h3><ul><li><code>GET_RULES_STATUS</code> -&gt; active schema/revision/hash, loaded/not loaded, last error.</li><li><code>RULES_APPLY</code> -&gt; activate already-uploaded blob atomically.</li><li><code>GET_LIGHTING_STATUS</code> -&gt; active scenes, current frame/tag, runtime limits.</li><li><code>GET_RUNTIME_FLAGS</code> / <code>GET_RUNTIME_COUNTERS</code> -&gt; game-state visibility.</li><li><code>FAULT_STATUS</code> event/report -&gt; active faults + recovery requirements.</li></ul><h3>Response Design Guidance</h3><ul><li>Include <code>reqId</code> echo on request-response pairs.</li><li>Include explicit <code>ok</code> and machine-parseable <code>reason</code> on failures.</li><li>Include <code>rev</code>/<code>sha256</code> fields for status-bearing payloads.</li></ul><h2>Implementation Phases</h2><h3>Phase 0: Baseline Hardening</h3><ul><li>Preserve current event ingress semantics and throughput as a regression gate.</li><li>Finalize frame parser robustness and malformed-frame handling tests.</li><li>Add command budget/backpressure metrics for serial queue pressure.</li><li>Acceptance:</li><li>Existing event message behavior remains unchanged and passes current soak/latency expectations.</li><li>No parser lockups under partial/garbled frames.</li><li>Deterministic recovery from oversize/invalid header lengths.</li></ul><h3>Phase 1: Rules Runtime Skeleton on ESP</h3><ul><li>Load and validate <code>rules.pd</code> end-to-end.</li><li>Build event-key index lookup and no-op executor path.</li><li>Wire <code>EVENT_FIRE</code> into runtime path (no side effects yet).</li><li>Acceptance:</li><li><code>SET_RULES</code>/blob update produces active rules revision.</li><li><code>GET_RULES_STATUS</code> returns loaded schema/hash.</li></ul><h3>Phase 2: Event + Game State Controllers</h3><ul><li>Implement input normalization and event synthesis.</li><li>Implement flags/counters state container with transition events.</li><li>Support condition evaluation (<code>flag</code>, <code>counter</code>, <code>time_since_event</code>).</li><li>Acceptance:</li><li>Rule matching parity validated against Pi-side fixtures.</li></ul><h3>Phase 3: Real Action Execution</h3><ul><li>Implement <code>pulse_coil</code> and <code>set_output</code> through safety controller.</li><li>Implement <code>emit_event</code>, <code>set_flag</code>, <code>set_counter</code>, <code>inc_counter</code>.</li><li>Integrate watchdog/fault latching behavior.</li><li>Acceptance:</li><li>High-current outputs obey hard limits under stress tests.</li></ul><h3>Phase 4: Lighting Runtime</h3><ul><li>Load <code>lighting.pd</code> and implement scene scheduler.</li><li>Replace <code>LIGHT_SCENE_PLAY/STOP</code> stubs with active playback engine.</li><li>Support priority, cast targeting, start offsets/tags.</li><li>Acceptance:</li><li>Scene timing and stop/play semantics match Pi expectations.</li></ul><h3>Phase 5: Sync Lifecycle + Observability</h3><ul><li>Add status/report commands for rules/lighting/runtime state.</li><li>Add revision-diff sync policy (push only on mismatch).</li><li>Add persistent restore behavior after ESP reboot.</li><li>Acceptance:</li><li>Pi can verify ESP runtime parity without manual inspection.</li></ul><h2>Test Plan</h2><h3>Firmware Unit/Module Tests</h3><ul><li>Frame parser edge cases: split header/body, invalid length, timeout resets.</li><li>Rules blob validation: bad magic/version/size/hash.</li><li>Rule matcher correctness with representative trigger/condition fixtures.</li><li>Safety controller: watchdog, timeout, re-enable requirements.</li></ul><h3>Integration Tests (Pi + ESP)</h3><ul><li>Deploy mapping/rules/lighting blobs and verify status parity.</li><li>Event ingress soak (<code>EVENT_FIRE</code>) with bounded latency and no queue collapse.</li><li>Lighting scene stress with concurrent events and action bursts.</li><li>Disconnect/reconnect and reboot persistence behavior.</li></ul><h3>Regression Gates</h3><ul><li>Never reintroduce newline-delimited command transport.</li><li>Maintain backward compatibility where practical; otherwise version-gate explicitly.</li><li>Verify no path allows unsafe coil activation while disabled/faulted.</li></ul><h2>Definition of Done (ESP Runtime Track)</h2><ul><li>ESP executes rules deterministically for supported trigger/condition/action set.</li><li>Lighting scenes run on ESP with production-ready start/stop semantics.</li><li>Safety invariants are enforced fully on-device.</li><li>Pi can inspect runtime status/revisions and only redeploy when needed.</li><li>End-to-end behavior is reproducible via automated integration checks.</li></ul><h2>Immediate Next Tasks</h2><ol><li>Implement <code>GET_RULES_STATUS</code> in firmware + bridge/UI status endpoint.</li><li>Introduce firmware rule-engine module scaffold (index lookup + evaluator interfaces).</li><li>Define compact runtime structs for flags/counters/event history.</li><li>Replace <code>LIGHT_SCENE_PLAY/STOP</code> stubs with minimal scheduler over compiled ops.</li><li>Add protocol/integration tests for framed command + blob + status lifecycle.</li></ol></div>
+          <div class="doc-panel" id="docs-article"><h1 id="esp-development-plan">ESP Development Plan</h1>
+<h2 id="purpose">Purpose</h2>
+<p>This document captures:
+- A focused review of current Pi-side functionality.
+- The ESP-side functionality required to reach runtime parity for rules/event execution and lighting control.
+- A phased implementation plan with acceptance criteria.</p>
+<h2 id="non-negotiable-constraints">Non-Negotiable Constraints</h2>
+<ul>
+<li>Preserve existing event message behavior/performance:</li>
+<li>Current framed event handling (<code>EVENT</code> / <code>EVENT_FIRE</code> + stats/ack flow) has already tested fast and reliable.</li>
+<li>Do not break or redesign this path unless a concrete missing requirement is identified.</li>
+<li>Keep firmware config-driven from uploaded module artifacts:</li>
+<li>Runtime behavior must be driven by deployed data (rules, lighting, hardware mapping, and related module outputs), not hardcoded gameplay logic.</li>
+<li>Pi remains the authoring layer; ESP remains deterministic runtime executor of uploaded config.</li>
+</ul>
+<p>The transport baseline is <strong>frames-only JSON</strong> over serial:
+- 4-byte big-endian length header.
+- UTF-8 JSON payload.
+- No newline-delimited command transport.</p>
+<h2 id="current-app-review-pi-side">Current App Review (Pi Side)</h2>
+<h3 id="existing-runtime-layers">Existing Runtime Layers</h3>
+<ul>
+<li><code>events</code> runtime:</li>
+<li>In-process <code>EventBus</code> with envelopes (<code>id</code>, <code>ts</code>, <code>name</code>, <code>source</code>, <code>params</code>).</li>
+<li><code>EventManager</code> route model (<code>system:*</code>, <code>hardware:&lt;deviceClass&gt;:&lt;event&gt;</code>, <code>custom</code>, plus <code>all</code>/<code>event:&lt;name&gt;</code>).</li>
+<li>Registry-driven event catalog from <code>src/pinballctl/app/modules/rules/registry.json</code>.</li>
+<li><code>rules</code> runtime:</li>
+<li>Evaluates persisted rules from <code>src/instance/rules/rules.json</code>.</li>
+<li>Supports trigger groups, condition groups, action execution.</li>
+<li>Emits derived events and forwards to bridge (<code>EVENT_FIRE</code>).</li>
+<li><code>lighting</code> runtime:</li>
+<li>Scene model in <code>src/instance/lighting/lighting.json</code>.</li>
+<li>Bridge commands for scene start/stop (<code>LIGHT_SCENE_PLAY</code>, <code>LIGHT_SCENE_STOP</code>).</li>
+<li>Compiled blob support (<code>lighting.pd</code>) on Pi side.</li>
+<li><code>scoring</code> runtime:</li>
+<li>Event-driven scoring config/state/high-score persistence.</li>
+<li>Bus worker processing in-order event updates.</li>
+<li><code>audio</code> + <code>media</code> runtime:</li>
+<li>Rule actions can trigger Pi-local cues/scenes.</li>
+<li>These are Pi-hosted capabilities and not hard real-time firmware responsibilities.</li>
+</ul>
+<h3 id="existing-esp-bridgeprotocol-surface">Existing ESP Bridge/Protocol Surface</h3>
+<ul>
+<li>Bridge command path uses framed JSON writes (<code>_send_cmd</code> in <code>src/pinballctl/bridge/daemon.py</code>).</li>
+<li>Firmware frame receiver in <code>src/firmware/src/System.cpp</code> is length-prefixed, stateful, non-blocking.</li>
+<li><code>ProtocolHandler</code> currently handles:</li>
+<li>Boot/info/fs: <code>GET_INFO</code>, <code>GET_FS_STATUS</code>, <code>MOUNT_FS</code>, <code>FS_LIST</code>, <code>FS_MANIFEST_GET</code>, <code>FS_MANIFEST_UPDATE</code>, <code>GET_FLASH_INFO</code>.</li>
+<li>Rules/event stubs: <code>SET_RULES</code>, <code>EVENT</code>, <code>EVENT_FIRE</code>, <code>EVENT_STATS</code>, <code>EVENT_STATS_RESET</code>.</li>
+<li>Lighting stubs: <code>LIGHT_SCENE_PLAY</code>, <code>LIGHT_SCENE_STOP</code>.</li>
+<li>Blob transport: <code>BLOB_BEGIN</code>/typed payload frame/<code>BLOB_END</code>.</li>
+<li>Diagnostics/time: <code>ECHO</code>, <code>EVT_STREAM_START/STOP</code>, <code>SYNC_TIME</code>, <code>GET_HW</code>.</li>
+</ul>
+<h3 id="current-firmware-capabilities-already-working">Current Firmware Capabilities (Already Working)</h3>
+<ul>
+<li>Boot lifecycle/status reporting:</li>
+<li>FS mount/status broadcast on boot.</li>
+<li>Controller info and heartbeat/ping output.</li>
+<li>Event message handling:</li>
+<li>Accepts <code>EVENT</code> and <code>EVENT_FIRE</code> frames.</li>
+<li>Tracks and reports event ingress counters via <code>EVENT_STATS</code>.</li>
+<li>Blob/file handling:</li>
+<li>Accepts blob uploads and validates mapping/rules blob headers.</li>
+<li>Applies mapping blob at boot when present.</li>
+<li>Discovery/diagnostics:</li>
+<li>Hardware scan streaming (<code>GET_HW</code> / <code>HW_*</code> frames).</li>
+<li>Event stream test tooling (<code>EVT_STREAM_START/STOP</code>).</li>
+<li>Lighting/rules command endpoints exist as protocol hooks today:</li>
+<li><code>SET_RULES</code>, <code>LIGHT_SCENE_PLAY</code>, <code>LIGHT_SCENE_STOP</code>.</li>
+<li>Runtime execution behind those hooks is the main planned expansion.</li>
+</ul>
+<h3 id="gap-summary">Gap Summary</h3>
+<p>Pi-side authoring/execution is broad. Firmware currently handles framed transport, event ingress, blob lifecycle, and status telemetry, but runtime execution is still scaffolded for:
+- Rule evaluation and action execution.
+- Real lighting scene engine.
+- Event/controller state machines (credits/game/ball/mode style controllers).
+- Deterministic real-time scheduling and safety-gated output control.</p>
+<h2 id="esp-end-state-responsibilities">ESP End-State Responsibilities</h2>
+<h3 id="core-runtime-contract">Core Runtime Contract</h3>
+<p>ESP should become the real-time executor for:
+- Switch/button/sensor input ingestion and debouncing.
+- Event generation and routing.
+- Rule evaluation and action execution.
+- Coil/output/lighting actuation with hard safety enforcement.</p>
+<p>Pi should remain:
+- Authoring/orchestration layer.
+- Deployment, sync, diagnostics, and UI.
+- Non-real-time services (media/audio/scoring if intentionally left Pi-side).</p>
+<h3 id="safety-invariants-must-hold">Safety Invariants (Must Hold)</h3>
+<ul>
+<li>Output actuation requires explicit enable/arm state.</li>
+<li>Coil pulse/hold limits enforced entirely on firmware side.</li>
+<li>Watchdog/fault paths force safe output state and require explicit recovery.</li>
+<li>Flood/duplicate command protection for high-current outputs.</li>
+<li>Safe defaults applied at boot and after communication loss.</li>
+</ul>
+<h2 id="main-event-controllers-needed-on-esp">Main Event Controllers Needed on ESP</h2>
+<p>These controllers should exist as explicit firmware modules with independent state and tests.</p>
+<h3 id="1-input-controller">1) Input Controller</h3>
+<ul>
+<li>Normalizes physical input signals into canonical events.</li>
+<li>Supports registry-style hardware semantics:</li>
+<li>Button: <code>PRESSED</code>, <code>RELEASED</code>, <code>CLICKED</code>, <code>DOUBLE_CLICKED</code>, <code>HELD</code>, <code>REPEAT_WHILE_HELD</code>.</li>
+<li>Switch: <code>OPENED</code>, <code>CLOSED</code>, <code>CHANGED</code>, <code>ACTIVE_FOR_MS</code>, <code>INACTIVE_FOR_MS</code>.</li>
+<li>Handles per-source timing windows and debounce.</li>
+</ul>
+<h3 id="2-event-router-controller">2) Event Router Controller</h3>
+<ul>
+<li>Maintains event envelope schema parity (name/source/params/seq/time).</li>
+<li>Routes to rule engine and telemetry publisher.</li>
+<li>Maintains event stats counters (<code>EVENT_STATS</code> compatibility).</li>
+</ul>
+<h3 id="3-rule-engine-controller">3) Rule Engine Controller</h3>
+<ul>
+<li>Loads compiled ruleset (<code>rules.pd</code> schema-backed format).</li>
+<li>Evaluates trigger groups/condition groups with <code>ALL</code>/<code>ANY</code> semantics.</li>
+<li>Supports indexed lookup by event key for bounded per-event runtime.</li>
+<li>Enforces deterministic execution order and bounded action budget per tick.</li>
+</ul>
+<h3 id="4-game-state-controller">4) Game State Controller</h3>
+<ul>
+<li>Maintains firmware-owned flags/counters needed by conditions:</li>
+<li>Flags: <code>TILT</code>, <code>ENABLED</code>, <code>HAS_CREDIT</code>, <code>GAME_ACTIVE</code>, <code>BALL_IN_PLAY</code>, <code>IDLE</code>.</li>
+<li>Counters: <code>CREDITS</code>, <code>BALL_NUMBER</code>, <code>PLAYER_COUNT</code>.</li>
+<li>Emits system events (<code>GAME_STARTED</code>, <code>BALL_STARTED</code>, <code>ENABLE_GRANTED</code>, etc.)
+  when state transitions occur.</li>
+</ul>
+<h3 id="5-safety-controller">5) Safety Controller</h3>
+<ul>
+<li>Owns watchdog, fault latching, auto-shutdown behavior.</li>
+<li>Applies fallback outputs immediately on fault.</li>
+<li>Publishes structured fault events/status.</li>
+</ul>
+<h3 id="6-coiloutput-controller">6) Coil/Output Controller</h3>
+<ul>
+<li>Executes <code>pulse_coil</code> and <code>set_output</code> actions with strict policy checks.</li>
+<li>Tracks active outputs and auto-timeouts.</li>
+<li>Separates command intent from physical actuation path.</li>
+</ul>
+<h3 id="7-lighting-controller">7) Lighting Controller</h3>
+<ul>
+<li>Loads <code>lighting.pd</code> scenes.</li>
+<li>Supports <code>LIGHT_SCENE_PLAY</code> and <code>LIGHT_SCENE_STOP</code> as real runtime operations.</li>
+<li>Supports <code>startFrame</code> / <code>startTag</code> / <code>paused</code> semantics where present.</li>
+<li>Handles scene priority and blend policy deterministically.</li>
+</ul>
+<h3 id="8-persistenceversion-controller">8) Persistence/Version Controller</h3>
+<ul>
+<li>Maintains local blob metadata (size/hash/revision) for mapping/rules/lighting.</li>
+<li>Reports current runtime revisions to Pi.</li>
+<li>Supports safe boot restore and compatibility checks.</li>
+</ul>
+<h2 id="pi-feature-parity-targets-for-esp-rules-engine">Pi Feature Parity Targets for ESP Rules Engine</h2>
+<h3 id="trigger-support">Trigger Support</h3>
+<ul>
+<li>System events from registry categories.</li>
+<li>Hardware events by device class and event key.</li>
+<li>Custom event names with same validation strategy as registry (<code>^[A-Z0-9_]+$</code>).</li>
+</ul>
+<h3 id="condition-support">Condition Support</h3>
+<ul>
+<li><code>flag</code> comparisons.</li>
+<li><code>counter</code> comparisons.</li>
+<li><code>time_since_event</code> comparisons.</li>
+<li><code>device_state</code> comparisons (coil/switch/output).</li>
+</ul>
+<h3 id="action-support-priority-order">Action Support (Priority Order)</h3>
+<ul>
+<li>P0 (firmware real-time core):</li>
+<li><code>emit_event</code></li>
+<li><code>set_flag</code></li>
+<li><code>set_counter</code></li>
+<li><code>inc_counter</code></li>
+<li><code>pulse_coil</code></li>
+<li><code>set_output</code></li>
+<li><code>apply_lighting_scene</code></li>
+<li><code>stop_lighting_scene</code></li>
+<li>P1 (optional split with Pi):</li>
+<li><code>play_audio_cue</code>, <code>stop_audio_cue</code>, <code>toggle_audio_cue</code> (remain Pi-owned unless needed on ESP).</li>
+<li><code>media_play_scene</code>, <code>media_stop_scene</code>, <code>media_stop_all</code> (remain Pi-owned).</li>
+<li>Planned/non-runtime placeholders:</li>
+<li><code>led_pattern</code>, <code>delay</code> can be represented in compiled format but initially no-op unless implemented.</li>
+</ul>
+<h2 id="data-flow-and-artifacts">Data Flow and Artifacts</h2>
+<h3 id="existing-artifacts">Existing Artifacts</h3>
+<ul>
+<li>Authoring rules: <code>src/instance/rules/rules.json</code></li>
+<li>Compiled rules blob: <code>src/instance/rules/rules.pd</code></li>
+<li>Mapping blob: <code>src/instance/hardware/mapping.pb</code></li>
+<li>Lighting blob: <code>src/instance/lighting/lighting.pd</code></li>
+</ul>
+<h3 id="target-runtime-flow">Target Runtime Flow</h3>
+<ol>
+<li>Pi saves authoring JSON.</li>
+<li>Pi compiles deterministic blob(s) with schema + hash.</li>
+<li>Pi deploys via framed blob transport (<code>BLOB_BEGIN</code> + typed data frame + <code>BLOB_END</code>).</li>
+<li>ESP validates blob(s), stores to <code>/cfg/*</code>, activates if valid.</li>
+<li>ESP reports active revision/status.</li>
+</ol>
+<h2 id="protocol-additions-recommended">Protocol Additions Recommended</h2>
+<p>All commands remain framed JSON.</p>
+<h3 id="recommended-new-commandsevents">Recommended new commands/events</h3>
+<ul>
+<li><code>GET_RULES_STATUS</code> -&gt; active schema/revision/hash, loaded/not loaded, last error.</li>
+<li><code>RULES_APPLY</code> -&gt; activate already-uploaded blob atomically.</li>
+<li><code>GET_LIGHTING_STATUS</code> -&gt; active scenes, current frame/tag, runtime limits.</li>
+<li><code>GET_RUNTIME_FLAGS</code> / <code>GET_RUNTIME_COUNTERS</code> -&gt; game-state visibility.</li>
+<li><code>FAULT_STATUS</code> event/report -&gt; active faults + recovery requirements.</li>
+</ul>
+<h3 id="response-design-guidance">Response Design Guidance</h3>
+<ul>
+<li>Include <code>reqId</code> echo on request-response pairs.</li>
+<li>Include explicit <code>ok</code> and machine-parseable <code>reason</code> on failures.</li>
+<li>Include <code>rev</code>/<code>sha256</code> fields for status-bearing payloads.</li>
+</ul>
+<h2 id="implementation-phases">Implementation Phases</h2>
+<h3 id="phase-0-baseline-hardening">Phase 0: Baseline Hardening</h3>
+<ul>
+<li>Preserve current event ingress semantics and throughput as a regression gate.</li>
+<li>Finalize frame parser robustness and malformed-frame handling tests.</li>
+<li>Add command budget/backpressure metrics for serial queue pressure.</li>
+<li>Acceptance:</li>
+<li>Existing event message behavior remains unchanged and passes current soak/latency expectations.</li>
+<li>No parser lockups under partial/garbled frames.</li>
+<li>Deterministic recovery from oversize/invalid header lengths.</li>
+</ul>
+<h3 id="phase-1-rules-runtime-skeleton-on-esp">Phase 1: Rules Runtime Skeleton on ESP</h3>
+<ul>
+<li>Load and validate <code>rules.pd</code> end-to-end.</li>
+<li>Build event-key index lookup and no-op executor path.</li>
+<li>Wire <code>EVENT_FIRE</code> into runtime path (no side effects yet).</li>
+<li>Acceptance:</li>
+<li><code>SET_RULES</code>/blob update produces active rules revision.</li>
+<li><code>GET_RULES_STATUS</code> returns loaded schema/hash.</li>
+</ul>
+<h3 id="phase-2-event-game-state-controllers">Phase 2: Event + Game State Controllers</h3>
+<ul>
+<li>Implement input normalization and event synthesis.</li>
+<li>Implement flags/counters state container with transition events.</li>
+<li>Support condition evaluation (<code>flag</code>, <code>counter</code>, <code>time_since_event</code>).</li>
+<li>Acceptance:</li>
+<li>Rule matching parity validated against Pi-side fixtures.</li>
+</ul>
+<h3 id="phase-3-real-action-execution">Phase 3: Real Action Execution</h3>
+<ul>
+<li>Implement <code>pulse_coil</code> and <code>set_output</code> through safety controller.</li>
+<li>Implement <code>emit_event</code>, <code>set_flag</code>, <code>set_counter</code>, <code>inc_counter</code>.</li>
+<li>Integrate watchdog/fault latching behavior.</li>
+<li>Acceptance:</li>
+<li>High-current outputs obey hard limits under stress tests.</li>
+</ul>
+<h3 id="phase-4-lighting-runtime">Phase 4: Lighting Runtime</h3>
+<ul>
+<li>Load <code>lighting.pd</code> and implement scene scheduler.</li>
+<li>Replace <code>LIGHT_SCENE_PLAY/STOP</code> stubs with active playback engine.</li>
+<li>Support priority, cast targeting, start offsets/tags.</li>
+<li>Acceptance:</li>
+<li>Scene timing and stop/play semantics match Pi expectations.</li>
+</ul>
+<h3 id="phase-5-sync-lifecycle-observability">Phase 5: Sync Lifecycle + Observability</h3>
+<ul>
+<li>Add status/report commands for rules/lighting/runtime state.</li>
+<li>Add revision-diff sync policy (push only on mismatch).</li>
+<li>Add persistent restore behavior after ESP reboot.</li>
+<li>Acceptance:</li>
+<li>Pi can verify ESP runtime parity without manual inspection.</li>
+</ul>
+<h2 id="test-plan">Test Plan</h2>
+<h3 id="firmware-unitmodule-tests">Firmware Unit/Module Tests</h3>
+<ul>
+<li>Frame parser edge cases: split header/body, invalid length, timeout resets.</li>
+<li>Rules blob validation: bad magic/version/size/hash.</li>
+<li>Rule matcher correctness with representative trigger/condition fixtures.</li>
+<li>Safety controller: watchdog, timeout, re-enable requirements.</li>
+</ul>
+<h3 id="integration-tests-pi-esp">Integration Tests (Pi + ESP)</h3>
+<ul>
+<li>Deploy mapping/rules/lighting blobs and verify status parity.</li>
+<li>Event ingress soak (<code>EVENT_FIRE</code>) with bounded latency and no queue collapse.</li>
+<li>Lighting scene stress with concurrent events and action bursts.</li>
+<li>Disconnect/reconnect and reboot persistence behavior.</li>
+</ul>
+<h3 id="regression-gates">Regression Gates</h3>
+<ul>
+<li>Never reintroduce newline-delimited command transport.</li>
+<li>Maintain backward compatibility where practical; otherwise version-gate explicitly.</li>
+<li>Verify no path allows unsafe coil activation while disabled/faulted.</li>
+</ul>
+<h2 id="definition-of-done-esp-runtime-track">Definition of Done (ESP Runtime Track)</h2>
+<ul>
+<li>ESP executes rules deterministically for supported trigger/condition/action set.</li>
+<li>Lighting scenes run on ESP with production-ready start/stop semantics.</li>
+<li>Safety invariants are enforced fully on-device.</li>
+<li>Pi can inspect runtime status/revisions and only redeploy when needed.</li>
+<li>End-to-end behavior is reproducible via automated integration checks.</li>
+</ul>
+<h2 id="immediate-next-tasks">Immediate Next Tasks</h2>
+<ol>
+<li>Implement <code>GET_RULES_STATUS</code> in firmware + bridge/UI status endpoint.</li>
+<li>Introduce firmware rule-engine module scaffold (index lookup + evaluator interfaces).</li>
+<li>Define compact runtime structs for flags/counters/event history.</li>
+<li>Replace <code>LIGHT_SCENE_PLAY/STOP</code> stubs with minimal scheduler over compiled ops.</li>
+<li>Add protocol/integration tests for framed command + blob + status lifecycle.</li>
+</ol></div>
         </article>
       </div>
     </section>

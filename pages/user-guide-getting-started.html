@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="Getting Started | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Getting Started This guide helps you get Pinball CTL running from a clean Raspberry Pi setup. Before You Start Pinball CTL is under active development. It runs...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-getting-started.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-getting-started.html","name":"Getting Started | Pinball CTL Docs","description":"Getting Started This guide helps you get Pinball CTL running from a clean Raspberry Pi setup. Before You Start Pinball CTL is under active development. It runs...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Getting Started This guide helps you get Pinball CTL running from a clean Raspberry Pi setup. Before You Start Pinball CTL is under active development. It runs...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-getting-started.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-getting-started.html","name":"Getting Started | Pinball CTL Docs","description":"Getting Started This guide helps you get Pinball CTL running from a clean Raspberry Pi setup. Before You Start Pinball CTL is under active development. It runs...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,16 +110,178 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>Getting Started</h1><p>This guide helps you get Pinball CTL running from a clean Raspberry Pi setup.</p><h2>Before You Start</h2><p>Pinball CTL is under active development. It runs well on the hardware used in this project, but it has not yet been broadly tested across all Raspberry Pi and peripheral combinations.</p><p>In plain terms: if your setup is different, your mileage may vary.</p><h2>Requirements</h2><p>The table below shows what is required and what has been tested in this project.</p><div class="manual-table-wrap">  <table class="manual-table manual-requirements-table">    <thead>      <tr>        <th nowrap="nowrap">Item</th>        <th nowrap="nowrap">Required</th>        <th nowrap="nowrap">Tested</th>        <th nowrap="nowrap">Notes</th>      </tr>    </thead>    <tbody>      <tr><td>Raspberry Pi 5</td><td>✅</td><td>✅</td><td>Main target platform</td></tr>      <tr><td>ESP32-S3 controller board</td><td>✅</td><td>✅</td><td>Real-time I/O and safety layer</td></tr>      <tr><td>microSD card (32GB recommended)</td><td>✅</td><td>✅</td><td>Raspberry Pi OS and local storage</td></tr>      <tr><td>Stable Pi power supply</td><td>✅</td><td>✅</td><td>Use a suitable PSU for Pi 5</td></tr>      <tr><td>USB data cable (Pi &lt;-&gt; ESP32-S3)</td><td>✅</td><td>✅</td><td>Must be a data cable, not charge-only</td></tr>      <tr><td>Network connection (Ethernet or Wi-Fi)</td><td>✅</td><td>✅</td><td>Needed for package install and web UI access</td></tr>      <tr><td>Raspberry Pi OS 64-bit</td><td>✅</td><td>✅</td><td>Recommended by Raspberry Pi for Pi 5</td></tr>      <tr><td>Python 3.11+</td><td>✅</td><td>✅</td><td>Required by Pinball CTL</td></tr>      <tr><td><code>python3-venv</code></td><td>✅</td><td>✅</td><td>For isolated environment install</td></tr>      <tr><td><code>pip</code></td><td>✅</td><td>✅</td><td>Package installation</td></tr>      <tr><td><code>git</code></td><td>⚠️ If installing from Git URL</td><td>✅</td><td>Needed for tag-based Git install</td></tr>      <tr><td>macOS dev machine</td><td>❌</td><td>✅</td><td>Development was done on macOS; runtime target is Pi</td></tr>      <tr><td>Web browser (Chrome, Edge, Safari, Firefox)</td><td>✅</td><td>✅</td><td>For Pinball CTL web interface</td></tr>    </tbody>  </table></div><p>For hardware-specific status, see:</p><ul><li><a href="/pages/user-guide-supported-components.html" data-doc-slug="1-user-guide/99-supported-components">Supported Components</a></li></ul><h2>Prepare Raspberry Pi OS</h2><p>You can use an existing Raspberry Pi installation if preferred, however be aware that installed packages, libraries, and system configurations may differ depending on what has previously been set up. If starting from scratch, download the latest Raspberry Pi OS image and flash it to your SD card.</p><p>Official Raspberry Pi references:</p><ul><li><a href="https://www.raspberrypi.com/software/">Raspberry Pi Imager</a></li><li><a href="https://www.raspberrypi.com/documentation/installation/installing-images/">Install an operating system</a></li><li><a href="https://www.raspberrypi.com/software/operating-systems/">Raspberry Pi OS downloads</a></li></ul><p>Recommended for Pi 5:</p><ul><li>Use the current recommended <strong>Raspberry Pi OS (64-bit)</strong> entry in Raspberry Pi Imager.</li><li>As of <strong>4 December 2025</strong>, Raspberry Pi lists Raspberry Pi OS 64-bit based on Debian 13 (Trixie) for Pi 5.</li></ul><p>Tip:</p><ul><li>Raspberry Pi Imager is the quickest way to get started for most users.</li><li>In Raspberry Pi Imager, open OS customisation before writing the card.</li><li>Preconfigure Wi-Fi, username/password, locale, and SSH so these settings are baked into the image for easier remote setup.</li></ul><h2>Boot and Connect to the Pi</h2><p>You can continue setup in either of these ways:</p><ol><li>SSH from another machine (recommended for headless setups).</li><li>Directly on the Pi using keyboard + monitor.</li></ol><h3>Option A: SSH</h3><p>If SSH was enabled in Imager:</p><pre><code>ssh &lt;your-user&gt;@raspberrypi.local</code></pre><p>If mDNS is not available on your network, use the Pi IP address instead:</p><pre><code>ssh &lt;your-user&gt;@&lt;pi-ip-address&gt;</code></pre><h3>Option B: Keyboard + Monitor</h3><p>Log in locally and open Terminal.</p><h2>Install Pinball CTL in a Virtual Environment</h2><p>Run the following on your Pi.</p><h3>Install base tools</h3><pre><code>sudo apt update
-sudo apt install -y python3-venv python3-pip git</code></pre><h3>Create and activate a venv</h3><p>A venv keeps each project self-contained, portable, and much easier to manage—especially as projects grow or when working across multiple machines.</p><pre><code>mkdir -p ~/pinballctl
+          <div class="doc-panel" id="docs-article"><h1 id="getting-started">Getting Started</h1>
+<p>This guide helps you get Pinball CTL running from a clean Raspberry Pi setup.</p>
+<h2 id="before-you-start">Before You Start</h2>
+<p>Pinball CTL is under active development. It runs well on the hardware used in this project, but it has not yet been broadly tested across all Raspberry Pi and peripheral combinations.</p>
+<p>In plain terms: if your setup is different, your mileage may vary.</p>
+<h2 id="requirements">Requirements</h2>
+<p>The table below shows what is required and what has been tested in this project.</p>
+<div class="manual-table-wrap">
+  <table class="manual-table manual-requirements-table">
+    <thead>
+      <tr>
+        <th nowrap="nowrap">Item</th>
+        <th nowrap="nowrap">Required</th>
+        <th nowrap="nowrap">Tested</th>
+        <th nowrap="nowrap">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Raspberry Pi 5</td><td>✅</td><td>✅</td><td>Main target platform</td></tr>
+      <tr><td>ESP32-S3 controller board</td><td>✅</td><td>✅</td><td>Real-time I/O and safety layer</td></tr>
+      <tr><td>microSD card (32GB recommended)</td><td>✅</td><td>✅</td><td>Raspberry Pi OS and local storage</td></tr>
+      <tr><td>Stable Pi power supply</td><td>✅</td><td>✅</td><td>Use a suitable PSU for Pi 5</td></tr>
+      <tr><td>USB data cable (Pi &lt;-&gt; ESP32-S3)</td><td>✅</td><td>✅</td><td>Must be a data cable, not charge-only</td></tr>
+      <tr><td>Network connection (Ethernet or Wi-Fi)</td><td>✅</td><td>✅</td><td>Needed for package install and web UI access</td></tr>
+      <tr><td>Raspberry Pi OS 64-bit</td><td>✅</td><td>✅</td><td>Recommended by Raspberry Pi for Pi 5</td></tr>
+      <tr><td>Python 3.11+</td><td>✅</td><td>✅</td><td>Required by Pinball CTL</td></tr>
+      <tr><td><code>python3-venv</code></td><td>✅</td><td>✅</td><td>For isolated environment install</td></tr>
+      <tr><td><code>pip</code></td><td>✅</td><td>✅</td><td>Package installation</td></tr>
+      <tr><td><code>git</code></td><td>⚠️ If installing from Git URL</td><td>✅</td><td>Needed for tag-based Git install</td></tr>
+      <tr><td>macOS dev machine</td><td>❌</td><td>✅</td><td>Development was done on macOS; runtime target is Pi</td></tr>
+      <tr><td>Web browser (Chrome, Edge, Safari, Firefox)</td><td>✅</td><td>✅</td><td>For Pinball CTL web interface</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>For hardware-specific status, see:</p>
+<ul>
+<li><a href="/pages/user-guide-supported-components.html" data-doc-slug="1-user-guide/99-supported-components">Supported Components</a></li>
+</ul>
+<h2 id="prepare-raspberry-pi-os">Prepare Raspberry Pi OS</h2>
+<p>You can use an existing Raspberry Pi installation if preferred, however be aware that installed packages, libraries, and system configurations may differ depending on what has previously been set up.
+If starting from scratch, download the latest Raspberry Pi OS image and flash it to your SD card.</p>
+<p>Official Raspberry Pi references:</p>
+<ul>
+<li><a href="https://www.raspberrypi.com/software/">Raspberry Pi Imager</a></li>
+<li><a href="https://www.raspberrypi.com/documentation/installation/installing-images/">Install an operating system</a></li>
+<li><a href="https://www.raspberrypi.com/software/operating-systems/">Raspberry Pi OS downloads</a></li>
+</ul>
+<p>Recommended for Pi 5:</p>
+<ul>
+<li>Use the current recommended <strong>Raspberry Pi OS (64-bit)</strong> entry in Raspberry Pi Imager.</li>
+<li>As of <strong>4 December 2025</strong>, Raspberry Pi lists Raspberry Pi OS 64-bit based on Debian 13 (Trixie) for Pi 5.</li>
+</ul>
+<p>Tip:</p>
+<ul>
+<li>Raspberry Pi Imager is the quickest way to get started for most users.</li>
+<li>In Raspberry Pi Imager, open OS customisation before writing the card.</li>
+<li>Preconfigure Wi-Fi, username/password, locale, and SSH so these settings are baked into the image for easier remote setup.</li>
+</ul>
+<h2 id="boot-and-connect-to-the-pi">Boot and Connect to the Pi</h2>
+<p>You can continue setup in either of these ways:</p>
+<ol>
+<li>SSH from another machine (recommended for headless setups).</li>
+<li>Directly on the Pi using keyboard + monitor.</li>
+</ol>
+<h3 id="option-a-ssh">Option A: SSH</h3>
+<p>If SSH was enabled in Imager:</p>
+<pre><code class="language-bash">ssh &lt;your-user&gt;@raspberrypi.local
+</code></pre>
+<p>If mDNS is not available on your network, use the Pi IP address instead:</p>
+<pre><code class="language-bash">ssh &lt;your-user&gt;@&lt;pi-ip-address&gt;
+</code></pre>
+<h3 id="option-b-keyboard-monitor">Option B: Keyboard + Monitor</h3>
+<p>Log in locally and open Terminal.</p>
+<h2 id="install-pinball-ctl-in-a-virtual-environment">Install Pinball CTL in a Virtual Environment</h2>
+<p>Run the following on your Pi.</p>
+<h3 id="install-base-tools">Install base tools</h3>
+<pre><code class="language-bash">sudo apt update
+sudo apt install -y python3-venv python3-pip git
+</code></pre>
+<h3 id="create-and-activate-a-venv">Create and activate a venv</h3>
+<p>A venv keeps each project self-contained, portable, and much easier to manage—especially as projects grow or when working across multiple machines.</p>
+<pre><code class="language-bash">mkdir -p ~/pinballctl
 cd ~/pinballctl
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install --upgrade pip</code></pre><h3>Install from a Git tag (recommended)</h3><p>If you know the release tag:</p><pre><code>python -m pip install &quot;git+https://github.com/pinballctl/pinballctl.git@vX.Y.Z&quot;</code></pre><p>View available tags <a href="https://github.com/pinballctl/pinballctl/tags">here</a></p><p>If you want to resolve and install the latest tag automatically:</p><pre><code>REPO_URL=&quot;https://github.com/pinballctl/pinballctl.git&quot;
-LATEST_TAG=&quot;$(git ls-remote --refs --sort=&#x27;version:refname&#x27; --tags &quot;$REPO_URL&quot; | tail -n1 | sed &#x27;s|.*refs/tags/||&#x27;)&quot;
-python -m pip install &quot;git+$REPO_URL@$LATEST_TAG&quot;</code></pre><p>Then verify:</p><pre><code>pinballctl --version</code></pre><p>Note:</p><ul><li>Installing from a tag gives you a reproducible version aligned to a release point.</li></ul><h2>Run Pinball CTL</h2><p>For most users, this is all you need:</p><pre><code>pinballctl start</code></pre><p>This starts Pinball CTL with the default runtime setup.</p><p>You can check status at any time:</p><pre><code>pinballctl status</code></pre><p>Advanced:</p><ul><li>If you need manual control of individual services and options, use:</li></ul><pre><code>pinballctl --help</code></pre><h2>Open the Web Interface</h2><p>From a browser on your network, open:</p><pre><code>http://&lt;pi-ip-address&gt;:8888</code></pre><p>If local hostname resolution works on your network, this may also work:</p><pre><code>http://raspberrypi.local:8888</code></pre><p>You should see the Pinball CTL login screen in your browser:</p><img src="./media/screenshot-login.webp" alt="Pinball CTL login screen" style="width: 100%; max-width: 900px; height: auto;" loading="lazy" decoding="async" width="1440" height="900"><p>Default login credentials:</p><ul><li>Username: <code>admin</code></li><li>Password: <code>password</code></li></ul><p>For safety, change the default password as soon as you log in.</p><h2>Optional: Run as Services</h2><p>For auto-start on boot and easier long-running use:</p><pre><code>pinballctl service install
+python -m pip install --upgrade pip
+</code></pre>
+<h3 id="install-from-a-git-tag-recommended">Install from a Git tag (recommended)</h3>
+<p>If you know the release tag:</p>
+<pre><code class="language-bash">python -m pip install &quot;git+https://github.com/pinballctl/pinballctl.git@vX.Y.Z&quot;
+</code></pre>
+<p>View available tags <a href="https://github.com/pinballctl/pinballctl/tags">here</a></p>
+<p>If you want to resolve and install the latest tag automatically:</p>
+<pre><code class="language-bash">REPO_URL=&quot;https://github.com/pinballctl/pinballctl.git&quot;
+LATEST_TAG=&quot;$(git ls-remote --refs --sort='version:refname' --tags &quot;$REPO_URL&quot; | tail -n1 | sed 's|.*refs/tags/||')&quot;
+python -m pip install &quot;git+$REPO_URL@$LATEST_TAG&quot;
+</code></pre>
+<p>Then verify:</p>
+<pre><code class="language-bash">pinballctl --version
+</code></pre>
+<p>Note:</p>
+<ul>
+<li>Installing from a tag gives you a reproducible version aligned to a release point.</li>
+</ul>
+<h2 id="run-pinball-ctl">Run Pinball CTL</h2>
+<p>For most users, this is all you need:</p>
+<pre><code class="language-bash">pinballctl start
+</code></pre>
+<p>This starts Pinball CTL with the default runtime setup.</p>
+<p>You can check status at any time:</p>
+<pre><code class="language-bash">pinballctl status
+</code></pre>
+<p>Advanced:</p>
+<ul>
+<li>If you need manual control of individual services and options, use:</li>
+</ul>
+<pre><code class="language-bash">pinballctl --help
+</code></pre>
+<h2 id="open-the-web-interface">Open the Web Interface</h2>
+<p>From a browser on your network, open:</p>
+<pre><code class="language-text">http://&lt;pi-ip-address&gt;:8888
+</code></pre>
+<p>If local hostname resolution works on your network, this may also work:</p>
+<pre><code class="language-text">http://raspberrypi.local:8888
+</code></pre>
+<p>You should see the Pinball CTL login screen in your browser:</p>
+<p><img src="./media/screenshot-login.webp" alt="Pinball CTL login screen" style="width: 100%; max-width: 900px; height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<p>Default login credentials:</p>
+<ul>
+<li>Username: <code>admin</code></li>
+<li>Password: <code>password</code></li>
+</ul>
+<p>For safety, change the default password as soon as you log in.</p>
+<h2 id="optional-run-as-services">Optional: Run as Services</h2>
+<p>For auto-start on boot and easier long-running use:</p>
+<pre><code class="language-bash">pinballctl service install
 pinballctl service start all
-pinballctl status</code></pre><h2>Command Overview</h2><p>Use <code>pinballctl --help</code> at any time for the full command tree.</p><div class="manual-table-wrap">  <table class="manual-table">    <thead>      <tr>        <th>Command</th>        <th>What it does</th>      </tr>    </thead>    <tbody>      <tr><td><code>pinballctl start</code></td><td>Starts Pinball CTL with the default runtime setup</td></tr>      <tr><td><code>pinballctl status</code></td><td>Shows system, service, network, and port status</td></tr>      <tr><td><code>pinballctl --version</code></td><td>Shows installed Pinball CTL version</td></tr>      <tr><td><code>pinballctl --help</code></td><td>Shows top-level help</td></tr>      <tr><td><code>pinballctl web --help</code></td><td>Shows web command options</td></tr>      <tr><td><code>pinballctl bridge --help</code></td><td>Shows bridge command options</td></tr>      <tr><td><code>pinballctl service install</code></td><td>Installs and enables systemd services</td></tr>      <tr><td><code>pinballctl service start all</code></td><td>Starts web + bridge services</td></tr>      <tr><td><code>pinballctl service restart all</code></td><td>Restarts all services</td></tr>      <tr><td><code>pinballctl service --help</code></td><td>Shows service command options</td></tr>    </tbody>  </table></div><h2>Troubleshooting Quick Checks</h2><p>If something is not working, check these first:</p><ol><li>Is your venv active (<code>source .venv/bin/activate</code>)?</li><li>Does <code>pinballctl --version</code> work?</li><li>Is your Pi reachable on the network?</li></ol></div>
+pinballctl status
+</code></pre>
+<h2 id="command-overview">Command Overview</h2>
+<p>Use <code>pinballctl --help</code> at any time for the full command tree.</p>
+<div class="manual-table-wrap">
+  <table class="manual-table">
+    <thead>
+      <tr>
+        <th>Command</th>
+        <th>What it does</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><code>pinballctl start</code></td><td>Starts Pinball CTL with the default runtime setup</td></tr>
+      <tr><td><code>pinballctl status</code></td><td>Shows system, service, network, and port status</td></tr>
+      <tr><td><code>pinballctl --version</code></td><td>Shows installed Pinball CTL version</td></tr>
+      <tr><td><code>pinballctl --help</code></td><td>Shows top-level help</td></tr>
+      <tr><td><code>pinballctl web --help</code></td><td>Shows web command options</td></tr>
+      <tr><td><code>pinballctl bridge --help</code></td><td>Shows bridge command options</td></tr>
+      <tr><td><code>pinballctl service install</code></td><td>Installs and enables systemd services</td></tr>
+      <tr><td><code>pinballctl service start all</code></td><td>Starts web + bridge services</td></tr>
+      <tr><td><code>pinballctl service restart all</code></td><td>Restarts all services</td></tr>
+      <tr><td><code>pinballctl service --help</code></td><td>Shows service command options</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="troubleshooting-quick-checks">Troubleshooting Quick Checks</h2>
+<p>If something is not working, check these first:</p>
+<ol>
+<li>Is your venv active (<code>source .venv/bin/activate</code>)?</li>
+<li>Does <code>pinballctl --version</code> work?</li>
+<li>Is your Pi reachable on the network?</li>
+</ol></div>
         </article>
       </div>
     </section>

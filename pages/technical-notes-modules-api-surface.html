@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="Modules API Surface | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Modules API Surface This page lists the current high-level API surface for major modules. Core Status/Control dashboard: runtime/system status payloads...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/technical-notes-modules-api-surface.html#webpage","url":"https://docs.pinballctl.com/pages/technical-notes-modules-api-surface.html","name":"Modules API Surface | Pinball CTL Docs","description":"Modules API Surface This page lists the current high-level API surface for major modules. Core Status/Control dashboard: runtime/system status payloads...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Modules API Surface This page lists the current high-level API surface for major modules. Core Status/Control dashboard: runtime/system status payloads...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/technical-notes-modules-api-surface.html#webpage","url":"https://docs.pinballctl.com/pages/technical-notes-modules-api-surface.html","name":"Modules API Surface | Pinball CTL Docs","description":"Modules API Surface This page lists the current high-level API surface for major modules. Core Status/Control dashboard: runtime/system status payloads...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,38 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>Modules API Surface</h1><p>This page lists the current high-level API surface for major modules.</p><h2>Core Status/Control</h2><ul><li><code>dashboard</code>: runtime/system status payloads.</li><li><code>esplink</code>: bridge/device status, bridge lifecycle, device RPCs, sync status, firmware upload.</li><li><code>events</code>: registry, coverage, fire-event ingress, perf, stream.</li></ul><h2>Configuration Modules</h2><ul><li><code>rules</code>: catalog, rules CRUD/save, hardware sources, sync + sync status.</li><li><code>hardware</code>: discovered pins/meta, mapping CRUD, mapping sync + sync status.</li><li><code>lighting</code>: state/config save, compile, preview, sync + sync status, fixtures layout.</li><li><code>scoring</code>: config/state/high-scores/history endpoints.</li><li><code>playfield</code>: layout state, options, image upload/remove, hardware list.</li></ul><h2>Runtime Media/Audio</h2><ul><li><code>media</code>: config/state/environment, asset upload/delete/file, play/stop, overlay updates.</li><li><code>audio</code>: config/state/devices, asset upload/delete/preview/file, play/stop.</li></ul><h2>Platform/Operations</h2><ul><li><code>firmware</code>: local/remote versions, asset download, version removal.</li><li><code>logs</code>: chunked log reads, purge, archive listing.</li><li><code>settings</code>: settings read/write, project export/import.</li><li><code>service</code>: service-log entry CRUD and attachments.</li><li><code>wifi</code>: status and save.</li></ul><h2>Note</h2><p>For exact route definitions, refer directly to module <code>api.py</code> files in: <code>src/pinballctl/app/modules/*/api.py</code>.</p></div>
+          <div class="doc-panel" id="docs-article"><h1 id="modules-api-surface">Modules API Surface</h1>
+<p>This page lists the current high-level API surface for major modules.</p>
+<h2 id="core-statuscontrol">Core Status/Control</h2>
+<ul>
+<li><code>dashboard</code>: runtime/system status payloads.</li>
+<li><code>esplink</code>: bridge/device status, bridge lifecycle, device RPCs, sync status, firmware upload.</li>
+<li><code>events</code>: registry, coverage, fire-event ingress, perf, stream.</li>
+</ul>
+<h2 id="configuration-modules">Configuration Modules</h2>
+<ul>
+<li><code>rules</code>: catalog, rules CRUD/save, hardware sources, sync + sync status.</li>
+<li><code>hardware</code>: discovered pins/meta, mapping CRUD, mapping sync + sync status.</li>
+<li><code>lighting</code>: state/config save, compile, preview, sync + sync status, fixtures layout.</li>
+<li><code>scoring</code>: config/state/high-scores/history endpoints.</li>
+<li><code>playfield</code>: layout state, options, image upload/remove, hardware list.</li>
+</ul>
+<h2 id="runtime-mediaaudio">Runtime Media/Audio</h2>
+<ul>
+<li><code>media</code>: config/state/environment, asset upload/delete/file, play/stop, overlay updates.</li>
+<li><code>audio</code>: config/state/devices, asset upload/delete/preview/file, play/stop.</li>
+</ul>
+<h2 id="platformoperations">Platform/Operations</h2>
+<ul>
+<li><code>firmware</code>: local/remote versions, asset download, version removal.</li>
+<li><code>logs</code>: chunked log reads, purge, archive listing.</li>
+<li><code>settings</code>: settings read/write, project export/import.</li>
+<li><code>service</code>: service-log entry CRUD and attachments.</li>
+<li><code>wifi</code>: status and save.</li>
+</ul>
+<h2 id="note">Note</h2>
+<p>For exact route definitions, refer directly to module <code>api.py</code> files in:
+<code>src/pinballctl/app/modules/*/api.py</code>.</p></div>
         </article>
       </div>
     </section>

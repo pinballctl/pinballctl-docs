@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="Dashboard | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Dashboard The Dashboard is your live status overview for Pinball CTL. The Dashboard is designed as a fast health check page before you edit rules, lighting...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-dashboard.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-dashboard.html","name":"Dashboard | Pinball CTL Docs","description":"Dashboard The Dashboard is your live status overview for Pinball CTL. The Dashboard is designed as a fast health check page before you edit rules, lighting...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Dashboard The Dashboard is your live status overview for Pinball CTL. The Dashboard is designed as a fast health check page before you edit rules, lighting...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-dashboard.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-dashboard.html","name":"Dashboard | Pinball CTL Docs","description":"Dashboard The Dashboard is your live status overview for Pinball CTL. The Dashboard is designed as a fast health check page before you edit rules, lighting...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,110 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>Dashboard</h1><p>The Dashboard is your live status overview for Pinball CTL.</p><img src="./media/screenshot-dashboard.webp" alt="Dashboard feature overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><p>The Dashboard is designed as a fast health check page before you edit rules, lighting, hardware, or firmware.</p><h2>What This Feature Does</h2><p>It continuously polls runtime APIs and presents a single at-a-glance state for:</p><ul><li>connectivity</li><li>bridge/runtime processes</li><li>ESP state</li><li>sync status</li><li>dependency/tooling readiness</li></ul><h2>Live Refresh Behaviour</h2><p>Dashboard refreshes automatically in the background.</p><p>Key behaviour:</p><ul><li>Regular polling (about every 10 seconds).</li><li>Polling pauses when the page is hidden, then resumes when visible.</li><li>If bridge is running but ESP is not yet connected, quick retry mode is used.</li></ul><h2>Card-by-Card Reference</h2><div class="manual-table-wrap">  <table class="manual-table">    <thead>      <tr>        <th>Card</th>        <th>What it shows</th>        <th>How to use it</th>      </tr>    </thead>    <tbody>      <tr>        <td>Wi-Fi</td>        <td>interface, connected status badge, SSID, IP address, signal</td>        <td>Confirm remote browser access health.</td>      </tr>      <tr>        <td>Bridge</td>        <td>running/stopped status badge, detection source, PID</td>        <td>Verify bridge lifecycle state.</td>      </tr>      <tr>        <td>Uptime</td>        <td>since timestamp, human duration, raw seconds</td>        <td>Spot unexpected restarts.</td>      </tr>      <tr>        <td>ESP32</td>        <td>firmware, chip, ESP time, connected status, time sync status</td>        <td>Confirm ESP connectivity and clock health.</td>      </tr>      <tr>        <td>ESP32 Sync Rows (when connected)</td>        <td>Rules Sync (state + last sync), Hardware Sync (state + last sync), Lighting Sync (state + last sync), badges: <code>In Sync</code>, <code>Out of Sync</code>, <code>—</code></td>        <td>Verify deployment sync state before testing gameplay.</td>      </tr>      <tr>        <td>Dependencies</td>        <td>tooling inventory with tool name, version (shortened if long), <code>OK</code>/<code>Missing</code> badge</td>        <td>Confirm build/flash prerequisites are installed.</td>      </tr>      <tr>        <td>Gameplay / Revenue Snapshot / Player Flow / Machine</td>        <td>demo/trend style values and machine summary context</td>        <td>Use as operational context alongside technical health cards.</td>      </tr>    </tbody>  </table></div><h2>Typical Workflow</h2><ol><li>Open Dashboard first.</li><li>Confirm Wi-Fi, Bridge, and ESP are healthy.</li><li>Check sync status rows when ESP is connected.</li><li>If not healthy, move to the relevant feature:</li></ol><ul><li>Logs for runtime output</li><li>Hardware for mapping/sync</li><li>ESPLink for bridge/device controls</li></ul><h2>Example Checks</h2><h3>Pre-deployment check</h3><p>Before syncing rules or lighting:</p><ul><li>Bridge = Running</li><li>ESP Connected = Yes</li><li>Time Sync = OK</li><li>Dependencies = all <code>OK</code></li></ul><h3>Post-maintenance check</h3><p>After service work:</p><ul><li>Wi-Fi badge = Yes</li><li>Bridge PID populated</li><li>Uptime progressing normally</li><li>no unexpected sync regressions</li></ul><h2>Related Features</h2><ul><li><a href="10-hardware.md">Hardware</a></li><li><a href="/pages/user-guide-esplink.html" data-doc-slug="1-user-guide/11-esplink">ESPLink</a></li><li><a href="/pages/user-guide-logs.html" data-doc-slug="1-user-guide/14-logs">Logs</a></li></ul></div>
+          <div class="doc-panel" id="docs-article"><h1 id="dashboard">Dashboard</h1>
+<p>The Dashboard is your live status overview for Pinball CTL.</p>
+<p><img src="./media/screenshot-dashboard.webp" alt="Dashboard feature overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<p>The Dashboard is designed as a fast health check page before you edit rules, lighting, hardware, or firmware.</p>
+<h2 id="what-this-feature-does">What This Feature Does</h2>
+<p>It continuously polls runtime APIs and presents a single at-a-glance state for:</p>
+<ul>
+<li>connectivity</li>
+<li>bridge/runtime processes</li>
+<li>ESP state</li>
+<li>sync status</li>
+<li>dependency/tooling readiness</li>
+</ul>
+<h2 id="live-refresh-behaviour">Live Refresh Behaviour</h2>
+<p>Dashboard refreshes automatically in the background.</p>
+<p>Key behaviour:</p>
+<ul>
+<li>Regular polling (about every 10 seconds).</li>
+<li>Polling pauses when the page is hidden, then resumes when visible.</li>
+<li>If bridge is running but ESP is not yet connected, quick retry mode is used.</li>
+</ul>
+<h2 id="card-by-card-reference">Card-by-Card Reference</h2>
+<div class="manual-table-wrap">
+  <table class="manual-table">
+    <thead>
+      <tr>
+        <th>Card</th>
+        <th>What it shows</th>
+        <th>How to use it</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Wi-Fi</td>
+        <td>interface, connected status badge, SSID, IP address, signal</td>
+        <td>Confirm remote browser access health.</td>
+      </tr>
+      <tr>
+        <td>Bridge</td>
+        <td>running/stopped status badge, detection source, PID</td>
+        <td>Verify bridge lifecycle state.</td>
+      </tr>
+      <tr>
+        <td>Uptime</td>
+        <td>since timestamp, human duration, raw seconds</td>
+        <td>Spot unexpected restarts.</td>
+      </tr>
+      <tr>
+        <td>ESP32</td>
+        <td>firmware, chip, ESP time, connected status, time sync status</td>
+        <td>Confirm ESP connectivity and clock health.</td>
+      </tr>
+      <tr>
+        <td>ESP32 Sync Rows (when connected)</td>
+        <td>Rules Sync (state + last sync), Hardware Sync (state + last sync), Lighting Sync (state + last sync), badges: <code>In Sync</code>, <code>Out of Sync</code>, <code>—</code></td>
+        <td>Verify deployment sync state before testing gameplay.</td>
+      </tr>
+      <tr>
+        <td>Dependencies</td>
+        <td>tooling inventory with tool name, version (shortened if long), <code>OK</code>/<code>Missing</code> badge</td>
+        <td>Confirm build/flash prerequisites are installed.</td>
+      </tr>
+      <tr>
+        <td>Gameplay / Revenue Snapshot / Player Flow / Machine</td>
+        <td>demo/trend style values and machine summary context</td>
+        <td>Use as operational context alongside technical health cards.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="typical-workflow">Typical Workflow</h2>
+<ol>
+<li>Open Dashboard first.</li>
+<li>Confirm Wi-Fi, Bridge, and ESP are healthy.</li>
+<li>Check sync status rows when ESP is connected.</li>
+<li>If not healthy, move to the relevant feature:</li>
+<li>Logs for runtime output</li>
+<li>Hardware for mapping/sync</li>
+<li>ESPLink for bridge/device controls</li>
+</ol>
+<h2 id="example-checks">Example Checks</h2>
+<h3 id="pre-deployment-check">Pre-deployment check</h3>
+<p>Before syncing rules or lighting:</p>
+<ul>
+<li>Bridge = Running</li>
+<li>ESP Connected = Yes</li>
+<li>Time Sync = OK</li>
+<li>Dependencies = all <code>OK</code></li>
+</ul>
+<h3 id="post-maintenance-check">Post-maintenance check</h3>
+<p>After service work:</p>
+<ul>
+<li>Wi-Fi badge = Yes</li>
+<li>Bridge PID populated</li>
+<li>Uptime progressing normally</li>
+<li>no unexpected sync regressions</li>
+</ul>
+<h2 id="related-features">Related Features</h2>
+<ul>
+<li><a href="10-hardware.md">Hardware</a></li>
+<li><a href="/pages/user-guide-esplink.html" data-doc-slug="1-user-guide/11-esplink">ESPLink</a></li>
+<li><a href="/pages/user-guide-logs.html" data-doc-slug="1-user-guide/14-logs">Logs</a></li>
+</ul></div>
         </article>
       </div>
     </section>

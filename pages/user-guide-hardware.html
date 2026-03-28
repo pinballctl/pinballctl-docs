@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="Hardware | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Hardware Hardware is the feature for physical I/O mapping and controller integration setup. It manages pin-level mapping, safety defaults, friendly names, and...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-hardware.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-hardware.html","name":"Hardware | Pinball CTL Docs","description":"Hardware Hardware is the feature for physical I/O mapping and controller integration setup. It manages pin-level mapping, safety defaults, friendly names, and...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Hardware Hardware is the feature for physical I/O mapping and controller integration setup. It manages pin-level mapping, safety defaults, friendly names, and...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-hardware.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-hardware.html","name":"Hardware | Pinball CTL Docs","description":"Hardware Hardware is the feature for physical I/O mapping and controller integration setup. It manages pin-level mapping, safety defaults, friendly names, and...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,119 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>Hardware</h1><p>Hardware is the feature for physical I/O mapping and controller integration setup.</p><p>It manages pin-level mapping, safety defaults, friendly names, and function assignment. The assigned function will define how this pin behaves and the options available throughout the Pinball CTL application.</p><img src="./media/screenshot-feature-hardware.webp" alt="Hardware feature overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><h2>What This Feature Does</h2><p>Hardware defines machine I/O in a structured form used by:</p><ul><li>Rules trigger/action targeting</li><li>Lighting cast and fixture context</li><li>ESP deployment and runtime mapping</li></ul><div class="manual-note">  <p class="manual-note-title">Please Note</p>  <p>The ESP must be connected to refresh pins. Once pin assignment is complete, other modules can use this mapping and run headless when the ESP is not connected.</p></div><h2>Top Controls</h2><ul><li><code>Reload Pins</code> - On first setup and hardware changes run this to update the hardware database. Where possible we are able to auto detect additional pins and modules.</li><li><code>Sync to ESP</code> - Any changes to pin defaults will need syncing back to the ESP</li><li><code>Save Changes</code> - After making any changes in the page, make sure to save them</li></ul><p>Behaviour:</p><ul><li>unsaved changes show an <code>Unsaved changes</code> badge</li><li>save/sync flows include validation and progress states</li><li>sync may request save first when local edits are pending</li></ul><h2>Mapping Table Columns</h2><div class="manual-table-wrap">  <table class="manual-table">    <thead>      <tr>        <th nowrap="nowrap">Column</th>        <th>Description</th>      </tr>    </thead>    <tbody>      <tr>        <td nowrap="nowrap">UID</td>        <td>Unique identifier for this hardware pin (controller + board + type + channel).</td>      </tr>      <tr>        <td nowrap="nowrap">Board</td>        <td>Physical board or expansion module hosting this pin.</td>      </tr>      <tr>        <td nowrap="nowrap">Type</td>        <td>Hardware category for the pin (GPIO, I2C device, LED driver, etc.).</td>      </tr>      <tr>        <td nowrap="nowrap">Channel</td>        <td>Pin number or channel identifier on the board.</td>      </tr>      <tr>        <td nowrap="nowrap">PIN State</td>        <td>Current observed pin level (High/Low) when available.</td>      </tr>      <tr>        <td nowrap="nowrap">PIN Safe</td>        <td>Safe state applied when the system is inactive. This defines whether the pin is forced HIGH or LOW on boot, disconnect, or fault.</td>      </tr>      <tr>        <td nowrap="nowrap">Friendly Name</td>        <td>Human-friendly label used across the UI and rules.</td>      </tr>      <tr>        <td nowrap="nowrap">Function</td>        <td>Select the logical role for this pin (button, solenoid, LED, etc.). Used by the controller to map behavior and safety rules.</td>      </tr>    </tbody>  </table></div><h2>Show All Pins Toggle</h2><p><code>Show all Pins</code> displays normally-hidden reserved/limited pins.</p><p>Default view filters to safer, mappable pin rows.</p><h2>Sync to ESP</h2><p>The Sync button indicates whether the configuration is in sync with the ESP.</p><ul><li>If mapping is not synced, the sync action shows the orange warning state.</li><li>If mapping is synced, the sync action shows the blue disabled OK state.</li></ul><h2>Reload Pins</h2><p><code>Reload Pins</code> refreshes discovered pin set from ESP source.</p><p>Use when:</p><ul><li>firmware pin definitions changed</li><li>hardware board changed</li><li>UID/channel set needs refresh</li></ul><h2>Practical Setup Examples</h2><h3>Initial machine mapping</h3><ol><li>Reload Pins.</li><li>Name each relevant pin.</li><li>Assign function roles.</li><li>Save Mapping.</li><li>Sync to ESP.</li></ol><h3>Safety-first output setup</h3><p>For output-capable pins:</p><ul><li>set clear Friendly Name</li><li>assign correct output function</li><li>define PIN Safe state for boot/fault behaviour</li></ul><h2>Related Features</h2><ul><li><a href="/pages/user-guide-esplink.html" data-doc-slug="1-user-guide/11-esplink">ESPLink</a></li><li><a href="7-rules.md">Rules</a></li><li><a href="/pages/user-guide-lighting.html" data-doc-slug="1-user-guide/8-lighting">Lighting</a></li></ul></div>
+          <div class="doc-panel" id="docs-article"><h1 id="hardware">Hardware</h1>
+<p>Hardware is the feature for physical I/O mapping and controller integration setup.</p>
+<p>It manages pin-level mapping, safety defaults, friendly names, and function assignment. The assigned function will define how this pin behaves and the options available throughout the Pinball CTL application.</p>
+<p><img src="./media/screenshot-feature-hardware.webp" alt="Hardware feature overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<h2 id="what-this-feature-does">What This Feature Does</h2>
+<p>Hardware defines machine I/O in a structured form used by:</p>
+<ul>
+<li>Rules trigger/action targeting</li>
+<li>Lighting cast and fixture context</li>
+<li>ESP deployment and runtime mapping</li>
+</ul>
+<div class="manual-note">
+  <p class="manual-note-title">Please Note</p>
+  <p>The ESP must be connected to refresh pins. Once pin assignment is complete, other modules can use this mapping and run headless when the ESP is not connected.</p>
+</div>
+
+<h2 id="top-controls">Top Controls</h2>
+<ul>
+<li><code>Reload Pins</code> - On first setup and hardware changes run this to update the hardware database. Where possible we are able to auto detect additional pins and modules.</li>
+<li><code>Sync to ESP</code> - Any changes to pin defaults will need syncing back to the ESP</li>
+<li><code>Save Changes</code> - After making any changes in the page, make sure to save them</li>
+</ul>
+<p>Behaviour:</p>
+<ul>
+<li>unsaved changes show an <code>Unsaved changes</code> badge</li>
+<li>save/sync flows include validation and progress states</li>
+<li>sync may request save first when local edits are pending</li>
+</ul>
+<h2 id="mapping-table-columns">Mapping Table Columns</h2>
+<div class="manual-table-wrap">
+  <table class="manual-table">
+    <thead>
+      <tr>
+        <th nowrap="nowrap">Column</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td nowrap="nowrap">UID</td>
+        <td>Unique identifier for this hardware pin (controller + board + type + channel).</td>
+      </tr>
+      <tr>
+        <td nowrap="nowrap">Board</td>
+        <td>Physical board or expansion module hosting this pin.</td>
+      </tr>
+      <tr>
+        <td nowrap="nowrap">Type</td>
+        <td>Hardware category for the pin (GPIO, I2C device, LED driver, etc.).</td>
+      </tr>
+      <tr>
+        <td nowrap="nowrap">Channel</td>
+        <td>Pin number or channel identifier on the board.</td>
+      </tr>
+      <tr>
+        <td nowrap="nowrap">PIN State</td>
+        <td>Current observed pin level (High/Low) when available.</td>
+      </tr>
+      <tr>
+        <td nowrap="nowrap">PIN Safe</td>
+        <td>Safe state applied when the system is inactive. This defines whether the pin is forced HIGH or LOW on boot, disconnect, or fault.</td>
+      </tr>
+      <tr>
+        <td nowrap="nowrap">Friendly Name</td>
+        <td>Human-friendly label used across the UI and rules.</td>
+      </tr>
+      <tr>
+        <td nowrap="nowrap">Function</td>
+        <td>Select the logical role for this pin (button, solenoid, LED, etc.). Used by the controller to map behavior and safety rules.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="show-all-pins-toggle">Show All Pins Toggle</h2>
+<p><code>Show all Pins</code> displays normally-hidden reserved/limited pins.</p>
+<p>Default view filters to safer, mappable pin rows.</p>
+<h2 id="sync-to-esp">Sync to ESP</h2>
+<p>The Sync button indicates whether the configuration is in sync with the ESP.</p>
+<ul>
+<li>If mapping is not synced, the sync action shows the orange warning state.</li>
+<li>If mapping is synced, the sync action shows the blue disabled OK state.</li>
+</ul>
+<h2 id="reload-pins">Reload Pins</h2>
+<p><code>Reload Pins</code> refreshes discovered pin set from ESP source.</p>
+<p>Use when:</p>
+<ul>
+<li>firmware pin definitions changed</li>
+<li>hardware board changed</li>
+<li>UID/channel set needs refresh</li>
+</ul>
+<h2 id="practical-setup-examples">Practical Setup Examples</h2>
+<h3 id="initial-machine-mapping">Initial machine mapping</h3>
+<ol>
+<li>Reload Pins.</li>
+<li>Name each relevant pin.</li>
+<li>Assign function roles.</li>
+<li>Save Mapping.</li>
+<li>Sync to ESP.</li>
+</ol>
+<h3 id="safety-first-output-setup">Safety-first output setup</h3>
+<p>For output-capable pins:</p>
+<ul>
+<li>set clear Friendly Name</li>
+<li>assign correct output function</li>
+<li>define PIN Safe state for boot/fault behaviour</li>
+</ul>
+<h2 id="related-features">Related Features</h2>
+<ul>
+<li><a href="/pages/user-guide-esplink.html" data-doc-slug="1-user-guide/11-esplink">ESPLink</a></li>
+<li><a href="7-rules.md">Rules</a></li>
+<li><a href="/pages/user-guide-lighting.html" data-doc-slug="1-user-guide/8-lighting">Lighting</a></li>
+</ul></div>
         </article>
       </div>
     </section>

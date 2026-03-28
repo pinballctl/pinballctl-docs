@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="Integrity Check | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Integrity Check Integrity Check audits cross-module dependencies and helps you safely resolve orphaned references. What It Checks Integrity Check scans...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-integraty-check.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-integraty-check.html","name":"Integrity Check | Pinball CTL Docs","description":"Integrity Check Integrity Check audits cross-module dependencies and helps you safely resolve orphaned references. What It Checks Integrity Check scans...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Integrity Check Integrity Check audits cross-module dependencies and helps you safely resolve orphaned references. What It Checks Integrity Check scans...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-integraty-check.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-integraty-check.html","name":"Integrity Check | Pinball CTL Docs","description":"Integrity Check Integrity Check audits cross-module dependencies and helps you safely resolve orphaned references. What It Checks Integrity Check scans...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,83 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>Integrity Check</h1><p>Integrity Check audits cross-module dependencies and helps you safely resolve orphaned references.</p><img src="./media/screenshot-feature-integrity-check.webp" alt="Integrity Check feature overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><h2>What It Checks</h2><p>Integrity Check scans references across:</p><ul><li>hardware mapping</li><li>rules</li><li>playfield layout</li><li>lighting</li><li>audio</li><li>scoring</li></ul><p>It reports:</p><ul><li><code>OK</code> items with valid references</li><li><code>Errors</code> for orphaned references</li><li><code>Unused</code> items with zero references</li></ul><h2>Page Structure</h2><p>Top actions:</p><ul><li><code>Run Check</code></li><li><code>Resolve All</code> (enabled only when actionable issues exist)</li></ul><p>Filters:</p><ul><li>status tabs: <code>All</code>, <code>OK</code>, <code>Errors</code>, <code>Unused</code></li><li><code>Kind</code></li><li><code>Keyword</code></li></ul><p>Results table columns:</p><ul><li>status</li><li>kind</li><li>name</li><li>details / used by</li><li>per-row <code>Resolve</code></li></ul><h2>Resolve Behavior</h2><p><code>Resolve</code> (row):</p><ul><li>opens shared confirmation modal</li><li>resolves only that selected issue</li><li>refreshes report after apply</li></ul><p><code>Resolve All</code>:</p><ul><li>opens shared confirmation modal</li><li>applies all fixable issues</li><li>refreshes report and shows a formatted applied-changes report</li></ul><h2>Compile + Sync Notes</h2><p>When cleanup updates source configs, Integrity Check also rebuilds affected runtime artifacts using each module&#x27;s own compile path:</p><ul><li>rules changes -&gt; rebuild <code>rules.pd</code> + <code>rules_meta.json</code></li><li>lighting changes -&gt; rebuild <code>lighting.pd</code> + <code>lighting.compiled.json</code> + <code>lighting_meta.json</code></li></ul><p>This marks artifacts as changed locally, but does not mark them as synced to ESP. You still need to run the relevant sync step.</p><h2>Typical Workflow</h2><ol><li>Open <code>Integrity Check</code>.</li><li>Click <code>Run Check</code>.</li><li>Filter by <code>Errors</code> (or <code>Unused</code>) and inspect <code>Used By</code>.</li><li>Resolve individually with row <code>Resolve</code> or bulk with <code>Resolve All</code>.</li><li>Re-run check to confirm clean state.</li><li>Sync affected modules to ESP.</li></ol><h2>Related Features</h2><ul><li><a href="/pages/user-guide-hardware.html" data-doc-slug="1-user-guide/7-hardware">Hardware</a></li><li><a href="/pages/user-guide-rules.html" data-doc-slug="1-user-guide/7.1-rules">Rules</a></li><li><a href="/pages/user-guide-lighting.html" data-doc-slug="1-user-guide/8-lighting">Lighting</a></li><li><a href="/pages/user-guide-audio.html" data-doc-slug="1-user-guide/17-audio">Audio</a></li><li><a href="/pages/user-guide-scoring.html" data-doc-slug="1-user-guide/10-scoring">Scoring</a></li><li><a href="/pages/user-guide-esplink.html" data-doc-slug="1-user-guide/11-esplink">ESPLink</a></li></ul></div>
+          <div class="doc-panel" id="docs-article"><h1 id="integrity-check">Integrity Check</h1>
+<p>Integrity Check audits cross-module dependencies and helps you safely resolve orphaned references.</p>
+<p><img src="./media/screenshot-feature-integrity-check.webp" alt="Integrity Check feature overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<h2 id="what-it-checks">What It Checks</h2>
+<p>Integrity Check scans references across:</p>
+<ul>
+<li>hardware mapping</li>
+<li>rules</li>
+<li>playfield layout</li>
+<li>lighting</li>
+<li>audio</li>
+<li>scoring</li>
+</ul>
+<p>It reports:</p>
+<ul>
+<li><code>OK</code> items with valid references</li>
+<li><code>Errors</code> for orphaned references</li>
+<li><code>Unused</code> items with zero references</li>
+</ul>
+<h2 id="page-structure">Page Structure</h2>
+<p>Top actions:</p>
+<ul>
+<li><code>Run Check</code></li>
+<li><code>Resolve All</code> (enabled only when actionable issues exist)</li>
+</ul>
+<p>Filters:</p>
+<ul>
+<li>status tabs: <code>All</code>, <code>OK</code>, <code>Errors</code>, <code>Unused</code></li>
+<li><code>Kind</code></li>
+<li><code>Keyword</code></li>
+</ul>
+<p>Results table columns:</p>
+<ul>
+<li>status</li>
+<li>kind</li>
+<li>name</li>
+<li>details / used by</li>
+<li>per-row <code>Resolve</code></li>
+</ul>
+<h2 id="resolve-behavior">Resolve Behavior</h2>
+<p><code>Resolve</code> (row):</p>
+<ul>
+<li>opens shared confirmation modal</li>
+<li>resolves only that selected issue</li>
+<li>refreshes report after apply</li>
+</ul>
+<p><code>Resolve All</code>:</p>
+<ul>
+<li>opens shared confirmation modal</li>
+<li>applies all fixable issues</li>
+<li>refreshes report and shows a formatted applied-changes report</li>
+</ul>
+<h2 id="compile-sync-notes">Compile + Sync Notes</h2>
+<p>When cleanup updates source configs, Integrity Check also rebuilds affected runtime artifacts using each module's own compile path:</p>
+<ul>
+<li>rules changes -&gt; rebuild <code>rules.pd</code> + <code>rules_meta.json</code></li>
+<li>lighting changes -&gt; rebuild <code>lighting.pd</code> + <code>lighting.compiled.json</code> + <code>lighting_meta.json</code></li>
+</ul>
+<p>This marks artifacts as changed locally, but does not mark them as synced to ESP. You still need to run the relevant sync step.</p>
+<h2 id="typical-workflow">Typical Workflow</h2>
+<ol>
+<li>Open <code>Integrity Check</code>.</li>
+<li>Click <code>Run Check</code>.</li>
+<li>Filter by <code>Errors</code> (or <code>Unused</code>) and inspect <code>Used By</code>.</li>
+<li>Resolve individually with row <code>Resolve</code> or bulk with <code>Resolve All</code>.</li>
+<li>Re-run check to confirm clean state.</li>
+<li>Sync affected modules to ESP.</li>
+</ol>
+<h2 id="related-features">Related Features</h2>
+<ul>
+<li><a href="/pages/user-guide-hardware.html" data-doc-slug="1-user-guide/7-hardware">Hardware</a></li>
+<li><a href="/pages/user-guide-rules.html" data-doc-slug="1-user-guide/7.1-rules">Rules</a></li>
+<li><a href="/pages/user-guide-lighting.html" data-doc-slug="1-user-guide/8-lighting">Lighting</a></li>
+<li><a href="/pages/user-guide-audio.html" data-doc-slug="1-user-guide/17-audio">Audio</a></li>
+<li><a href="/pages/user-guide-scoring.html" data-doc-slug="1-user-guide/10-scoring">Scoring</a></li>
+<li><a href="/pages/user-guide-esplink.html" data-doc-slug="1-user-guide/11-esplink">ESPLink</a></li>
+</ul></div>
         </article>
       </div>
     </section>

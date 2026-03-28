@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="Architecture | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Architecture Pinball CTL splits orchestration and real-time control across Pi and ESP. Responsibility Split Pi pinballctl app + bridge...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/technical-notes-architecture.html#webpage","url":"https://docs.pinballctl.com/pages/technical-notes-architecture.html","name":"Architecture | Pinball CTL Docs","description":"Architecture Pinball CTL splits orchestration and real-time control across Pi and ESP. Responsibility Split Pi pinballctl app + bridge...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Architecture Pinball CTL splits orchestration and real-time control across Pi and ESP. Responsibility Split Pi pinballctl app + bridge...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/technical-notes-architecture.html#webpage","url":"https://docs.pinballctl.com/pages/technical-notes-architecture.html","name":"Architecture | Pinball CTL Docs","description":"Architecture Pinball CTL splits orchestration and real-time control across Pi and ESP. Responsibility Split Pi pinballctl app + bridge...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,34 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>Architecture</h1><p>Pinball CTL splits orchestration and real-time control across Pi and ESP.</p><h2>Responsibility Split</h2><ul><li>Pi (<code>pinballctl</code> app + bridge):</li><li>Authoring/configuration persistence.</li><li>HTTP/UI and orchestration workflows.</li><li>Bridge command enqueue, RPC correlation, and state sync.</li><li>ESP32-S3 firmware:</li><li>Real-time switch/output processing.</li><li>Runtime safety (enable gating, timeouts, watchdog/fault behavior).</li><li>Deterministic command execution close to hardware.</li></ul><h2>Transport Boundary</h2><p>Pi &lt;-&gt; ESP communication is framed JSON only:</p><ul><li>4-byte big-endian length header.</li><li>UTF-8 JSON payload.</li><li>No newline/line-based command transport.</li></ul><h2>Data/Artifact Flow</h2><ul><li>User edits config in Pi UI modules.</li><li>Pi persists source artifacts under <code>src/instance/*</code>.</li><li>Pi pushes runtime payloads to ESP via bridge commands.</li><li>ESP acknowledges status and publishes telemetry/events back through the bridge.</li></ul><h2>Operational Principle</h2><p>Keep latency-critical behavior local on ESP. Use Pi for orchestration, persistence, and non-real-time logic.</p></div>
+          <div class="doc-panel" id="docs-article"><h1 id="architecture">Architecture</h1>
+<p>Pinball CTL splits orchestration and real-time control across Pi and ESP.</p>
+<h2 id="responsibility-split">Responsibility Split</h2>
+<ul>
+<li>Pi (<code>pinballctl</code> app + bridge):</li>
+<li>Authoring/configuration persistence.</li>
+<li>HTTP/UI and orchestration workflows.</li>
+<li>Bridge command enqueue, RPC correlation, and state sync.</li>
+<li>ESP32-S3 firmware:</li>
+<li>Real-time switch/output processing.</li>
+<li>Runtime safety (enable gating, timeouts, watchdog/fault behavior).</li>
+<li>Deterministic command execution close to hardware.</li>
+</ul>
+<h2 id="transport-boundary">Transport Boundary</h2>
+<p>Pi &lt;-&gt; ESP communication is framed JSON only:
+- 4-byte big-endian length header.
+- UTF-8 JSON payload.
+- No newline/line-based command transport.</p>
+<h2 id="dataartifact-flow">Data/Artifact Flow</h2>
+<ul>
+<li>User edits config in Pi UI modules.</li>
+<li>Pi persists source artifacts under <code>src/instance/*</code>.</li>
+<li>Pi pushes runtime payloads to ESP via bridge commands.</li>
+<li>ESP acknowledges status and publishes telemetry/events back through the bridge.</li>
+</ul>
+<h2 id="operational-principle">Operational Principle</h2>
+<p>Keep latency-critical behavior local on ESP.
+Use Pi for orchestration, persistence, and non-real-time logic.</p></div>
         </article>
       </div>
     </section>

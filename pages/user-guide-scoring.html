@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="Scoring | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Scoring Scoring is the feature for designing how points are awarded during gameplay. It supports fixed points, progressive hit ramps, and combo-based awards...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-scoring.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-scoring.html","name":"Scoring | Pinball CTL Docs","description":"Scoring Scoring is the feature for designing how points are awarded during gameplay. It supports fixed points, progressive hit ramps, and combo-based awards...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Scoring Scoring is the feature for designing how points are awarded during gameplay. It supports fixed points, progressive hit ramps, and combo-based awards...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-scoring.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-scoring.html","name":"Scoring | Pinball CTL Docs","description":"Scoring Scoring is the feature for designing how points are awarded during gameplay. It supports fixed points, progressive hit ramps, and combo-based awards...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,105 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>Scoring</h1><p>Scoring is the feature for designing how points are awarded during gameplay.</p><p>It supports fixed points, progressive hit ramps, and combo-based awards.</p><h2>Page Structure</h2><p>Scoring is split into three tabs:</p><ol><li><code>Base Points</code></li><li><code>Scoring Rules</code></li><li><code>Combos</code></li></ol><h2>Base Points Tab</h2><img src="./media/screenshot-feature-scoring.webp" alt="Scoring base points tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><p>Use this tab for straightforward score awards.</p><p>Each row configures:</p><ul><li>Source mode (<code>Hardware</code> or <code>Event</code>)</li><li>Trigger (hardware event type or event name)</li><li>Point value</li><li>Optional notes</li></ul><p>Typical uses:</p><ul><li>baseline points for common switch hits</li><li>points for named gameplay events</li><li>initial score model before advanced rules</li></ul><h2>Scoring Rules Tab</h2><img src="./media/screenshot-feature-scoring-scoring-rules.webp" alt="Scoring rules tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><p>Use this tab for progressive scoring logic.</p><p>Rules are collapsible cards that support:</p><ul><li>source and trigger setup</li><li>minimum hits</li><li>optional hit window (<code>min hits within ms</code>)</li><li>base points and points-per-hit scaling</li><li>bonus cap and cooloff behavior</li><li>optional emitted event</li></ul><p>Example ramp model:</p><ul><li><code>minHits = 1</code></li><li><code>basePoints = 20</code></li><li><code>pointsPerHit = 10</code></li><li><code>cooloffMs = 1500</code></li><li><code>cooloffStep = 1</code></li></ul><p>This rewards fast repeat hits while decaying value when play slows.</p><h2>Combos Tab</h2><img src="./media/screenshot-feature-scoring-combos.webp" alt="Scoring combos tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><p>Use this tab for multi-step scoring sequences.</p><p>Each combo supports:</p><ul><li>ordered or any-order matching</li><li>step time window</li><li>award points</li><li>optional temporary multiplier</li><li>optional emitted event</li></ul><p>Each step can use:</p><ul><li><code>Hardware</code>: button source + button event trigger</li><li><code>Event</code>: fired event name trigger</li></ul><p>Example ordered combo:</p><ul><li>step 1: left lane event</li><li>step 2: right lane event</li><li>step 3: top target event</li><li>award: 300 points</li><li>multiplier: x1.5 for 8 seconds</li></ul><h2>Save and Runtime Behavior</h2><ul><li>Changes stay staged until you click <code>Save Changes</code>.</li><li>Saved scoring config is persisted in instance data.</li><li>Runtime scoring listens to matching inputs and awards points in real time.</li></ul><h2>Integration Notes</h2><p>Scoring integrates with the event system.</p><p>This allows scoring to:</p><ul><li>react to events fired by other modules</li><li>emit events for Rules and Lighting</li><li>participate in mode-level gameplay flows</li></ul><h2>Practical Workflow</h2><ol><li>Add baseline rows in <code>Base Points</code>.</li><li>Add scaling rules in <code>Scoring Rules</code>.</li><li>Add sequence rewards in <code>Combos</code>.</li><li>Save and test in gameplay or emulation.</li><li>Tune values based on game feel.</li></ol><h2>Related Pages</h2><ul><li><a href="7-rules.md">Rules</a></li><li><a href="/pages/user-guide-lighting.html" data-doc-slug="1-user-guide/8-lighting">Lighting</a></li><li><a href="/pages/user-guide-layout.html" data-doc-slug="1-user-guide/9-layout">Playfield</a></li></ul></div>
+          <div class="doc-panel" id="docs-article"><h1 id="scoring">Scoring</h1>
+<p>Scoring is the feature for designing how points are awarded during gameplay.</p>
+<p>It supports fixed points, progressive hit ramps, and combo-based awards.</p>
+<h2 id="page-structure">Page Structure</h2>
+<p>Scoring is split into three tabs:</p>
+<ol>
+<li><code>Base Points</code></li>
+<li><code>Scoring Rules</code></li>
+<li><code>Combos</code></li>
+</ol>
+<h2 id="base-points-tab">Base Points Tab</h2>
+<p><img src="./media/screenshot-feature-scoring.webp" alt="Scoring base points tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<p>Use this tab for straightforward score awards.</p>
+<p>Each row configures:</p>
+<ul>
+<li>Source mode (<code>Hardware</code> or <code>Event</code>)</li>
+<li>Trigger (hardware event type or event name)</li>
+<li>Point value</li>
+<li>Optional notes</li>
+</ul>
+<p>Typical uses:</p>
+<ul>
+<li>baseline points for common switch hits</li>
+<li>points for named gameplay events</li>
+<li>initial score model before advanced rules</li>
+</ul>
+<h2 id="scoring-rules-tab">Scoring Rules Tab</h2>
+<p><img src="./media/screenshot-feature-scoring-scoring-rules.webp" alt="Scoring rules tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<p>Use this tab for progressive scoring logic.</p>
+<p>Rules are collapsible cards that support:</p>
+<ul>
+<li>source and trigger setup</li>
+<li>minimum hits</li>
+<li>optional hit window (<code>min hits within ms</code>)</li>
+<li>base points and points-per-hit scaling</li>
+<li>bonus cap and cooloff behavior</li>
+<li>optional emitted event</li>
+</ul>
+<p>Example ramp model:</p>
+<ul>
+<li><code>minHits = 1</code></li>
+<li><code>basePoints = 20</code></li>
+<li><code>pointsPerHit = 10</code></li>
+<li><code>cooloffMs = 1500</code></li>
+<li><code>cooloffStep = 1</code></li>
+</ul>
+<p>This rewards fast repeat hits while decaying value when play slows.</p>
+<h2 id="combos-tab">Combos Tab</h2>
+<p><img src="./media/screenshot-feature-scoring-combos.webp" alt="Scoring combos tab" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<p>Use this tab for multi-step scoring sequences.</p>
+<p>Each combo supports:</p>
+<ul>
+<li>ordered or any-order matching</li>
+<li>step time window</li>
+<li>award points</li>
+<li>optional temporary multiplier</li>
+<li>optional emitted event</li>
+</ul>
+<p>Each step can use:</p>
+<ul>
+<li><code>Hardware</code>: button source + button event trigger</li>
+<li><code>Event</code>: fired event name trigger</li>
+</ul>
+<p>Example ordered combo:</p>
+<ul>
+<li>step 1: left lane event</li>
+<li>step 2: right lane event</li>
+<li>step 3: top target event</li>
+<li>award: 300 points</li>
+<li>multiplier: x1.5 for 8 seconds</li>
+</ul>
+<h2 id="save-and-runtime-behavior">Save and Runtime Behavior</h2>
+<ul>
+<li>Changes stay staged until you click <code>Save Changes</code>.</li>
+<li>Saved scoring config is persisted in instance data.</li>
+<li>Runtime scoring listens to matching inputs and awards points in real time.</li>
+</ul>
+<h2 id="integration-notes">Integration Notes</h2>
+<p>Scoring integrates with the event system.</p>
+<p>This allows scoring to:</p>
+<ul>
+<li>react to events fired by other modules</li>
+<li>emit events for Rules and Lighting</li>
+<li>participate in mode-level gameplay flows</li>
+</ul>
+<h2 id="practical-workflow">Practical Workflow</h2>
+<ol>
+<li>Add baseline rows in <code>Base Points</code>.</li>
+<li>Add scaling rules in <code>Scoring Rules</code>.</li>
+<li>Add sequence rewards in <code>Combos</code>.</li>
+<li>Save and test in gameplay or emulation.</li>
+<li>Tune values based on game feel.</li>
+</ol>
+<h2 id="related-pages">Related Pages</h2>
+<ul>
+<li><a href="7-rules.md">Rules</a></li>
+<li><a href="/pages/user-guide-lighting.html" data-doc-slug="1-user-guide/8-lighting">Lighting</a></li>
+<li><a href="/pages/user-guide-layout.html" data-doc-slug="1-user-guide/9-layout">Playfield</a></li>
+</ul></div>
         </article>
       </div>
     </section>

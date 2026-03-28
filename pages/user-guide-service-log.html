@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="Service Log | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Service Log Service Log is the feature for machine service and maintenance records. It is focused on physical maintenance history rather than runtime...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-service-log.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-service-log.html","name":"Service Log | Pinball CTL Docs","description":"Service Log Service Log is the feature for machine service and maintenance records. It is focused on physical maintenance history rather than runtime...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Service Log Service Log is the feature for machine service and maintenance records. It is focused on physical maintenance history rather than runtime...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-service-log.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-service-log.html","name":"Service Log | Pinball CTL Docs","description":"Service Log Service Log is the feature for machine service and maintenance records. It is focused on physical maintenance history rather than runtime...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,99 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>Service Log</h1><p>Service Log is the feature for machine service and maintenance records.</p><p>It is focused on physical maintenance history rather than runtime diagnostics.</p><img src="./media/screenshot-feature-servicelog.webp" alt="Service Log feature overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><h2>What This Feature Does</h2><p>It records maintenance and repair actions so users and engineers can track what was serviced, when, and why.</p><h2>Top Controls</h2><ul><li><code>New Entry</code></li></ul><p>Creates a new maintenance/service record.</p><h2>Filter Controls</h2><ul><li>Service type filter</li><li>Date <code>From</code></li><li>Date <code>To</code></li><li><code>Apply</code></li><li><code>Clear</code></li></ul><p>Service types:</p><ul><li>Service</li><li>Repair</li><li>Recall</li><li>Warranty</li></ul><h2>Main Layout</h2><p>Two-pane layout:</p><ul><li>left: Entries list + count badge</li><li>right: Entry details panel</li></ul><p>Details panel shows:</p><ul><li>title/meta/type</li><li>work summary</li><li>parts replaced</li><li>outcome</li><li>follow-up notes</li><li>attachments</li></ul><p><code>Edit</code> button appears when an entry is selected.</p><h2>New/Edit Entry Modal</h2><p>Fields:</p><ul><li>Engineer (required)</li><li>Service type (required)</li><li>Title (required)</li><li>Work description (required)</li><li>Parts replaced</li><li>Outcome / result</li><li>Follow-up notes</li><li>Attachments (up to 5 files)</li></ul><p>Attachment note in UI:</p><ul><li>PNG, JPG, PDF, DOCX</li></ul><p>Modal actions:</p><ul><li>Cancel</li><li>Save Entry</li></ul><h2>Typical Workflow</h2><ol><li>Create entry after physical work is complete.</li><li>Capture parts/outcome details.</li><li>Add supporting attachments.</li><li>Save and verify details in right panel.</li></ol><h2>Practical Examples</h2><h3>Weekly cleaning log</h3><p>Record:</p><ul><li>engineer/operator</li><li>service type = Service</li><li>checklist summary</li><li>follow-up for next clean interval</li></ul><h3>Coil replacement record</h3><p>Record:</p><ul><li>type = Repair</li><li>replaced part ID</li><li>result after test</li><li>attach invoice/photo</li></ul><h2>Related Features</h2><ul><li><a href="/pages/user-guide-dashboard.html" data-doc-slug="1-user-guide/5-dashboard">Dashboard</a></li><li><a href="/pages/user-guide-logs.html" data-doc-slug="1-user-guide/14-logs">Logs</a></li><li><a href="/pages/user-guide-settings.html" data-doc-slug="1-user-guide/16-settings">Settings</a></li></ul></div>
+          <div class="doc-panel" id="docs-article"><h1 id="service-log">Service Log</h1>
+<p>Service Log is the feature for machine service and maintenance records.</p>
+<p>It is focused on physical maintenance history rather than runtime diagnostics.</p>
+<p><img src="./media/screenshot-feature-servicelog.webp" alt="Service Log feature overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<h2 id="what-this-feature-does">What This Feature Does</h2>
+<p>It records maintenance and repair actions so users and engineers can track what was serviced, when, and why.</p>
+<h2 id="top-controls">Top Controls</h2>
+<ul>
+<li><code>New Entry</code></li>
+</ul>
+<p>Creates a new maintenance/service record.</p>
+<h2 id="filter-controls">Filter Controls</h2>
+<ul>
+<li>Service type filter</li>
+<li>Date <code>From</code></li>
+<li>Date <code>To</code></li>
+<li><code>Apply</code></li>
+<li><code>Clear</code></li>
+</ul>
+<p>Service types:</p>
+<ul>
+<li>Service</li>
+<li>Repair</li>
+<li>Recall</li>
+<li>Warranty</li>
+</ul>
+<h2 id="main-layout">Main Layout</h2>
+<p>Two-pane layout:</p>
+<ul>
+<li>left: Entries list + count badge</li>
+<li>right: Entry details panel</li>
+</ul>
+<p>Details panel shows:</p>
+<ul>
+<li>title/meta/type</li>
+<li>work summary</li>
+<li>parts replaced</li>
+<li>outcome</li>
+<li>follow-up notes</li>
+<li>attachments</li>
+</ul>
+<p><code>Edit</code> button appears when an entry is selected.</p>
+<h2 id="newedit-entry-modal">New/Edit Entry Modal</h2>
+<p>Fields:</p>
+<ul>
+<li>Engineer (required)</li>
+<li>Service type (required)</li>
+<li>Title (required)</li>
+<li>Work description (required)</li>
+<li>Parts replaced</li>
+<li>Outcome / result</li>
+<li>Follow-up notes</li>
+<li>Attachments (up to 5 files)</li>
+</ul>
+<p>Attachment note in UI:</p>
+<ul>
+<li>PNG, JPG, PDF, DOCX</li>
+</ul>
+<p>Modal actions:</p>
+<ul>
+<li>Cancel</li>
+<li>Save Entry</li>
+</ul>
+<h2 id="typical-workflow">Typical Workflow</h2>
+<ol>
+<li>Create entry after physical work is complete.</li>
+<li>Capture parts/outcome details.</li>
+<li>Add supporting attachments.</li>
+<li>Save and verify details in right panel.</li>
+</ol>
+<h2 id="practical-examples">Practical Examples</h2>
+<h3 id="weekly-cleaning-log">Weekly cleaning log</h3>
+<p>Record:</p>
+<ul>
+<li>engineer/operator</li>
+<li>service type = Service</li>
+<li>checklist summary</li>
+<li>follow-up for next clean interval</li>
+</ul>
+<h3 id="coil-replacement-record">Coil replacement record</h3>
+<p>Record:</p>
+<ul>
+<li>type = Repair</li>
+<li>replaced part ID</li>
+<li>result after test</li>
+<li>attach invoice/photo</li>
+</ul>
+<h2 id="related-features">Related Features</h2>
+<ul>
+<li><a href="/pages/user-guide-dashboard.html" data-doc-slug="1-user-guide/5-dashboard">Dashboard</a></li>
+<li><a href="/pages/user-guide-logs.html" data-doc-slug="1-user-guide/14-logs">Logs</a></li>
+<li><a href="/pages/user-guide-settings.html" data-doc-slug="1-user-guide/16-settings">Settings</a></li>
+</ul></div>
         </article>
       </div>
     </section>

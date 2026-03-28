@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="Logs | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Logs Logs is the feature for viewing runtime output from web, bridge, ESP, and event streams. What This Feature Does It provides live and historical log access...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-logs.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-logs.html","name":"Logs | Pinball CTL Docs","description":"Logs Logs is the feature for viewing runtime output from web, bridge, ESP, and event streams. What This Feature Does It provides live and historical log access...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Logs Logs is the feature for viewing runtime output from web, bridge, ESP, and event streams. What This Feature Does It provides live and historical log access...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-logs.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-logs.html","name":"Logs | Pinball CTL Docs","description":"Logs Logs is the feature for viewing runtime output from web, bridge, ESP, and event streams. What This Feature Does It provides live and historical log access...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,91 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>Logs</h1><p>Logs is the feature for viewing runtime output from web, bridge, ESP, and event streams.</p><img src="./media/screenshot-feature-logs.webp" alt="Logs feature overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><h2>What This Feature Does</h2><p>It provides live and historical log access in-browser for operational checks and troubleshooting.</p><h2>Control Bar Reference</h2><h3>Source</h3><p>Available sources:</p><ul><li>Web Error</li><li>Web Access</li><li>Bridge</li><li>ESP Raw</li><li>Events</li></ul><p>Source preference is remembered in local storage.</p><h3>Lines</h3><ul><li>numeric line count for current-window view</li><li>min/step controlled input</li></ul><h3>Filter</h3><ul><li>keyword filter applied client-side to visible buffer</li></ul><h3>Log File</h3><ul><li><code>Current</code> and archive entries (when available)</li></ul><p>Archive mode hides controls that are not applicable to archived logs.</p><h3>Action buttons</h3><ul><li><code>Refresh</code></li><li><code>Clear</code></li><li><code>Purge</code></li><li><code>Tailing</code> toggle</li></ul><p><code>Purge</code> permanently clears the current log file (with confirmation).</p><h2>Viewport Behaviour</h2><ul><li>renders log lines as interactive rows</li><li>auto-tail updates while enabled</li><li>supports large buffer management</li></ul><p>Rows with parseable JSON show JSON-specific affordance.</p><h2>JSON Inspector</h2><p>Click <code>JSON</code> or row to open inspector modal.</p><p>Modal includes:</p><ul><li>structured syntax-highlighted JSON view</li><li>fallback raw line view if not JSON</li><li>close actions and <code>Esc</code> support</li></ul><h2>Tailing and Selection Behaviour</h2><p>When text selection is active in viewport:</p><ul><li>render updates are deferred to avoid disrupting text copy/select</li></ul><p>Tail can be toggled off for static analysis.</p><h2>Typical Workflow</h2><ol><li>Select source.</li><li>Set line window.</li><li>Apply keyword filter.</li><li>Inspect JSON rows when needed.</li><li>Use purge only for deliberate log reset.</li></ol><h2>Practical Examples</h2><h3>Bridge troubleshooting</h3><ul><li>source = Bridge</li><li>tailing on</li><li>filter for <code>error</code>, <code>timeout</code>, or device ID</li></ul><h3>Event audit</h3><ul><li>source = Events</li><li>inspect JSON payloads for event names/fields</li></ul><h2>Related Features</h2><ul><li><a href="/pages/user-guide-dashboard.html" data-doc-slug="1-user-guide/5-dashboard">Dashboard</a></li><li><a href="/pages/user-guide-esplink.html" data-doc-slug="1-user-guide/11-esplink">ESPLink</a></li><li><a href="/pages/user-guide-service-log.html" data-doc-slug="1-user-guide/13-service-log">Service Log</a></li></ul></div>
+          <div class="doc-panel" id="docs-article"><h1 id="logs">Logs</h1>
+<p>Logs is the feature for viewing runtime output from web, bridge, ESP, and event streams.</p>
+<p><img src="./media/screenshot-feature-logs.webp" alt="Logs feature overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<h2 id="what-this-feature-does">What This Feature Does</h2>
+<p>It provides live and historical log access in-browser for operational checks and troubleshooting.</p>
+<h2 id="control-bar-reference">Control Bar Reference</h2>
+<h3 id="source">Source</h3>
+<p>Available sources:</p>
+<ul>
+<li>Web Error</li>
+<li>Web Access</li>
+<li>Bridge</li>
+<li>ESP Raw</li>
+<li>Events</li>
+</ul>
+<p>Source preference is remembered in local storage.</p>
+<h3 id="lines">Lines</h3>
+<ul>
+<li>numeric line count for current-window view</li>
+<li>min/step controlled input</li>
+</ul>
+<h3 id="filter">Filter</h3>
+<ul>
+<li>keyword filter applied client-side to visible buffer</li>
+</ul>
+<h3 id="log-file">Log File</h3>
+<ul>
+<li><code>Current</code> and archive entries (when available)</li>
+</ul>
+<p>Archive mode hides controls that are not applicable to archived logs.</p>
+<h3 id="action-buttons">Action buttons</h3>
+<ul>
+<li><code>Refresh</code></li>
+<li><code>Clear</code></li>
+<li><code>Purge</code></li>
+<li><code>Tailing</code> toggle</li>
+</ul>
+<p><code>Purge</code> permanently clears the current log file (with confirmation).</p>
+<h2 id="viewport-behaviour">Viewport Behaviour</h2>
+<ul>
+<li>renders log lines as interactive rows</li>
+<li>auto-tail updates while enabled</li>
+<li>supports large buffer management</li>
+</ul>
+<p>Rows with parseable JSON show JSON-specific affordance.</p>
+<h2 id="json-inspector">JSON Inspector</h2>
+<p>Click <code>JSON</code> or row to open inspector modal.</p>
+<p>Modal includes:</p>
+<ul>
+<li>structured syntax-highlighted JSON view</li>
+<li>fallback raw line view if not JSON</li>
+<li>close actions and <code>Esc</code> support</li>
+</ul>
+<h2 id="tailing-and-selection-behaviour">Tailing and Selection Behaviour</h2>
+<p>When text selection is active in viewport:</p>
+<ul>
+<li>render updates are deferred to avoid disrupting text copy/select</li>
+</ul>
+<p>Tail can be toggled off for static analysis.</p>
+<h2 id="typical-workflow">Typical Workflow</h2>
+<ol>
+<li>Select source.</li>
+<li>Set line window.</li>
+<li>Apply keyword filter.</li>
+<li>Inspect JSON rows when needed.</li>
+<li>Use purge only for deliberate log reset.</li>
+</ol>
+<h2 id="practical-examples">Practical Examples</h2>
+<h3 id="bridge-troubleshooting">Bridge troubleshooting</h3>
+<ul>
+<li>source = Bridge</li>
+<li>tailing on</li>
+<li>filter for <code>error</code>, <code>timeout</code>, or device ID</li>
+</ul>
+<h3 id="event-audit">Event audit</h3>
+<ul>
+<li>source = Events</li>
+<li>inspect JSON payloads for event names/fields</li>
+</ul>
+<h2 id="related-features">Related Features</h2>
+<ul>
+<li><a href="/pages/user-guide-dashboard.html" data-doc-slug="1-user-guide/5-dashboard">Dashboard</a></li>
+<li><a href="/pages/user-guide-esplink.html" data-doc-slug="1-user-guide/11-esplink">ESPLink</a></li>
+<li><a href="/pages/user-guide-service-log.html" data-doc-slug="1-user-guide/13-service-log">Service Log</a></li>
+</ul></div>
         </article>
       </div>
     </section>

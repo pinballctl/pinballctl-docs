@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="Event Manager | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Event Manager Pi-side event dispatch is implemented in src/pinballctl/events/manager.py. Ingress Points Events currently enter dispatch from: API ingress...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/technical-notes-event-manager.html#webpage","url":"https://docs.pinballctl.com/pages/technical-notes-event-manager.html","name":"Event Manager | Pinball CTL Docs","description":"Event Manager Pi-side event dispatch is implemented in src/pinballctl/events/manager.py. Ingress Points Events currently enter dispatch from: API ingress...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Event Manager Pi-side event dispatch is implemented in src/pinballctl/events/manager.py. Ingress Points Events currently enter dispatch from: API ingress...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/technical-notes-event-manager.html#webpage","url":"https://docs.pinballctl.com/pages/technical-notes-event-manager.html","name":"Event Manager | Pinball CTL Docs","description":"Event Manager Pi-side event dispatch is implemented in src/pinballctl/events/manager.py. Ingress Points Events currently enter dispatch from: API ingress...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,29 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>Event Manager</h1><p>Pi-side event dispatch is implemented in <code>src/pinballctl/events/manager.py</code>.</p><h2>Ingress Points</h2><p>Events currently enter dispatch from:</p><ul><li>API ingress (<code>/api/events/fire</code>).</li><li>Bridge RX ingress for ESP-origin event payloads.</li></ul><h2>Dispatch Model</h2><p>Dispatch normalizes an <code>EventContext</code> and resolves route keys:</p><ul><li><code>all</code></li><li><code>event:&lt;name&gt;</code></li><li><code>system:&lt;name&gt;</code> (for known system events)</li><li><code>hardware:&lt;deviceClass&gt;:&lt;eventType&gt;</code> (source-resolved)</li><li><code>custom</code> (pattern-matched custom events)</li></ul><p>Handlers are registered per route key.</p><h2>Current State</h2><ul><li>Registry-driven route catalogs are loaded from rules registry.</li><li>Default registrations are explicit no-op handlers (<code>_NoopHandler</code>).</li><li>Coverage reporting distinguishes route registration vs behavior implementation.</li></ul><p>This means the structure is in place and measurable, while feature logic can be added route-by-route.</p><h2>Mapping Dependency</h2><p>Hardware route resolution uses <code>src/instance/hardware/mapping.json</code> to map source ids to device class.</p></div>
+          <div class="doc-panel" id="docs-article"><h1 id="event-manager">Event Manager</h1>
+<p>Pi-side event dispatch is implemented in <code>src/pinballctl/events/manager.py</code>.</p>
+<h2 id="ingress-points">Ingress Points</h2>
+<p>Events currently enter dispatch from:
+- API ingress (<code>/api/events/fire</code>).
+- Bridge RX ingress for ESP-origin event payloads.</p>
+<h2 id="dispatch-model">Dispatch Model</h2>
+<p>Dispatch normalizes an <code>EventContext</code> and resolves route keys:
+- <code>all</code>
+- <code>event:&lt;name&gt;</code>
+- <code>system:&lt;name&gt;</code> (for known system events)
+- <code>hardware:&lt;deviceClass&gt;:&lt;eventType&gt;</code> (source-resolved)
+- <code>custom</code> (pattern-matched custom events)</p>
+<p>Handlers are registered per route key.</p>
+<h2 id="current-state">Current State</h2>
+<ul>
+<li>Registry-driven route catalogs are loaded from rules registry.</li>
+<li>Default registrations are explicit no-op handlers (<code>_NoopHandler</code>).</li>
+<li>Coverage reporting distinguishes route registration vs behavior implementation.</li>
+</ul>
+<p>This means the structure is in place and measurable, while feature logic can be added route-by-route.</p>
+<h2 id="mapping-dependency">Mapping Dependency</h2>
+<p>Hardware route resolution uses <code>src/instance/hardware/mapping.json</code> to map source ids to device class.</p></div>
         </article>
       </div>
     </section>

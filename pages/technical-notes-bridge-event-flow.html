@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="Bridge Event Flow | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Bridge Event Flow Event Paths There are two distinct paths through the bridge: Response-required RPC: Used for control/status operations. Correlated using...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/technical-notes-bridge-event-flow.html#webpage","url":"https://docs.pinballctl.com/pages/technical-notes-bridge-event-flow.html","name":"Bridge Event Flow | Pinball CTL Docs","description":"Bridge Event Flow Event Paths There are two distinct paths through the bridge: Response-required RPC: Used for control/status operations. Correlated using...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Bridge Event Flow Event Paths There are two distinct paths through the bridge: Response-required RPC: Used for control/status operations. Correlated using...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/technical-notes-bridge-event-flow.html#webpage","url":"https://docs.pinballctl.com/pages/technical-notes-bridge-event-flow.html","name":"Bridge Event Flow | Pinball CTL Docs","description":"Bridge Event Flow Event Paths There are two distinct paths through the bridge: Response-required RPC: Used for control/status operations. Correlated using...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,34 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>Bridge Event Flow</h1><h2>Event Paths</h2><p>There are two distinct paths through the bridge:</p><ol><li>Response-required RPC:</li></ol><ul><li>Used for control/status operations.</li><li>Correlated using <code>reqId</code>.</li><li>Examples: <code>GET_INFO</code>, <code>FS_*</code>, <code>SET_RULES</code>.</li></ul><ol><li>Fire-and-forget event flow:</li></ol><ul><li>Used for high-volume gameplay telemetry/events.</li><li>Examples: <code>EVENT_FIRE</code>, <code>EVT</code> stream payloads.</li></ul><h2>Routing Model</h2><ul><li>Pi modules enqueue commands to bridge.</li><li>Bridge performs framed send/receive and central routing.</li><li>ESP executes runtime behavior and publishes events/status upstream.</li></ul><h2>Throughput Guidance</h2><p>Observed soak tests in this repo history show practical sustained throughput around the mid-hundreds of events/sec on current hardware/runtime.</p><p>Conservative planning guidance:</p><ul><li>Design sustained flows with headroom (<code>&lt;= 350-400 evt/s</code>).</li><li>Keep burst-only traffic separate from control RPC.</li><li>Keep ultra-latency-critical reactions on ESP.</li></ul></div>
+          <div class="doc-panel" id="docs-article"><h1 id="bridge-event-flow">Bridge Event Flow</h1>
+<h2 id="event-paths">Event Paths</h2>
+<p>There are two distinct paths through the bridge:</p>
+<ol>
+<li>Response-required RPC:</li>
+<li>Used for control/status operations.</li>
+<li>Correlated using <code>reqId</code>.</li>
+<li>
+<p>Examples: <code>GET_INFO</code>, <code>FS_*</code>, <code>SET_RULES</code>.</p>
+</li>
+<li>
+<p>Fire-and-forget event flow:</p>
+</li>
+<li>Used for high-volume gameplay telemetry/events.</li>
+<li>Examples: <code>EVENT_FIRE</code>, <code>EVT</code> stream payloads.</li>
+</ol>
+<h2 id="routing-model">Routing Model</h2>
+<ul>
+<li>Pi modules enqueue commands to bridge.</li>
+<li>Bridge performs framed send/receive and central routing.</li>
+<li>ESP executes runtime behavior and publishes events/status upstream.</li>
+</ul>
+<h2 id="throughput-guidance">Throughput Guidance</h2>
+<p>Observed soak tests in this repo history show practical sustained throughput around the mid-hundreds of events/sec on current hardware/runtime.</p>
+<p>Conservative planning guidance:
+- Design sustained flows with headroom (<code>&lt;= 350-400 evt/s</code>).
+- Keep burst-only traffic separate from control RPC.
+- Keep ultra-latency-critical reactions on ESP.</p></div>
         </article>
       </div>
     </section>

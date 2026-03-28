@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="ESPLink | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"ESPLink ESPLink manages Pi-to-ESP connectivity, bridge control, firmware apply flow, and runtime utility actions. What This Feature Does ESPLink provides the...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-esplink.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-esplink.html","name":"ESPLink | Pinball CTL Docs","description":"ESPLink ESPLink manages Pi-to-ESP connectivity, bridge control, firmware apply flow, and runtime utility actions. What This Feature Does ESPLink provides the...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"ESPLink ESPLink manages Pi-to-ESP connectivity, bridge control, firmware apply flow, and runtime utility actions. What This Feature Does ESPLink provides the...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-esplink.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-esplink.html","name":"ESPLink | Pinball CTL Docs","description":"ESPLink ESPLink manages Pi-to-ESP connectivity, bridge control, firmware apply flow, and runtime utility actions. What This Feature Does ESPLink provides the...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,114 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>ESPLink</h1><p>ESPLink manages Pi-to-ESP connectivity, bridge control, firmware apply flow, and runtime utility actions.</p><img src="./media/screenshot-feature-esplink.webp" alt="ESPLink feature overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><h2>What This Feature Does</h2><p>ESPLink provides the operational control layer between authored configuration and live ESP runtime.</p><p>Key responsibilities:</p><ul><li>device selection</li><li>bridge lifecycle control</li><li>status/identity visibility</li><li>utility actions (FS, echo, reboot)</li><li>applying downloaded firmware to connected ESP</li></ul><h2>Header Controls</h2><ul><li>device dropdown (<code>Select device…</code>)</li><li>connection status dot/text</li><li>firmware readout</li><li><code>Refresh</code></li><li><code>Reboot</code></li><li><code>Sync Time</code></li></ul><p>Button availability depends on selected/connected device state.</p><h2>No-Device State</h2><p>When no ESP devices are available, a dedicated card explains that USB connection is required.</p><h2>Overview Card</h2><p>Displays:</p><ul><li>Port</li><li>Chip</li><li>IP</li><li>RSSI</li></ul><p>Bridge section displays:</p><ul><li>Bridge Status</li><li>Bridge Port</li><li>Bridge Firmware</li><li>Bridge Chip</li></ul><p>Bridge actions:</p><ul><li><code>Start</code></li><li><code>Stop</code></li><li><code>Restart</code></li></ul><h2>Actions Card</h2><p>Operational tools:</p><ul><li><code>FS Status</code></li><li><code>List Files</code></li><li><code>Reboot ESP</code></li><li><code>Echo Test</code></li></ul><p>Each action opens a result modal.</p><p>Available result modals:</p><ul><li>FS Status modal</li><li>File List modal</li><li>Echo Test modal</li><li>Reboot ESP modal</li></ul><img src="./media/screenshot-feature-esplink-file-list-modal.webp" alt="ESPLink file list modal open" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1416" height="741"><h2>Firmware Card (Local Apply)</h2><p>Purpose: apply locally downloaded firmware to connected ESP.</p><p>List behaviour:</p><ul><li>shows locally available versions</li><li>displays <code>Latest</code> and <code>Current</code> badges where relevant</li><li>apply action per version</li><li>upload console with progress/log output</li></ul><h2>Compatibility and Confidence Checks</h2><p>ESPLink helps ensure safe rollout by exposing:</p><ul><li>bridge running state</li><li>device presence</li><li>live firmware/chip info</li><li>clear checks that Pi and ESP are on matching versions and manifest data before deployment</li></ul><h2>Typical Workflow</h2><ol><li>Select target ESP device.</li><li>Confirm status dot and overview data.</li><li>Start/restart bridge if needed.</li><li>Use Sync Time and utility checks.</li><li>Apply firmware if required.</li><li>Continue with hardware/rules/lighting sync actions.</li></ol><h2>Practical Examples</h2><h3>Recovery after USB reconnect</h3><ul><li>press Refresh</li><li>if bridge stopped, Start bridge</li><li>verify chip/firmware visible again</li></ul><h3>Pre-sync validation</h3><ul><li>ensure connected status is green</li><li>run Echo Test quickly</li><li>check FS/list outputs if needed</li></ul><h2>Related Features</h2><ul><li><a href="10-hardware.md">Hardware</a></li><li><a href="/pages/user-guide-firmware.html" data-doc-slug="1-user-guide/12-firmware">Firmware</a></li><li><a href="/pages/user-guide-logs.html" data-doc-slug="1-user-guide/14-logs">Logs</a></li></ul></div>
+          <div class="doc-panel" id="docs-article"><h1 id="esplink">ESPLink</h1>
+<p>ESPLink manages Pi-to-ESP connectivity, bridge control, firmware apply flow, and runtime utility actions.</p>
+<p><img src="./media/screenshot-feature-esplink.webp" alt="ESPLink feature overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<h2 id="what-this-feature-does">What This Feature Does</h2>
+<p>ESPLink provides the operational control layer between authored configuration and live ESP runtime.</p>
+<p>Key responsibilities:</p>
+<ul>
+<li>device selection</li>
+<li>bridge lifecycle control</li>
+<li>status/identity visibility</li>
+<li>utility actions (FS, echo, reboot)</li>
+<li>applying downloaded firmware to connected ESP</li>
+</ul>
+<h2 id="header-controls">Header Controls</h2>
+<ul>
+<li>device dropdown (<code>Select device…</code>)</li>
+<li>connection status dot/text</li>
+<li>firmware readout</li>
+<li><code>Refresh</code></li>
+<li><code>Reboot</code></li>
+<li><code>Sync Time</code></li>
+</ul>
+<p>Button availability depends on selected/connected device state.</p>
+<h2 id="no-device-state">No-Device State</h2>
+<p>When no ESP devices are available, a dedicated card explains that USB connection is required.</p>
+<h2 id="overview-card">Overview Card</h2>
+<p>Displays:</p>
+<ul>
+<li>Port</li>
+<li>Chip</li>
+<li>IP</li>
+<li>RSSI</li>
+</ul>
+<p>Bridge section displays:</p>
+<ul>
+<li>Bridge Status</li>
+<li>Bridge Port</li>
+<li>Bridge Firmware</li>
+<li>Bridge Chip</li>
+</ul>
+<p>Bridge actions:</p>
+<ul>
+<li><code>Start</code></li>
+<li><code>Stop</code></li>
+<li><code>Restart</code></li>
+</ul>
+<h2 id="actions-card">Actions Card</h2>
+<p>Operational tools:</p>
+<ul>
+<li><code>FS Status</code></li>
+<li><code>List Files</code></li>
+<li><code>Reboot ESP</code></li>
+<li><code>Echo Test</code></li>
+</ul>
+<p>Each action opens a result modal.</p>
+<p>Available result modals:</p>
+<ul>
+<li>FS Status modal</li>
+<li>File List modal</li>
+<li>Echo Test modal</li>
+<li>Reboot ESP modal</li>
+</ul>
+<p><img src="./media/screenshot-feature-esplink-file-list-modal.webp" alt="ESPLink file list modal open" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1416" height="741"></p>
+<h2 id="firmware-card-local-apply">Firmware Card (Local Apply)</h2>
+<p>Purpose: apply locally downloaded firmware to connected ESP.</p>
+<p>List behaviour:</p>
+<ul>
+<li>shows locally available versions</li>
+<li>displays <code>Latest</code> and <code>Current</code> badges where relevant</li>
+<li>apply action per version</li>
+<li>upload console with progress/log output</li>
+</ul>
+<h2 id="compatibility-and-confidence-checks">Compatibility and Confidence Checks</h2>
+<p>ESPLink helps ensure safe rollout by exposing:</p>
+<ul>
+<li>bridge running state</li>
+<li>device presence</li>
+<li>live firmware/chip info</li>
+<li>clear checks that Pi and ESP are on matching versions and manifest data before deployment</li>
+</ul>
+<h2 id="typical-workflow">Typical Workflow</h2>
+<ol>
+<li>Select target ESP device.</li>
+<li>Confirm status dot and overview data.</li>
+<li>Start/restart bridge if needed.</li>
+<li>Use Sync Time and utility checks.</li>
+<li>Apply firmware if required.</li>
+<li>Continue with hardware/rules/lighting sync actions.</li>
+</ol>
+<h2 id="practical-examples">Practical Examples</h2>
+<h3 id="recovery-after-usb-reconnect">Recovery after USB reconnect</h3>
+<ul>
+<li>press Refresh</li>
+<li>if bridge stopped, Start bridge</li>
+<li>verify chip/firmware visible again</li>
+</ul>
+<h3 id="pre-sync-validation">Pre-sync validation</h3>
+<ul>
+<li>ensure connected status is green</li>
+<li>run Echo Test quickly</li>
+<li>check FS/list outputs if needed</li>
+</ul>
+<h2 id="related-features">Related Features</h2>
+<ul>
+<li><a href="10-hardware.md">Hardware</a></li>
+<li><a href="/pages/user-guide-firmware.html" data-doc-slug="1-user-guide/12-firmware">Firmware</a></li>
+<li><a href="/pages/user-guide-logs.html" data-doc-slug="1-user-guide/14-logs">Logs</a></li>
+</ul></div>
         </article>
       </div>
     </section>

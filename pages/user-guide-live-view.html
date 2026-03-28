@@ -29,7 +29,7 @@
   <meta property="og:image:width" content="64">
   <meta property="og:image:height" content="64">
   <meta property="og:image:alt" content="Pinball CTL Docs icon">
-  <meta property="og:updated_time" content="2026-03-07T21:01:20.190703+00:00">
+  <meta property="og:updated_time" content="2026-03-28T17:50:26.333950+00:00">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@pinballctl">
   <meta name="twitter:title" content="Live View | Pinball CTL Docs">
@@ -48,7 +48,7 @@
     gtag('js', new Date());
     gtag('config', 'G-MH2T2SDF1P');
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Live View Live View is the runtime emulator page for watching table events in real time. It is read-only for configuration and is intended for live validation...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-live-view.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-live-view.html","name":"Live View | Pinball CTL Docs","description":"Live View Live View is the runtime emulator page for watching table events in real time. It is read-only for configuration and is intended for live validation...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-07T21:01:20.190703+00:00","datePublished":"2026-03-07T21:01:20.190703+00:00"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.pinballctl.com/#organization","name":"Pinball CTL","url":"https://www.pinballctl.com/","logo":"https://docs.pinballctl.com/assets/img/favicon.svg"},{"@type":"WebSite","@id":"https://docs.pinballctl.com/#website","url":"https://docs.pinballctl.com/","name":"Pinball CTL Docs","description":"Live View Live View is the runtime emulator page for watching table events in real time. It is read-only for configuration and is intended for live validation...","inLanguage":"en","publisher":{"@id":"https://www.pinballctl.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://docs.pinballctl.com/#doc=README&q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://docs.pinballctl.com/pages/user-guide-live-view.html#webpage","url":"https://docs.pinballctl.com/pages/user-guide-live-view.html","name":"Live View | Pinball CTL Docs","description":"Live View Live View is the runtime emulator page for watching table events in real time. It is read-only for configuration and is intended for live validation...","isPartOf":{"@id":"https://docs.pinballctl.com/#website"},"about":{"@id":"https://www.pinballctl.com/#organization"},"inLanguage":"en","dateModified":"2026-03-28T17:50:26.333950+00:00","datePublished":"2026-03-28T17:50:26.333950+00:00"}]}</script>
 </head>
 <body>
   <header class="site-header">
@@ -67,7 +67,7 @@
       </button>
     </div>
     <nav class="site-nav" aria-label="Main navigation">
-      <span class="docs-updated">Updated 2026-03-07 21:01 UTC</span>
+      <span class="docs-updated">Updated 2026-03-28 17:50 UTC</span>
       <div id="docs-mobile-nav-list" class="docs-mobile-nav-list"></div>
       <a href="https://pinballctl.com" class="nav-link website-link">
         <svg class="website-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -110,7 +110,76 @@
               <path d="M7 3h10a1 1 0 0 1 1 1v17l-6-3.8L6 21V4a1 1 0 0 1 1-1z"></path>
             </svg>
           </button>
-          <div class="doc-panel" id="docs-article"><h1>Live View</h1><p>Live View is the runtime emulator page for watching table events in real time.</p><p>It is read-only for configuration and is intended for live validation of event flow, rule outputs, playfield animations, and media displays.</p><img src="./media/screenshot-feature-live-view.webp" alt="Live View feature overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"><h2>Purpose</h2><p>Use Live View to:</p><ul><li>monitor incoming hardware events</li><li>validate rule-triggered output behavior visually</li><li>test keyboard shortcuts and trigger mappings</li><li>preview active media runtime displays in the right column</li></ul><p>Live View does not edit playfield, hardware, rules, lighting, audio, or media configs.</p><h2>Page Structure</h2><p>Live View has a single tab:</p><ol><li><code>Live View</code></li></ol><p>Main areas:</p><ul><li>left: playfield runtime stage (scaled table)</li><li>right: display runtime cards (one card per enabled media display)</li></ul><p>Each display card:</p><ul><li>uses the configured display title in the card header</li><li>keeps a <code>100%</code> width preview area</li><li>preserves configured display width/height ratio</li><li>renders the live media runtime output for that display</li></ul><h2>Runtime Interaction</h2><p>Keyboard input:</p><ul><li>shortcuts mapped in Playfield keymap trigger the matching hardware gestures/events</li></ul><p>Mouse input:</p><ul><li>right-click a component on the table to open available trigger actions</li><li>context menu actions are sourced from configured hardware rule triggers for that source</li><li>selecting a menu action fires the corresponding event path immediately</li><li>for button components with both <code>PRESSED</code> and <code>RELEASED</code> bindings, a combined <code>PRESSED + RELEASED</code> option is available</li></ul><h2>Event + Visual Behavior</h2><p>Live View listens to the event stream and applies visual feedback:</p><ul><li>button press pulse/highlight</li><li>plunger pulse animation</li><li>flipper kick/hold visuals</li><li>output state visuals (for supported types)</li></ul><p>Rule action mapping is used so table visuals follow configured trigger/action relationships.</p><h2>Media Integration</h2><p>Live View display cards are connected to media runtime display endpoints.</p><p>As media scenes change via rules/events, display cards update automatically without opening separate kiosk windows.</p><h2>Typical Workflow</h2><ol><li>Open <code>Live View</code>.</li><li>Trigger real hardware input or keyboard shortcuts.</li><li>Verify table animations on the stage.</li><li>Verify media overlays/displays in the right column.</li><li>Use component right-click actions to test specific trigger paths.</li></ol><h2>Related Features</h2><ul><li><a href="/pages/user-guide-layout.html" data-doc-slug="1-user-guide/9-layout">Playfield</a></li><li><a href="/pages/user-guide-rules.html" data-doc-slug="1-user-guide/7.1-rules">Rules</a></li><li><a href="/pages/user-guide-media.html" data-doc-slug="1-user-guide/18-media">Media</a></li><li><a href="/pages/user-guide-scoring.html" data-doc-slug="1-user-guide/10-scoring">Scoring</a></li><li><a href="/pages/user-guide-logs.html" data-doc-slug="1-user-guide/14-logs">Logs</a></li></ul></div>
+          <div class="doc-panel" id="docs-article"><h1 id="live-view">Live View</h1>
+<p>Live View is the runtime emulator page for watching table events in real time.</p>
+<p>It is read-only for configuration and is intended for live validation of event flow, rule outputs, playfield animations, and media displays.</p>
+<p><img src="./media/screenshot-feature-live-view.webp" alt="Live View feature overview" style="width: 100%;height: auto;" loading="lazy" decoding="async" width="1440" height="900"></p>
+<h2 id="purpose">Purpose</h2>
+<p>Use Live View to:</p>
+<ul>
+<li>monitor incoming hardware events</li>
+<li>validate rule-triggered output behavior visually</li>
+<li>test keyboard shortcuts and trigger mappings</li>
+<li>preview active media runtime displays in the right column</li>
+</ul>
+<p>Live View does not edit playfield, hardware, rules, lighting, audio, or media configs.</p>
+<h2 id="page-structure">Page Structure</h2>
+<p>Live View has a single tab:</p>
+<ol>
+<li><code>Live View</code></li>
+</ol>
+<p>Main areas:</p>
+<ul>
+<li>left: playfield runtime stage (scaled table)</li>
+<li>right: display runtime cards (one card per enabled media display)</li>
+</ul>
+<p>Each display card:</p>
+<ul>
+<li>uses the configured display title in the card header</li>
+<li>keeps a <code>100%</code> width preview area</li>
+<li>preserves configured display width/height ratio</li>
+<li>renders the live media runtime output for that display</li>
+</ul>
+<h2 id="runtime-interaction">Runtime Interaction</h2>
+<p>Keyboard input:</p>
+<ul>
+<li>shortcuts mapped in Playfield keymap trigger the matching hardware gestures/events</li>
+</ul>
+<p>Mouse input:</p>
+<ul>
+<li>right-click a component on the table to open available trigger actions</li>
+<li>context menu actions are sourced from configured hardware rule triggers for that source</li>
+<li>selecting a menu action fires the corresponding event path immediately</li>
+<li>for button components with both <code>PRESSED</code> and <code>RELEASED</code> bindings, a combined <code>PRESSED + RELEASED</code> option is available</li>
+</ul>
+<h2 id="event-visual-behavior">Event + Visual Behavior</h2>
+<p>Live View listens to the event stream and applies visual feedback:</p>
+<ul>
+<li>button press pulse/highlight</li>
+<li>plunger pulse animation</li>
+<li>flipper kick/hold visuals</li>
+<li>output state visuals (for supported types)</li>
+</ul>
+<p>Rule action mapping is used so table visuals follow configured trigger/action relationships.</p>
+<h2 id="media-integration">Media Integration</h2>
+<p>Live View display cards are connected to media runtime display endpoints.</p>
+<p>As media scenes change via rules/events, display cards update automatically without opening separate kiosk windows.</p>
+<h2 id="typical-workflow">Typical Workflow</h2>
+<ol>
+<li>Open <code>Live View</code>.</li>
+<li>Trigger real hardware input or keyboard shortcuts.</li>
+<li>Verify table animations on the stage.</li>
+<li>Verify media overlays/displays in the right column.</li>
+<li>Use component right-click actions to test specific trigger paths.</li>
+</ol>
+<h2 id="related-features">Related Features</h2>
+<ul>
+<li><a href="/pages/user-guide-layout.html" data-doc-slug="1-user-guide/9-layout">Playfield</a></li>
+<li><a href="/pages/user-guide-rules.html" data-doc-slug="1-user-guide/7.1-rules">Rules</a></li>
+<li><a href="/pages/user-guide-media.html" data-doc-slug="1-user-guide/18-media">Media</a></li>
+<li><a href="/pages/user-guide-scoring.html" data-doc-slug="1-user-guide/10-scoring">Scoring</a></li>
+<li><a href="/pages/user-guide-logs.html" data-doc-slug="1-user-guide/14-logs">Logs</a></li>
+</ul></div>
         </article>
       </div>
     </section>
