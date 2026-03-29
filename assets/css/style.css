@@ -780,6 +780,7 @@ p {
   body.menu-open {
     overflow: hidden;
     height: 100vh;
+    height: 100dvh;
     touch-action: none;
     overscroll-behavior: none;
   }
@@ -821,8 +822,11 @@ p {
     pointer-events: none;
     transform: translateY(-8px);
     transition: opacity 0.2s ease, transform 0.2s ease;
-    max-height: calc(100vh - var(--site-header-height));
+    max-height: calc(100dvh - var(--site-header-height));
+    padding-bottom: max(1rem, calc(env(safe-area-inset-bottom) + 1rem));
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
     z-index: 40;
   }
 

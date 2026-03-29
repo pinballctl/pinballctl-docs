@@ -15,9 +15,17 @@ Supported keys:
 - with_frame: true/false (default true)
 - full_page: true/false (default false; whole window/viewport capture)
 - target: CSS selector for element-only capture (class or id)
+- target_padding: integer pixel padding to add around target capture
+- target_content: true/false (default false; when true, crop to the union of
+  visible descendant content boxes inside the target instead of the target box)
+- target_max_height: integer maximum clip height in pixels for target capture
+- crop_top / crop_left / crop_width / crop_height: optional post-crop rectangle
+- pad: optional uniform post-padding in pixels
+- pad_color: optional padding colour (default #0b1320)
 - wait_for: CSS selector to wait for before capture
 - dark_mode: true/false (emulate browser dark color scheme)
 - dark_toggle: optional selector to click a UI dark-mode toggle
+- before_capture_js: optional JavaScript string evaluated in the page before capture
 - click: click path; list of strings or step objects
   - string step: selector to click
   - object step:
@@ -40,6 +48,7 @@ import subprocess
 import sys
 import tempfile
 from dataclasses import dataclass
+from io import BytesIO
 from pathlib import Path
 from typing import Any
 from urllib.parse import urljoin
@@ -71,9 +80,19 @@ class ShotPlan:
     with_frame: bool
     full_page: bool
     target: str | None
+    target_padding: int
+    target_content: bool
+    target_max_height: int | None
+    crop_top: int
+    crop_left: int
+    crop_width: int | None
+    crop_height: int | None
+    pad: int
+    pad_color: str
     wait_for: str | None
     dark_mode: bool
     dark_toggle: str | None
+    before_capture_js: str | None
     settle_ms: int
     highlight: list[dict[str, str]]
     click: list[Any]
@@ -221,6 +240,18 @@ def build_plan(
     target = spec.get("target")
     if target is not None:
         target = str(target)
+    target_padding = int(spec.get("target_padding", 0))
+    target_content = _bool(spec, "target_content", False)
+    target_max_height_raw = spec.get("target_max_height")
+    target_max_height = int(target_max_height_raw) if target_max_height_raw is not None else None
+    crop_top = int(spec.get("crop_top", 0))
+    crop_left = int(spec.get("crop_left", 0))
+    crop_width_raw = spec.get("crop_width")
+    crop_height_raw = spec.get("crop_height")
+    crop_width = int(crop_width_raw) if crop_width_raw is not None else None
+    crop_height = int(crop_height_raw) if crop_height_raw is not None else None
+    pad = int(spec.get("pad", 0))
+    pad_color = str(spec.get("pad_color", "#0b1320"))
 
     wait_for = spec.get("wait_for")
     if wait_for is not None:
@@ -228,6 +259,9 @@ def build_plan(
     dark_toggle = spec.get("dark_toggle")
     if dark_toggle is not None:
         dark_toggle = str(dark_toggle)
+    before_capture_js = spec.get("before_capture_js")
+    if before_capture_js is not None:
+        before_capture_js = str(before_capture_js)
     settle_ms = int(spec.get("settle_ms", 220))
     highlight_raw = spec.get("highlight", [])
     if isinstance(highlight_raw, dict):
@@ -263,9 +297,19 @@ def build_plan(
         with_frame=with_frame,
         full_page=full_page,
         target=target,
+        target_padding=target_padding,
+        target_content=target_content,
+        target_max_height=target_max_height,
+        crop_top=crop_top,
+        crop_left=crop_left,
+        crop_width=crop_width,
+        crop_height=crop_height,
+        pad=pad,
+        pad_color=pad_color,
         wait_for=wait_for,
         dark_mode=dark_mode,
         dark_toggle=dark_toggle,
+        before_capture_js=before_capture_js,
         settle_ms=settle_ms,
         highlight=highlight,
         click=click,
@@ -426,7 +470,85 @@ def _capture(page: Any, plan: ShotPlan, timeout_ms: int) -> None:
     if plan.target:
         locator = page.locator(plan.target).first
         locator.wait_for(state="visible", timeout=timeout_ms)
-        locator.screenshot(path=str(capture_path))
+        locator.scroll_into_view_if_needed(timeout=timeout_ms)
+        if plan.target_content:
+            root_box = locator.bounding_box()
+            if not root_box:
+                raise RuntimeError(f"Unable to resolve bounding box for target {plan.target}")
+            content_box = locator.evaluate(
+                """
+                (node) => {
+                  const root = node.getBoundingClientRect();
+                  const items = Array.from(node.querySelectorAll('*'));
+                  let minX = null, minY = null, maxX = null, maxY = null;
+                  for (const item of items) {
+                    const style = window.getComputedStyle(item);
+                    if (style.display === 'none' || style.visibility === 'hidden') continue;
+                    const rect = item.getBoundingClientRect();
+                    if (rect.width < 2 || rect.height < 2) continue;
+                    const withinRoot =
+                      rect.bottom > root.top &&
+                      rect.right > root.left &&
+                      rect.top < root.bottom &&
+                      rect.left < root.right;
+                    if (!withinRoot) continue;
+                    minX = minX === null ? rect.left : Math.min(minX, rect.left);
+                    minY = minY === null ? rect.top : Math.min(minY, rect.top);
+                    maxX = maxX === null ? rect.right : Math.max(maxX, rect.right);
+                    maxY = maxY === null ? rect.bottom : Math.max(maxY, rect.bottom);
+                  }
+                  if (minX === null) {
+                    return {x: 0, y: 0, width: root.width, height: root.height};
+                  }
+                  return {
+                    x: Math.max(0, Math.max(root.left, minX) - root.left),
+                    y: Math.max(0, Math.max(root.top, minY) - root.top),
+                    width: Math.min(root.right, maxX) - Math.max(root.left, minX),
+                    height: Math.min(root.bottom, maxY) - Math.max(root.top, minY),
+                  };
+                }
+                """
+            )
+            screenshot_bytes = locator.screenshot()
+            _write_cropped_padded_image(
+                screenshot_bytes,
+                capture_path,
+                crop_left=max(0, int(round(float(content_box["x"])))),
+                crop_top=max(0, int(round(float(content_box["y"])))),
+                crop_width=max(1, int(round(float(content_box["width"])))),
+                crop_height=max(1, int(round(float(content_box["height"])))),
+                pad=max(0, int(plan.target_padding)),
+                pad_color=plan.pad_color,
+            )
+        elif not plan.target_content and plan.target_max_height is None:
+            if plan.target_padding > 0:
+                screenshot_bytes = locator.screenshot()
+                _write_padded_image(
+                    screenshot_bytes,
+                    capture_path,
+                    pad=max(0, int(plan.target_padding)),
+                    pad_color=plan.pad_color,
+                )
+            else:
+                locator.screenshot(path=str(capture_path))
+        elif plan.target_padding or plan.target_max_height is not None:
+            box = locator.bounding_box()
+            if not box:
+                raise RuntimeError(f"Unable to resolve bounding box for target {plan.target}")
+            padding = max(0, int(plan.target_padding))
+            viewport = page.viewport_size or {
+                "width": DEFAULT_VIEWPORT_WIDTH,
+                "height": DEFAULT_VIEWPORT_HEIGHT,
+            }
+            clip = {
+                "x": max(0, float(box["x"]) - padding),
+                "y": max(0, float(box["y"]) - padding),
+                "width": min(float(viewport["width"]) - max(0, float(box["x"]) - padding), float(box["width"]) + (padding * 2)),
+                "height": min(float(viewport["height"]) - max(0, float(box["y"]) - padding), float(box["height"]) + (padding * 2)),
+            }
+            if plan.target_max_height is not None:
+                clip["height"] = min(float(plan.target_max_height), clip["height"])
+            page.screenshot(path=str(capture_path), clip=clip)
     elif plan.with_frame:
         page.screenshot(path=str(capture_path), full_page=plan.full_page)
     else:
@@ -438,6 +560,116 @@ def _capture(page: Any, plan: ShotPlan, timeout_ms: int) -> None:
         finally:
             if tmp_path and tmp_path.exists():
                 tmp_path.unlink(missing_ok=True)
+
+
+def _write_padded_image(image_bytes: bytes, output: Path, pad: int, pad_color: str) -> None:
+    if pad <= 0:
+        output.write_bytes(image_bytes)
+        return
+    try:
+        from PIL import Image, ImageColor  # type: ignore
+
+        with Image.open(BytesIO(image_bytes)) as image:
+            image = image.convert("RGBA")
+            background = Image.new(
+                "RGBA",
+                (image.width + (pad * 2), image.height + (pad * 2)),
+                ImageColor.getcolor(pad_color, "RGBA"),
+            )
+            background.paste(image, (pad, pad), image)
+            if output.suffix.lower() == ".webp":
+                background.save(output, format="WEBP", quality=86, method=6)
+            else:
+                background.save(output)
+        return
+    except Exception:
+        pass
+
+    temp_in = output.with_suffix(".pad-source.png")
+    temp_out = output.with_suffix(output.suffix + ".pad-tmp")
+    try:
+        temp_in.write_bytes(image_bytes)
+        tool = shutil.which("magick") or shutil.which("convert")
+        if not tool:
+            output.write_bytes(image_bytes)
+            return
+        subprocess.run(
+            [
+                tool,
+                str(temp_in),
+                "-bordercolor",
+                pad_color,
+                "-border",
+                str(pad),
+                str(temp_out),
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        temp_out.replace(output)
+    finally:
+        temp_in.unlink(missing_ok=True)
+        temp_out.unlink(missing_ok=True)
+
+
+def _write_cropped_padded_image(
+    image_bytes: bytes,
+    output: Path,
+    crop_left: int,
+    crop_top: int,
+    crop_width: int,
+    crop_height: int,
+    pad: int,
+    pad_color: str,
+) -> None:
+    try:
+        from PIL import Image, ImageColor  # type: ignore
+
+        with Image.open(BytesIO(image_bytes)) as image:
+            image = image.convert("RGBA")
+            right = min(image.width, crop_left + crop_width)
+            bottom = min(image.height, crop_top + crop_height)
+            cropped = image.crop((max(0, crop_left), max(0, crop_top), max(1, right), max(1, bottom)))
+            if pad > 0:
+                background = Image.new(
+                    "RGBA",
+                    (cropped.width + (pad * 2), cropped.height + (pad * 2)),
+                    ImageColor.getcolor(pad_color, "RGBA"),
+                )
+                background.paste(cropped, (pad, pad), cropped)
+                cropped = background
+            if output.suffix.lower() == ".webp":
+                cropped.save(output, format="WEBP", quality=86, method=6)
+            else:
+                cropped.save(output)
+        return
+    except Exception:
+        pass
+
+    temp_in = output.with_suffix(".crop-source.png")
+    temp_out = output.with_suffix(output.suffix + ".crop-tmp")
+    try:
+        temp_in.write_bytes(image_bytes)
+        tool = shutil.which("magick") or shutil.which("convert")
+        if not tool:
+            output.write_bytes(image_bytes)
+            return
+        args = [
+            tool,
+            str(temp_in),
+            "-crop",
+            f"{crop_width}x{crop_height}+{crop_left}+{crop_top}",
+            "+repage",
+        ]
+        if pad > 0:
+            args.extend(["-bordercolor", pad_color, "-border", str(pad)])
+        args.append(str(temp_out))
+        subprocess.run(args, check=True, capture_output=True, text=True)
+        temp_out.replace(output)
+    finally:
+        temp_in.unlink(missing_ok=True)
+        temp_out.unlink(missing_ok=True)
 
 
 def _convert_to_webp(source: Path, target: Path) -> None:
@@ -527,6 +759,8 @@ def run_capture(plans: list[ShotPlan], timeout_ms: int, headed: bool, overwrite:
                     if plan.wait_for:
                         page.wait_for_selector(plan.wait_for, timeout=timeout_ms)
                     _apply_highlight(page, plan)
+                    if plan.before_capture_js:
+                        page.evaluate(plan.before_capture_js)
                     if plan.settle_ms > 0:
                         page.wait_for_timeout(plan.settle_ms)
                     _capture(page, plan, timeout_ms)

@@ -106,8 +106,12 @@
 .docs-sidebar {
   position: sticky;
   top: 80px;
-  max-height: none;
-  overflow: visible;
+  max-height: calc(100dvh - 96px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: linear-gradient(170deg, rgba(16, 33, 52, 0.92), rgba(11, 24, 39, 0.9));
