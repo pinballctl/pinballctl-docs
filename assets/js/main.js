@@ -36,6 +36,24 @@
     mobileNavSlide: "",
   };
 
+  function saveCurrentMobileNavScroll() {
+    const list = document.getElementById("docs-mobile-nav-list");
+    if (!(list instanceof HTMLElement)) return;
+    const frame = currentMobileNavFrame();
+    if (!frame || typeof frame !== "object") return;
+    frame.scrollTop = Math.max(0, list.scrollTop || 0);
+  }
+
+  function restoreCurrentMobileNavScroll() {
+    const list = document.getElementById("docs-mobile-nav-list");
+    if (!(list instanceof HTMLElement)) return;
+    const frame = currentMobileNavFrame();
+    const scrollTop = frame && typeof frame.scrollTop === "number" ? frame.scrollTop : 0;
+    window.requestAnimationFrame(() => {
+      list.scrollTop = scrollTop;
+    });
+  }
+
   function flattenTreeSlugs(nodes, out) {
     if (!Array.isArray(nodes)) return;
     nodes.forEach((n) => {
@@ -276,6 +294,7 @@
       kind: "root",
       title: "Menu",
       nodes: Array.isArray(state.tree) ? state.tree : [],
+      scrollTop: 0,
     }];
     state.mobileNavSlide = "";
   }
@@ -291,7 +310,6 @@
     const list = document.getElementById("docs-mobile-nav-list");
     if (!(list instanceof HTMLElement)) return;
     const frame = currentMobileNavFrame();
-    const slideClass = state.mobileNavSlide === "back" ? "slide-back" : (state.mobileNavSlide === "forward" ? "slide-forward" : "");
     const canGoBack = state.mobileNavStack.length > 1;
 
     let rowsHtml = "";
@@ -335,16 +353,20 @@
       ].join("");
     }
 
-    const headHtml = canGoBack
-      ? `<div class="docs-mobile-nav-head"><button type="button" class="docs-mobile-nav-back" data-mobile-nav-back>Back</button></div>`
-      : "";
+    const headHtml = `
+      <div class="docs-mobile-nav-head${canGoBack ? "" : " is-root"}">
+        <button type="button" class="docs-mobile-nav-back${canGoBack ? "" : " is-hidden"}" data-mobile-nav-back ${canGoBack ? "" : 'tabindex="-1" aria-hidden="true"'}>Back</button>
+        <div class="docs-mobile-nav-title">${esc(frame && frame.title ? frame.title : "Menu")}</div>
+      </div>
+    `;
     list.innerHTML = `
       ${headHtml}
-      <div class="docs-mobile-nav-pane ${slideClass}">
+      <div class="docs-mobile-nav-pane">
         ${rowsHtml}
       </div>
     `;
     state.mobileNavSlide = "";
+    restoreCurrentMobileNavScroll();
   }
 
   function hashSlug() {
@@ -778,7 +800,9 @@
       const mobileBack = target.closest("[data-mobile-nav-back]");
       if (mobileBack) {
         e.preventDefault();
+        e.stopPropagation();
         if (state.mobileNavStack.length > 1) {
+          saveCurrentMobileNavScroll();
           state.mobileNavStack.pop();
           state.mobileNavSlide = "back";
           renderMobileNavList();
@@ -789,13 +813,16 @@
       const mobileOpen = target.closest("[data-mobile-nav-open]");
       if (mobileOpen) {
         e.preventDefault();
+        e.stopPropagation();
         const action = String(mobileOpen.getAttribute("data-mobile-nav-open") || "");
         const frame = currentMobileNavFrame();
+        saveCurrentMobileNavScroll();
         if (action === "bookmarks") {
           state.mobileNavStack.push({
             kind: "bookmarks",
             title: "Bookmarks",
             nodes: [],
+            scrollTop: 0,
           });
           state.mobileNavSlide = "forward";
           renderMobileNavList();
@@ -810,6 +837,7 @@
               kind: "folder",
               title: stripOrderPrefix(String(folder.name || "Folder")),
               nodes: Array.isArray(folder.children) ? folder.children : [],
+              scrollTop: 0,
             });
             state.mobileNavSlide = "forward";
             renderMobileNavList();
