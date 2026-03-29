@@ -34,6 +34,7 @@
     lastTrackedSearchTerm: "",
     mobileNavStack: [],
     mobileNavSlide: "",
+    mobileMenuScrollY: 0,
   };
 
   function saveCurrentMobileNavScroll() {
@@ -172,9 +173,18 @@
     if (!(menuBtn instanceof HTMLElement) || !(nav instanceof HTMLElement)) return;
 
     function setOpen(open) {
+      if (open) {
+        state.mobileMenuScrollY = window.scrollY || window.pageYOffset || 0;
+        document.body.style.top = `-${state.mobileMenuScrollY}px`;
+      } else {
+        document.body.style.top = "";
+      }
       nav.classList.toggle("open", open);
       document.body.classList.toggle("menu-open", open);
       menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      if (!open) {
+        window.scrollTo(0, state.mobileMenuScrollY || 0);
+      }
     }
 
     menuBtn.addEventListener("click", () => {
@@ -253,9 +263,18 @@
     if (!(modal instanceof HTMLElement) || !(toggle instanceof HTMLElement) || !(input instanceof HTMLElement)) return;
 
     function setOpen(open) {
+      if (open) {
+        state.mobileMenuScrollY = window.scrollY || window.pageYOffset || 0;
+        document.body.style.top = `-${state.mobileMenuScrollY}px`;
+      } else {
+        document.body.style.top = "";
+      }
       modal.classList.toggle("open", open);
       modal.setAttribute("aria-hidden", open ? "false" : "true");
       document.body.classList.toggle("docs-search-open", open);
+      if (!open) {
+        window.scrollTo(0, state.mobileMenuScrollY || 0);
+      }
       if (open) {
         window.setTimeout(() => {
           input.focus();
@@ -310,6 +329,7 @@
     const list = document.getElementById("docs-mobile-nav-list");
     if (!(list instanceof HTMLElement)) return;
     const frame = currentMobileNavFrame();
+    const slideClass = state.mobileNavSlide === "back" ? "slide-back" : (state.mobileNavSlide === "forward" ? "slide-forward" : "");
     const canGoBack = state.mobileNavStack.length > 1;
 
     let rowsHtml = "";
@@ -353,20 +373,77 @@
       ].join("");
     }
 
-    const headHtml = `
-      <div class="docs-mobile-nav-head${canGoBack ? "" : " is-root"}">
-        <button type="button" class="docs-mobile-nav-back${canGoBack ? "" : " is-hidden"}" data-mobile-nav-back ${canGoBack ? "" : 'tabindex="-1" aria-hidden="true"'}>Back</button>
+    const headHtml = canGoBack
+      ? `
+      <div class="docs-mobile-nav-head">
         <div class="docs-mobile-nav-title">${esc(frame && frame.title ? frame.title : "Menu")}</div>
+        <button type="button" class="docs-mobile-nav-back" data-mobile-nav-back>Back</button>
       </div>
-    `;
+    `
+      : "";
     list.innerHTML = `
       ${headHtml}
-      <div class="docs-mobile-nav-pane">
+      <div class="docs-mobile-nav-pane ${slideClass}">
         ${rowsHtml}
       </div>
     `;
     state.mobileNavSlide = "";
     restoreCurrentMobileNavScroll();
+  }
+
+  function handleMobileNavInteraction(target, event) {
+    if (!(target instanceof Element)) return false;
+
+    const mobileBack = target.closest("[data-mobile-nav-back]");
+    if (mobileBack) {
+      event.preventDefault();
+      event.stopPropagation();
+      if (state.mobileNavStack.length > 1) {
+        saveCurrentMobileNavScroll();
+        state.mobileNavStack.pop();
+        state.mobileNavSlide = "back";
+        renderMobileNavList();
+      }
+      return true;
+    }
+
+    const mobileOpen = target.closest("[data-mobile-nav-open]");
+    if (mobileOpen) {
+      event.preventDefault();
+      event.stopPropagation();
+      const action = String(mobileOpen.getAttribute("data-mobile-nav-open") || "");
+      const frame = currentMobileNavFrame();
+      saveCurrentMobileNavScroll();
+      if (action === "bookmarks") {
+        state.mobileNavStack.push({
+          kind: "bookmarks",
+          title: "Bookmarks",
+          nodes: [],
+          scrollTop: 0,
+        });
+        state.mobileNavSlide = "forward";
+        renderMobileNavList();
+        return true;
+      }
+      if (action.startsWith("folder:")) {
+        const idx = Number(action.split(":")[1]);
+        const nodes = Array.isArray(frame?.nodes) ? frame.nodes : [];
+        const folder = nodes[idx];
+        if (folder && folder.type === "folder") {
+          state.mobileNavStack.push({
+            kind: "folder",
+            title: stripOrderPrefix(String(folder.name || "Folder")),
+            nodes: Array.isArray(folder.children) ? folder.children : [],
+            scrollTop: 0,
+          });
+          state.mobileNavSlide = "forward";
+          renderMobileNavList();
+        }
+        return true;
+      }
+    }
+
+    return false;
   }
 
   function hashSlug() {
@@ -793,58 +870,18 @@
   }
 
   function wireEvents(defaultSlug) {
+    const mobileNavList = document.getElementById("docs-mobile-nav-list");
+    if (mobileNavList instanceof HTMLElement) {
+      mobileNavList.addEventListener("click", (e) => {
+        const target = e.target;
+        handleMobileNavInteraction(target, e);
+      });
+    }
+
     document.addEventListener("click", (e) => {
       const target = e.target;
       if (!(target instanceof Element)) return;
-
-      const mobileBack = target.closest("[data-mobile-nav-back]");
-      if (mobileBack) {
-        e.preventDefault();
-        e.stopPropagation();
-        if (state.mobileNavStack.length > 1) {
-          saveCurrentMobileNavScroll();
-          state.mobileNavStack.pop();
-          state.mobileNavSlide = "back";
-          renderMobileNavList();
-        }
-        return;
-      }
-
-      const mobileOpen = target.closest("[data-mobile-nav-open]");
-      if (mobileOpen) {
-        e.preventDefault();
-        e.stopPropagation();
-        const action = String(mobileOpen.getAttribute("data-mobile-nav-open") || "");
-        const frame = currentMobileNavFrame();
-        saveCurrentMobileNavScroll();
-        if (action === "bookmarks") {
-          state.mobileNavStack.push({
-            kind: "bookmarks",
-            title: "Bookmarks",
-            nodes: [],
-            scrollTop: 0,
-          });
-          state.mobileNavSlide = "forward";
-          renderMobileNavList();
-          return;
-        }
-        if (action.startsWith("folder:")) {
-          const idx = Number(action.split(":")[1]);
-          const nodes = Array.isArray(frame?.nodes) ? frame.nodes : [];
-          const folder = nodes[idx];
-          if (folder && folder.type === "folder") {
-            state.mobileNavStack.push({
-              kind: "folder",
-              title: stripOrderPrefix(String(folder.name || "Folder")),
-              nodes: Array.isArray(folder.children) ? folder.children : [],
-              scrollTop: 0,
-            });
-            state.mobileNavSlide = "forward";
-            renderMobileNavList();
-          }
-          return;
-        }
-      }
+      if (handleMobileNavInteraction(target, e)) return;
 
       const remove = target.closest("[data-bookmark-remove]");
       if (remove) {
